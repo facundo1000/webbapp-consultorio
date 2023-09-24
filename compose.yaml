@@ -1,9 +1,30 @@
+version: "3.9"
+
 services:
+
   postgres:
     image: 'postgres:latest'
+    container_name: postgres
+    restart: always
     environment:
-      - 'POSTGRES_DB=mydatabase'
-      - 'POSTGRES_PASSWORD=secret'
-      - 'POSTGRES_USER=myuser'
+      - 'POSTGRES_DB=consultorio'
+      - 'POSTGRES_PASSWORD=admin'
+      - 'POSTGRES_USER=admin'
     ports:
-      - '5432'
+      - '5432:5432'
+    networks:
+      - dbNet
+
+  webAdmin:
+    image: adminer
+    container_name: adminer
+    restart: always
+    networks:
+      - dbNet
+    ports:
+      - "8001:8080"
+    depends_on:
+      - postgres
+
+networks:
+  dbNet:
