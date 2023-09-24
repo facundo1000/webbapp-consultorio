@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: consultorio-webaap
+
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: admin
+    password: admin
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    database: postgresql
+    defer-datasource-initialization: true
+
