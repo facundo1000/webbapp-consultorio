@@ -14,3 +14,7 @@ spring:
     database: postgresql
     defer-datasource-initialization: true
 
+logging:
+  level:
+    sql: debug
+
