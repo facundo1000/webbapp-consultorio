@@ -5,8 +5,10 @@ spring:
 
   datasource:
     driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://postgres:5434/consultorio
     username: admin
     password: admin
+
 
   jpa:
     hibernate:
