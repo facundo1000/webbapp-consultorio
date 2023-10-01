@@ -20,6 +20,7 @@ public class SesionControlador {
     @GetMapping("/sesiones")
     public String index(Model modelo) {
         var sesion = sesionServicio.MostrarSesiones();
+        return null;
     }
 
 }
