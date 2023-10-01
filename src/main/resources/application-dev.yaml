@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: consultorio-webaap
+
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:info
+    username: admin
+    password: admin
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database: h2
+    defer-datasource-initialization: true
+
+  h2:
+    console:
+      enabled: true
+      path: /h2
+
+logging:
+  level:
+    sql: debug
+
