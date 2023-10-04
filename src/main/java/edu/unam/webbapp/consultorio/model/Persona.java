@@ -1,6 +1,7 @@
 package edu.unam.webbapp.consultorio.model;
 
 import edu.unam.webbapp.consultorio.utils.Sexo;
+import edu.unam.webbapp.consultorio.utils.TipoDocumento;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import lombok.Getter;
@@ -16,6 +17,10 @@ public class Persona {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Integer dni;
+
+  @Enumerated(EnumType.STRING)
+  @Column(name = "tipo_doc")
+  private TipoDocumento tipoDoc;
 
   private String nombre;
   private String apellido;
