@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/layout :: head}"></head>
+<body>
+<header th:replace="~{layout/layout :: header}"></header>
+
+<div class="container py-4">
+    <div class="card">
+
+        <div class="card-header">
+            <h2 th:text="${titulo}"></h2>
+        </div>
+
+        <div class="class-body">
+
+            <h4 class="card-title px-3">
+                <a th:href="@{/form-sesiones}" class="btn-outline-primary"> Crear Sesion</a>
+            </h4>
+
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>N° de Sesion</th>
+                    <th>Fecha de Sesion</th>
+                    <th>Hora de Sesion</th>
+                    <th>Psicologo ID</th>
+                    <th>Paciente ID</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="sesion : ${sesiones}">
+                    <td th:text="${sesion.nroSesion}"></td>
+                    <td th:text="${sesion.fecha}"></td>
+                    <td th:text="${sesion.hora}"></td>
+                    <td><a type="button" class="btn btn-info"
+                           data-bs-toggle="modal" th:text="${sesion.psicologo.dni}"></a></td>
+                    <td><a type="button" class="btn btn-info" th:text="${sesion.paciente.dni}"></a></td>
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<footer th:replace="~{layout/layout :: footer}"></footer>
+</body>
+</html>

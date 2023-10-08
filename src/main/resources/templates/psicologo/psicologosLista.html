@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/layout :: head}"></head>
+<body>
+
+<header th:replace="~{layout/layout :: header}"></header>
+
+
+<div class="container py-4">
+    <div class="card">
+
+        <div class="card-header">
+            <h2 th:text="${titulo}"></h2>
+        </div>
+
+        <div class="class-body">
+
+            <h4 class="card-title px-3">
+                <a th:href="@{/form-psicologo}" class="btn-outline-primary"> Crear Psicologo</a>
+            </h4>
+
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Dni</th>
+                    <th>Tipo.Doc</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Telefono</th>
+                    <th>Direccion</th>
+                    <th>Sexo</th>
+                    <th>Fecha de Nac.</th>
+                    <th>Especialidad</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="psicologo : ${psicologos}">
+
+                    <div th:if="${psicologo.eliminado != true}">
+                        <td th:text="${psicologo.dni}"></td>
+                        <td th:text="${psicologo.tipoDoc}"></td>
+                        <td th:text="${psicologo.nombre}"></td>
+                        <td th:text="${psicologo.apellido}"></td>
+                        <td th:text="${psicologo.telefono}"></td>
+                        <td th:text="${psicologo.direccion}"></td>
+                        <td th:text="${psicologo.sexo}"></td>
+                        <td th:text="${#temporals.format(psicologo.fechaDeNacimiento,'dd-MM-yyyy')}"></td>
+                        <td th:text="${psicologo.especialidad}"></td>
+                        <td ><a class="btn btn-warning" th:href="@{/form-psicologo/} + ${psicologo.dni}">Editar</a></td>
+                        <td ><a class="btn btn-danger" th:href="@{/eliminar-psicologo/} + ${psicologo.dni}">Eliminar</a></td>
+                    </div>
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<footer th:replace="~{layout/layout :: footer}"></footer>
+
+</body>
+</html>

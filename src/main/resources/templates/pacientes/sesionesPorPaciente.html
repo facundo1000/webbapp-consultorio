@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/layout :: head}"></head>
+<body>
+<header th:replace="~{layout/layout :: header}"></header>
+
+
+<div class="container py-4">
+    <div class="card">
+
+        <div class="card-header">
+            <h2 th:text="${titulo} + ' por paciente'"></h2>
+        </div>
+
+        <div class="class-body">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>N° de Sesion</th>
+                    <th>Fecha de Sesion</th>
+                    <th>Hora de Sesion</th>
+                    <th>Psico. Nombre</th>
+                    <th>Psico. Apellido</th>
+                    <th>Psico. Telefono</th>
+                    <th>Psico. Terapia</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="sesion : ${sesiones}">
+                    <td th:text="${sesion.nroSesion}"></td>
+                    <td th:text="${sesion.fecha}"></td>
+                    <td th:text="${sesion.hora}"></td>
+                    <td th:text="${sesion.psicologo.nombre}"></td>
+                    <td th:text="${sesion.psicologo.apellido}"></td>
+                    <td th:text="${sesion.psicologo.telefono}"></td>
+                    <td th:text="${sesion.psicologo.especialidad}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+<footer th:replace="~{layout/layout :: footer}"></footer>
+</body>
+</html>
