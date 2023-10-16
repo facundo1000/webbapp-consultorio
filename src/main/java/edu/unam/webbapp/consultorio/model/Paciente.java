@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -27,7 +28,9 @@ public class Paciente extends Persona implements Serializable {
   @NotEmpty
   private String ocupacion;
 
-  @ManyToOne private Psicologo psicologo;
+  @ManyToOne
+  @NotNull
+  private Psicologo psicologo;
 
   @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   @JoinTable(
@@ -35,7 +38,7 @@ public class Paciente extends Persona implements Serializable {
       joinColumns = @JoinColumn(name = "paciente_id"),
       inverseJoinColumns = @JoinColumn(name = "sesion_id"),
       uniqueConstraints = @UniqueConstraint(columnNames = {"paciente_id", "sesion_id"}))
-  private List<Sesion> sesions;
+  private Set<Sesion> sesions;
 
   public void addSesion(Sesion sesion) {
     this.sesions.add(sesion);

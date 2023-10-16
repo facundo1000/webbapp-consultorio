@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,7 +27,7 @@ public class Psicologo extends Persona implements Serializable {
       joinColumns = @JoinColumn(name = "psicologo_id"),
       inverseJoinColumns = @JoinColumn(name = "paciente_id"),
       uniqueConstraints = @UniqueConstraint(columnNames = {"psicologo_id", "paciente_id"}))
-  private List<Paciente> pacientes;
+  private Set<Paciente> pacientes;
 
   @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   @JoinTable(
@@ -33,7 +35,7 @@ public class Psicologo extends Persona implements Serializable {
       joinColumns = @JoinColumn(name = "psicologo_id"),
       inverseJoinColumns = @JoinColumn(name = "sesion_id"),
       uniqueConstraints = @UniqueConstraint(columnNames = {"psicologo_id", "sesion_id"}))
-  private List<Sesion> sesions;
+  private Set<Sesion> sesions;
 
   public void addPaciente(Paciente paciente) {
     this.pacientes.add(paciente);

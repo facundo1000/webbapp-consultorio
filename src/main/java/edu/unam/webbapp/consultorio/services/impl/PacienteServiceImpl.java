@@ -1,6 +1,7 @@
 package edu.unam.webbapp.consultorio.services.impl;
 
 import edu.unam.webbapp.consultorio.model.Paciente;
+import edu.unam.webbapp.consultorio.model.Psicologo;
 import edu.unam.webbapp.consultorio.repository.PacienteRepositorio;
 import edu.unam.webbapp.consultorio.services.PersonaService;
 import java.util.List;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 public class PacienteServiceImpl implements PersonaService<Paciente> {
 
   private final PacienteRepositorio repo;
+  private final PersonaService<Psicologo> psicoService;
 
   @Override
   public List<Paciente> findAll() {
@@ -26,6 +28,10 @@ public class PacienteServiceImpl implements PersonaService<Paciente> {
   @Override
   public Paciente save(Paciente paciente) {
     return repo.save(paciente);
+  }
+
+  public List<Paciente> getAllEliminadoEquals(Boolean eliminado) {
+    return repo.findAllByEliminadoEquals(eliminado);
   }
 
   @Override
