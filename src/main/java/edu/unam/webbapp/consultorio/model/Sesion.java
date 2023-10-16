@@ -1,12 +1,13 @@
 package edu.unam.webbapp.consultorio.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,7 +22,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Sesion implements Serializable {
 
   @Id
-  @Setter(AccessLevel.NONE)
+  @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "nro_sesion")
   @NotNull
   private Integer nroSesion;
@@ -37,9 +38,15 @@ public class Sesion implements Serializable {
   private Psicologo psicologo;
 
   @ManyToOne
+  @NotNull
   private Paciente paciente;
 
   private Boolean eliminado;
+
+  @PrePersist
+  public void prePersist() {
+    eliminado = Boolean.FALSE;
+  }
 
   @Serial private static final long serialVersionUID = 6504581894234963026L;
 }
