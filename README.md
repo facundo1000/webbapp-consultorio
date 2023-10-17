@@ -13,3 +13,15 @@ Server Side Rendering (SSR).
 
 Esta aplicación nace como parte de un proyecto integrador de la materia Programación Orientada a Objetos II, de la carrera
 Analista en Sistemas.
+
+Para poder compilar la aplicación se debe utilizar el siguiente comando dentro del directorio general:
+~~~bash
+mvn clean install
+~~~
+
+Y para correr la aplicación:
+~~~bash
+java -jar webbapp-consultorio
+~~~
+
+Dentro de la carpeta general se puede acceder a la documentación mediante el Javadoc: _javadoc/index.html_
