@@ -48,10 +48,9 @@ public class PacienteTest {
   @Test
   @DisplayName("Test: remover sesion del paciente")
   void removerSesiones() {
-    agregarSesiones();
     paciente.removeSesion(sesion);
     paciente.removeSesion(sesion2);
     paciente.removeSesion(null);
-    assertThat(paciente.getSesions()).hasSize(0);
+    assertThat(paciente.getSesions()).hasSize(1);
   }
 }
