@@ -11,6 +11,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * Clase Psicologo
+ * @author Andre,Gelabert; Pavon, Gabriel; Martinez, Facundo
+ */
+
 @Entity
 @Setter
 @Getter
@@ -18,8 +23,17 @@ import lombok.Setter;
 @Table(name = "psicologo")
 public class Psicologo extends Persona implements Serializable {
 
+  /**
+   * Especialidad que corresponde a un determinado psicologo
+   */
+
   @Enumerated(EnumType.STRING)
   private Especialidad especialidad;
+
+  /**
+   * Lista de pacientes que corresponden a cada
+   * paciente que atiende un determinado psicologo
+   */
 
   @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   @JoinTable(
@@ -29,6 +43,10 @@ public class Psicologo extends Persona implements Serializable {
       uniqueConstraints = @UniqueConstraint(columnNames = {"psicologo_id", "paciente_id"}))
   private Set<Paciente> pacientes;
 
+  /**
+   * Lista de sesiones que corresponden a un determinado psicologo
+   */
+
   @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   @JoinTable(
       name = "tbl_psicologo_sesion",
@@ -37,27 +55,55 @@ public class Psicologo extends Persona implements Serializable {
       uniqueConstraints = @UniqueConstraint(columnNames = {"psicologo_id", "sesion_id"}))
   private Set<Sesion> sesions;
 
+  /**
+   * Funcion que agrega un paciente a una lista
+   * @param paciente
+   */
+
   public void addPaciente(Paciente paciente) {
     this.pacientes.add(paciente);
   }
+
+  /**
+   * Funcion que agrega una sesion a una lista
+   * @param sesion
+   */
 
   public void addSesion(Sesion sesion) {
     this.sesions.add(sesion);
   }
 
+  /**
+   * Funcion que remueve un paciente de la lista de pacientes
+   * @param paciente
+   */
   public void removePaciente(Paciente paciente) {
     this.pacientes.remove(paciente);
   }
+
+  /**
+   * Funcion que agrega una sesion a una lista de sesiones
+   * @param sesion
+   */
 
   public void removeSesion(Sesion sesion) {
     this.sesions.remove(sesion);
   }
 
+  /**
+   * Funcion que remueve todos los pacientes de
+   * una lista de pacientes
+   */
   public void removeAllPacientes() {
     for (Paciente p : pacientes) {
       removePaciente(p);
     }
   }
+
+  /**
+   * Funcion que remueve todos las sesiones de una
+   * lista de sesiones
+   */
 
   public void removeAllSesions() {
     for (Sesion s : sesions) {

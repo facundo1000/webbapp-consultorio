@@ -8,6 +8,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+
+/**
+ * Clase Persona (clase padre)
+ * @author Andre,Gelabert; Pavon, Gabriel; Martinez, Facundo
+ */
 @Entity
 @Getter
 @Setter
