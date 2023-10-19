@@ -1,7 +1,7 @@
 package edu.unam.webbapp.consultorio.utils;
 
 /**
- * Clase Persona (clase padre)
+ * Clase Estado Civil
  * @author Andre,Gelabert; Pavon, Gabriel; Martinez, Facundo
  */
 public enum EstadoCivil {

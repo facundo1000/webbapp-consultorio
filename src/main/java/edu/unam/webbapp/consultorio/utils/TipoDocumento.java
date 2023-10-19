@@ -1,7 +1,7 @@
 package edu.unam.webbapp.consultorio.utils;
 
 /**
- * Clase Persona (clase padre)
+ * Clase Tipo de Documento
  * @author Andre,Gelabert; Pavon, Gabriel; Martinez, Facundo
  */
 public enum TipoDocumento {

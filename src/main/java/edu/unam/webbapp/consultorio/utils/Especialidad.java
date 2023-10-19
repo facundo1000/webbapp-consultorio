@@ -1,7 +1,7 @@
 package edu.unam.webbapp.consultorio.utils;
 
 /**
- * Clase Persona (clase padre)
+ * Clase Especialidad correspondiente a un psicologo
  * @author Andre,Gelabert; Pavon, Gabriel; Martinez, Facundo
  */
 public enum Especialidad {
