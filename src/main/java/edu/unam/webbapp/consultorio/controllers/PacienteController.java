@@ -29,7 +29,6 @@ public class PacienteController {
     model.addAttribute("titulo", "Listado de Pacientes");
     model.addAttribute("pacientes", service.findAll());
     return "pacientes/pacientesLista";
-    //    return "pacientes/abmPaciente";
   }
 
   @GetMapping("/form-paciente")
