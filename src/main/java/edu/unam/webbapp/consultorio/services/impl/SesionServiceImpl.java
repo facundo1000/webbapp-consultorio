@@ -3,6 +3,8 @@ package edu.unam.webbapp.consultorio.services.impl;
 import edu.unam.webbapp.consultorio.model.Sesion;
 import edu.unam.webbapp.consultorio.repository.SesionRepositorio;
 import java.util.List;
+
+import edu.unam.webbapp.consultorio.services.SesionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -5,7 +5,7 @@ import edu.unam.webbapp.consultorio.model.Psicologo;
 import edu.unam.webbapp.consultorio.model.Sesion;
 import edu.unam.webbapp.consultorio.services.PersonaService;
 import edu.unam.webbapp.consultorio.services.impl.PacienteServiceImpl;
-import edu.unam.webbapp.consultorio.services.impl.SesionService;
+import edu.unam.webbapp.consultorio.services.SesionService;
 import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

@@ -1,4 +1,4 @@
-package edu.unam.webbapp.consultorio.services.impl;
+package edu.unam.webbapp.consultorio.services;
 
 import edu.unam.webbapp.consultorio.model.Sesion;
 
