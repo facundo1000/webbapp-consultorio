@@ -5,8 +5,8 @@ spring:
   datasource:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:mem:info
-    username: admin
-    password: admin
+    username:
+    password:
 
   jpa:
     hibernate:
