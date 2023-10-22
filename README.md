@@ -7,8 +7,7 @@ Server Side Rendering (SSR).
 - Spring JPA.
 - Thymeleaf
 - Validation
-- Docker-Compose
-- PostgresSQL Driver
+- H2 Database
 - Lombock
 
 Esta aplicación nace como parte de un proyecto integrador de la materia Programación Orientada a Objetos II, de la carrera
