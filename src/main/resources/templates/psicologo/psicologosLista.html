@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/layout :: head}"></head>
+<body>
+
+<header th:replace="~{layout/layout :: header}"></header>
+<aside th:replace="~{layout/layout :: sidebar}"></aside>
+
+<div class="flex items-center justify-center h-screen">
+    <div class="block max-w-md p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+
+
+            <h2 class="text-2xl font-extrabold dark:text-white" th:text="${titulo}"></h2>
+
+
+
+
+            <h4 class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                <a th:href="@{/form-psicologo}" class="btn-outline-primary"> Crear Psicologo</a>
+            </h4>
+
+
+        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th class="px6 py-3">Dni</th>
+                    <th class="px6 py-3">Tipo.Doc</th>
+                    <th class="px6 py-3">Nombre</th>
+                    <th class="px6 py-3">Apellido</th>
+                    <th class="px6 py-3">Telefono</th>
+                    <th class="px6 py-3">Direccion</th>
+                    <th class="px6 py-3">Sexo</th>
+                    <th class="px6 py-3">Fecha de Nac.</th>
+                    <th class="px6 py-3">Especialidad</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="psicologo : ${psicologos}"
+                    class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+
+                    <div th:if="${psicologo.eliminado != true}">
+                        <td class="px-6 py-4" th:text="${psicologo.dni}"></td>
+                        <td class="px-6 py-4" th:text="${psicologo.tipoDoc}"></td>
+                        <td class="px-6 py-4" th:text="${psicologo.nombre}"></td>
+                        <td class="px-6 py-4" th:text="${psicologo.apellido}"></td>
+                        <td class="px-6 py-4" th:text="${psicologo.telefono}"></td>
+                        <td class="px-6 py-4" th:text="${psicologo.direccion}"></td>
+                        <td class="px-6 py-4" th:text="${psicologo.sexo}"></td>
+                        <td class="px-6 py-4" th:text="${#temporals.format(psicologo.fechaDeNacimiento,'dd-MM-yyyy')}"></td>
+                        <td class="px-6 py-4" th:text="${psicologo.especialidad}"></td>
+                        <td class="px-6 py-4" ><a class="btn btn-warning" th:href="@{/form-psicologo/} + ${psicologo.dni}">Editar</a></td>
+                        <td class="px-6 py-4" ><a class="btn btn-danger" th:href="@{/eliminar-psicologo/} + ${psicologo.dni}">Eliminar</a></td>
+                    </div>
+
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+
+
+    </div>
+
+</div>
+
+<!--<footer th:replace="~{layout/layout :: footer}"></footer>-->
+
+</body>
+</html>

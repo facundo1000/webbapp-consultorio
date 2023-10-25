@@ -1,0 +1,8 @@
+edu.unam.webbapp.consultorio
+edu.unam.webbapp.consultorio.controllers
+edu.unam.webbapp.consultorio.model
+edu.unam.webbapp.consultorio.models
+edu.unam.webbapp.consultorio.repository
+edu.unam.webbapp.consultorio.services
+edu.unam.webbapp.consultorio.services.impl
+edu.unam.webbapp.consultorio.utils
