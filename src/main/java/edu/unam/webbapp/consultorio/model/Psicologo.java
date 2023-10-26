@@ -57,7 +57,7 @@ public class Psicologo extends Persona implements Serializable {
 
   /**
    * Funcion que agrega un paciente a una lista
-   * @param paciente
+   * @param paciente un objeto paciente
    */
 
   public void addPaciente(Paciente paciente) {
@@ -66,7 +66,7 @@ public class Psicologo extends Persona implements Serializable {
 
   /**
    * Funcion que agrega una sesion a una lista
-   * @param sesion
+   * @param sesion un objeto sesion
    */
 
   public void addSesion(Sesion sesion) {
@@ -75,7 +75,7 @@ public class Psicologo extends Persona implements Serializable {
 
   /**
    * Funcion que remueve un paciente de la lista de pacientes
-   * @param paciente
+   * @param paciente un objeto paciente
    */
   public void removePaciente(Paciente paciente) {
     this.pacientes.remove(paciente);
@@ -83,7 +83,7 @@ public class Psicologo extends Persona implements Serializable {
 
   /**
    * Funcion que agrega una sesion a una lista de sesiones
-   * @param sesion
+   * @param sesion un objeto sesion
    */
 
   public void removeSesion(Sesion sesion) {
