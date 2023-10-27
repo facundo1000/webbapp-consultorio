@@ -97,7 +97,3 @@ creación de aplicaciones web y la gestión de dependencias, lo que
 permite que los desarrolladores se enfoquen en construir la aplicación
 en lugar de preocuparse por los pormenores de la configuración y la
 infraestructura.
-
-### Base de Datos: H2 
-
-H2 es un sistema administrador de bases de datos relacionales programado en Java. Puede ser incorporado en aplicaciones Java o ejecutarse de modo cliente-servidor.
