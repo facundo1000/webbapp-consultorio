@@ -24,7 +24,7 @@ public class SesionController {
   private final PersonaService<Psicologo> psicoService;
   private final PacienteServiceImpl pasService;
 
-  @GetMapping("/lista-sesiones")
+  @GetMapping("/")
   public String listar(Model model, Integer id) {
     model.addAttribute("titulo", "Listado de Sesiones");
     model.addAttribute("sesiones", service.findAll());

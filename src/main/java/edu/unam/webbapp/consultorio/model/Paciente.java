@@ -63,7 +63,7 @@ public class Paciente extends Persona implements Serializable {
 
   /**
    * Funcion para agregar una sesion a la lista de sesiones
-   * @param sesion
+   * @param sesion un objeto sesion
    */
 
   public void addSesion(Sesion sesion) {
@@ -72,7 +72,7 @@ public class Paciente extends Persona implements Serializable {
 
   /**
    * Funcion para remover una sesion de una lista de sesiones
-   * @param sesion
+   * @param sesion un objeto sesion
    */
 
   public void removeSesion(Sesion sesion) {
