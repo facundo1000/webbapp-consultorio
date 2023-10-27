@@ -98,9 +98,6 @@ permite que los desarrolladores se enfoquen en construir la aplicación
 en lugar de preocuparse por los pormenores de la configuración y la
 infraestructura.
 
-### Base de Datos: PostgresSQL
+### Base de Datos: H2 
 
-PostgreSQL, una base de datos relacional de código abierto, es una
-elección popular para una amplia variedad de aplicaciones debido a su
-flexibilidad, rendimiento y capacidad de adaptación a diferentes
-necesidades.
+H2 es un sistema administrador de bases de datos relacionales programado en Java. Puede ser incorporado en aplicaciones Java o ejecutarse de modo cliente-servidor.
