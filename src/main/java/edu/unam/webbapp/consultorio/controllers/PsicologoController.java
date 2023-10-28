@@ -15,7 +15,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
-
+/**
+ * Clase PsicologoController
+ * @author Andre,Gelabert; Pavon, Gabriel; Martinez, Facundo
+ */
 @Controller
 @RequiredArgsConstructor
 @SessionAttributes("psicologo")

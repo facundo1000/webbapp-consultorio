@@ -15,6 +15,10 @@ public enum Sexo {
         this.nombre = nombre;
     }
 
+    /**
+     * Funcion que retorna la descripcion del sexo
+     * @return descripcion
+     */
     public String getNombre() {
         return nombre;
     }
