@@ -27,23 +27,31 @@ public class SesionController {
   private final PersonaService<Psicologo> psicoService;
   private final PacienteServiceImpl pasService;
 
-  @GetMapping("/")
-  public String listar(Model model, Integer id) {
-    model.addAttribute("titulo", "Listado de Sesiones");
+  @GetMapping(path = {"/","/lista-sesiones"})
+  public String listar(Model model) {
+//    model.addAttribute("titulo", "Listado de Sesiones");
+    Sesion sesion = new Sesion();
+    model.addAttribute("sesion", sesion);
+    model.addAttribute("sesionNum", sesion.getNroSesion());
+//    model.addAttribute("psicologos", psicoService.findAll());
+    model.addAttribute("pacientes", pasService.getAllEliminadoEquals(false));
     model.addAttribute("sesiones", service.findAll());
-    return "listaSesiones";
+//    return "listaSesiones";
+    return "abmSesion";
   }
 
+  /*
   @GetMapping("/form-sesiones")
   public String crear(Model model) {
     Sesion sesion = new Sesion();
-    model.addAttribute("titulo", "Crear de Sesion");
     model.addAttribute("sesion", sesion);
     model.addAttribute("sesionNum", sesion.getNroSesion());
     model.addAttribute("psicologos", psicoService.findAll());
     model.addAttribute("pacientes", pasService.getAllEliminadoEquals(false));
+    model.addAttribute("titulo", "Crear de Sesion");
     return "formSesiones";
   }
+   */
 
   @PostMapping("/form-sesiones")
   public String guardar(
@@ -54,8 +62,7 @@ public class SesionController {
       SessionStatus status) {
 
     if (result.hasErrors()) {
-      model.addAttribute("titulo", "Crear de Sesion");
-      model.addAttribute("psicologos", psicoService.findAll());
+//      model.addAttribute("psicologos", psicoService.findAll());
       model.addAttribute("pacientes", pasService.findAll());
     }
 
@@ -66,10 +73,10 @@ public class SesionController {
 
     service.save(sesion);
     status.setComplete();
-    return "redirect:/lista-sesiones";
+    return "redirect:/";
   }
 
-  @GetMapping("/listar-sesiones/{id}")
+  @GetMapping("/editar-sesion/{id}")
   public String sesionPorPaciente(@PathVariable("id") Integer id, Model model) {
     List<Sesion> sesions = service.findSesionByPacienteId(id);
 
