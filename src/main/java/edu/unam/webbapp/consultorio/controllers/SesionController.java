@@ -40,18 +40,18 @@ public class SesionController {
     return "abmSesion";
   }
 
-  /*
-  @GetMapping("/form-sesiones")
-  public String crear(Model model) {
-    Sesion sesion = new Sesion();
+
+  //TODO: arreglar - ver como se ve en la vista y corregir en el controlador
+  @GetMapping("/lista-sesiones/{id}")
+  public String crear(Model model, @PathVariable Integer id) {
+    Sesion sesion = service.findById(id);
     model.addAttribute("sesion", sesion);
     model.addAttribute("sesionNum", sesion.getNroSesion());
     model.addAttribute("psicologos", psicoService.findAll());
     model.addAttribute("pacientes", pasService.getAllEliminadoEquals(false));
-    model.addAttribute("titulo", "Crear de Sesion");
-    return "formSesiones";
+    return "abmSesion";
   }
-   */
+
 
   @PostMapping("/form-sesiones")
   public String guardar(
@@ -76,7 +76,7 @@ public class SesionController {
     return "redirect:/";
   }
 
-  @GetMapping("/editar-sesion/{id}")
+  @GetMapping("/listar-sesiones/{id}")
   public String sesionPorPaciente(@PathVariable("id") Integer id, Model model) {
     List<Sesion> sesions = service.findSesionByPacienteId(id);
 

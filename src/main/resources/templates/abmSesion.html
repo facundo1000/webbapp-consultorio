@@ -200,10 +200,10 @@
                     <td class="px-6 py-3" th:text="${#temporals.format(sesion.fecha,'dd/MM/yyyy')}">
 
                     </td>
-                    <td class="px-6 py-3" th:text="${sesion.hora}">
+                    <td class="px-6 py-3" th:text="${sesion.fecha}">
                     </td>
                     <td class="px-6 py-3 text-center">
-                        <a th:href="@{/lista-sesiones}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</a>
+                        <a th:href="@{/lista-sesiones/} + ${sesion.nroSesion}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</a>
                     </td>
                 </tr>
 <!--                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">-->
