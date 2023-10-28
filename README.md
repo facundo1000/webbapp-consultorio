@@ -29,7 +29,7 @@ Dentro de la carpeta general se puede acceder a la documentación mediante el Ja
 
 ### Accesos a los diferentes enpoints
 
+- Lista de sesiones: ``http://localhost:8080/``
 - Lista de pacientes: ``http://localhost:8080/lista-pacientes``
-- Lista de sesiones: ``http://localhost:8080/lista-sesiones``
 - Lista de psicologos: ``http://localhost:8080/lista-psicologos``
 - Lista de secretarios: ``http://localhost:8080/listar-secretario``
