@@ -1,9 +1,7 @@
 package edu.unam.webbapp.consultorio.controllers;
 
 import edu.unam.webbapp.consultorio.model.Paciente;
-import edu.unam.webbapp.consultorio.model.Psicologo;
 import edu.unam.webbapp.consultorio.model.Sesion;
-import edu.unam.webbapp.consultorio.services.PersonaService;
 import edu.unam.webbapp.consultorio.services.impl.PacienteServiceImpl;
 import edu.unam.webbapp.consultorio.services.SesionService;
 import jakarta.validation.Valid;
@@ -20,38 +18,51 @@ import org.springframework.web.bind.support.SessionStatus;
  */
 @Controller
 @RequiredArgsConstructor
-@SessionAttributes("sesion")
+@SessionAttributes(value = {"sesion" ,"pacientes"})
 public class SesionController {
 
   private final SesionService service;
-  private final PersonaService<Psicologo> psicoService;
+//  private final PersonaService<Psicologo> psicoService;
   private final PacienteServiceImpl pasService;
 
+  /**
+   * Este metodo permite visualizar la pantalla de sesiones
+   * @param model
+   * @return la vista en html de abmSesion.html
+   */
   @GetMapping(path = {"/","/lista-sesiones"})
   public String listar(Model model) {
-//    model.addAttribute("titulo", "Listado de Sesiones");
     Sesion sesion = new Sesion();
     model.addAttribute("sesion", sesion);
-    model.addAttribute("sesionNum", sesion.getNroSesion());
-//    model.addAttribute("psicologos", psicoService.findAll());
     model.addAttribute("pacientes", pasService.getAllEliminadoEquals(false));
     model.addAttribute("sesiones", service.findAll());
-//    return "listaSesiones";
-    return "abmSesion";
+    return "sesiones/abmSesion";
   }
 
+  /**
+   * Funcion que permite visualizar los datos de una sesion para ser editados
+   * @param model
+   * @param id id de una sesion en especifica
+   * @return la vista en html de abmSesion.html
+   */
 
-  //TODO: arreglar - ver como se ve en la vista y corregir en el controlador
   @GetMapping("/lista-sesiones/{id}")
   public String crear(Model model, @PathVariable Integer id) {
     Sesion sesion = service.findById(id);
     model.addAttribute("sesion", sesion);
-    model.addAttribute("sesionNum", sesion.getNroSesion());
-    model.addAttribute("psicologos", psicoService.findAll());
-    model.addAttribute("pacientes", pasService.getAllEliminadoEquals(false));
-    return "abmSesion";
+    model.addAttribute("sesiones", service.findAll());
+    return "sesiones/abmSesion";
   }
 
+  /**
+   * Funcion que se encarga de manejar la confirmacion de una sesion
+   * @param paciente objeto paciente
+   * @param sesion objeto sesion
+   * @param result permite ver si hubo errores en el proceso de relleno del formulario
+   * @param model
+   * @param status permite manejar la sesion
+   * @return redireciona al controlador que muestra
+   */
 
   @PostMapping("/form-sesiones")
   public String guardar(
@@ -62,7 +73,6 @@ public class SesionController {
       SessionStatus status) {
 
     if (result.hasErrors()) {
-//      model.addAttribute("psicologos", psicoService.findAll());
       model.addAttribute("pacientes", pasService.findAll());
     }
 
