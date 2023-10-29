@@ -38,57 +38,59 @@
                 </svg>
             </button>
         </div>
+
+        <!--TODO: no se pudo concretar la vista de las validaciones-->
+
         <form class="p-5 border-gray-200 dark:border-gray-700 dark:bg-gray-900" th:action="@{/form-sesiones}"
               th:object="${sesion}" method="post">
             <h2 class="text-xl pb-4 text-gray-900 dark:text-white">
                 Registrar nueva sesión
             </h2>
+
+
             <div class="grid md:grid-cols-2 md:gap-6">
                 <!-- selector de paciente conectado con el controlador-->
                 <div class="relative z-0 w-full mb-6 group">
                     <select name="paciente" id="paciente" th:field="*{paciente}"
-                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            th:errorclass="'bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-red-100 dark:border-red-400'"
+                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer "
                             required>
-                        <option value="">--- Seleccionar Paciente---</option>
-                        <option th:each="paciente :${pacientes}" th:text="${paciente.nombre} +' '+ ${paciente.apellido} + ' ' + ${paciente.dni}" th:value="${paciente.dni}"></option>
+                        <option value="">---Seleccionar Paciente---</option>
+                        <option th:each="paciente :${pacientes}"
+                                th:text="${paciente.nombre} +' '+ ${paciente.apellido} + ' DNI: ' + ${paciente.dni}"
+                                th:value="${paciente.dni}"></option>
                     </select>
                     <label for="paciente"
-
                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Paciente</label>
-                </div>
-                <div class="relative z-0 w-full mb-6 group">
-                <div class="relative z-0 w-full mb-6 group">
-                    <input type="date" name="fecha" id="fecha" th:field="*{fecha}"
-                           class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                           placeholder=" " required/>
-                    <label for="fecha"
-                           class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Fecha
-                        de la sesión</label>
-                </div>
+                    <div>
+                        <small class="mt-2 text-sm text-red-600 dark:text-red-500"
+                               th:if="${#fields.hasErrors('paciente')}"
+                               th:errors="*{paciente}"></small>
+                    </div>
                 </div>
 
-                <!--                    <select name="flotante_psicologo_sesion" id="flotante_psicologo_sesion"-->
-                <!--                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"-->
-                <!--                            required>-->
-                <!--                        <option>Nombre generico de Psicológo 1</option>-->
-                <!--                        <option>Nombre generico de Psicológo 2</option>-->
-                <!--                        <option>Nombre generico de Psicológo 3</option>-->
-                <!--                        <option>Nombre generico de Psicológo 4</option>-->
-                <!--                    </select>-->
-                <!--                    <label for="flotante_psicologo_sesion"-->
-                <!--                           class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Psicológo</label>-->
 
+                <!-- conexion del input de fecha con el controlador -->
+                <div class="relative z-0 w-full mb-6 group">
+                    <div class="relative z-0 w-full mb-6 group">
+                        <input type="date" name="fecha" id="fecha" th:field="*{fecha}"
+                               th:errorclass="'bg-green-50 border border-green-500 text-green-900 placeholder-green-700 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-green-100 dark:border-green-400'"
+                               class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                               placeholder=" " required/>
+                        <label for="fecha"
+                               class="peer-focus:font-medium  absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Fecha
+                            de la sesión</label>
+                    </div>
+                    <div>
+                        <small class="mt-2 text-sm text-red-600 dark:text-red-500" th:if="${#fields.hasErrors('fecha')}"
+                               th:errors="*{fecha}"></small>
+                    </div>
+                </div>
 
             </div>
+
+            <!-- conexion del input de hora con el controlador -->
             <div class="grid md:grid-cols-2 md:gap-6">
-<!--                <div class="relative z-0 w-full mb-6 group">-->
-<!--                    <input type="date" name="flotante_fecha_sesion" id="flotante_fecha_sesion"-->
-<!--                           class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"-->
-<!--                           placeholder=" " required/>-->
-<!--                    <label for="flotante_fecha_sesion"-->
-<!--                           class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Fecha-->
-<!--                        de la sesión</label>-->
-<!--                </div>-->
                 <div class="relative z-0 w-full mb-6 group">
                     <input type="time" name="hora" id="hora" th:field="*{hora}"
                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
@@ -98,6 +100,8 @@
                         de la sesión</label>
                 </div>
             </div>
+
+            <!--boton confirmar sesion-->
             <button type="submit"
                     class="text-white inline-flex items-center hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-blue-600 dark:hover:bg-blue-600 dark:focus:ring-blue-800 ">
                 <svg class="mr-1 -ml-1 w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
@@ -108,15 +112,15 @@
                 </svg>
                 Confirmar Sesión
             </button>
-<!--            <button type="submit"-->
-<!--                    class="text-white inline-flex items-center hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-yellow-600 dark:hover:bg-yellow-600 dark:focus:ring-yellow-800">-->
-<!--                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"-->
-<!--                     stroke="currentColor" class="mr-1 -ml-1 w-6 h-6">-->
-<!--                    <path stroke-linecap="round" stroke-linejoin="round"-->
-<!--                          d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/>-->
-<!--                </svg>-->
-<!--                Limpiar campos-->
-<!--            </button>-->
+            <!--            <button type="submit"-->
+            <!--                    class="text-white inline-flex items-center hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-yellow-600 dark:hover:bg-yellow-600 dark:focus:ring-yellow-800">-->
+            <!--                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"-->
+            <!--                     stroke="currentColor" class="mr-1 -ml-1 w-6 h-6">-->
+            <!--                    <path stroke-linecap="round" stroke-linejoin="round"-->
+            <!--                          d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/>-->
+            <!--                </svg>-->
+            <!--                Limpiar campos-->
+            <!--            </button>-->
         </form>
         <div class="w-full bg-gray-400 h-[1px] mb-4"></div>
         <h2 class="text-xl pb-2 pl-5 text-gray-900 dark:text-white">
@@ -191,10 +195,12 @@
                     <td class="px-6 py-3" th:text="${sesion.paciente.dni}">
 
                     </td>
-                    <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white" th:text="${sesion.paciente.nombre} + ' ' + ${sesion.paciente.apellido}">
+                    <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                        th:text="${sesion.paciente.nombre} + ' ' + ${sesion.paciente.apellido}">
 
                     </th>
-                    <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white" th:text="${sesion.psicologo.nombre} + ' ' + ${sesion.psicologo.apellido}">
+                    <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                        th:text="${sesion.psicologo.nombre} + ' ' + ${sesion.psicologo.apellido}">
 
                     </th>
                     <td class="px-6 py-3" th:text="${#temporals.format(sesion.fecha,'dd/MM/yyyy')}">
@@ -203,50 +209,51 @@
                     <td class="px-6 py-3" th:text="${sesion.hora}">
                     </td>
                     <td class="px-6 py-3 text-center">
-                        <a th:href="@{/lista-sesiones/} + ${sesion.nroSesion}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</a>
+                        <a th:href="@{/lista-sesiones/} + ${sesion.nroSesion}"
+                           class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</a>
                     </td>
                 </tr>
-<!--                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">-->
-<!--                    <td class="px-6 py-3">-->
-<!--                        2-->
-<!--                    </td>-->
-<!--                    <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">-->
-<!--                        Rodriguez Pedro-->
-<!--                    </th>-->
-<!--                    <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">-->
-<!--                        Ulises Gabriel-->
-<!--                    </th>-->
-<!--                    <td class="px-6 py-3">-->
-<!--                        01/10/2023-->
-<!--                    </td>-->
-<!--                    <td class="px-6 py-3">-->
-<!--                        16:30 pm-->
-<!--                    </td>-->
-<!--                    <td class="px-6 py-3 text-center">-->
-<!--                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</a>-->
-<!--                    </td>-->
-<!--                </tr>-->
-<!--                <tr class="bg-white dark:bg-gray-800">-->
-<!--                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">-->
-<!--                    <td class="px-6 py-3">-->
-<!--                        3-->
-<!--                    </td>-->
-<!--                    <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">-->
-<!--                        Sanchez Micaela-->
-<!--                    </th>-->
-<!--                    <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">-->
-<!--                        Puerta Juan-->
-<!--                    </th>-->
-<!--                    <td class="px-6 py-3">-->
-<!--                        01/10/2023-->
-<!--                    </td>-->
-<!--                    <td class="px-6 py-3">-->
-<!--                        16:30 pm-->
-<!--                    </td>-->
-<!--                    <td class="px-6 py-3 text-center">-->
-<!--                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</a>-->
-<!--                    </td>-->
-<!--                </tr>-->
+                <!--                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">-->
+                <!--                    <td class="px-6 py-3">-->
+                <!--                        2-->
+                <!--                    </td>-->
+                <!--                    <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">-->
+                <!--                        Rodriguez Pedro-->
+                <!--                    </th>-->
+                <!--                    <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">-->
+                <!--                        Ulises Gabriel-->
+                <!--                    </th>-->
+                <!--                    <td class="px-6 py-3">-->
+                <!--                        01/10/2023-->
+                <!--                    </td>-->
+                <!--                    <td class="px-6 py-3">-->
+                <!--                        16:30 pm-->
+                <!--                    </td>-->
+                <!--                    <td class="px-6 py-3 text-center">-->
+                <!--                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</a>-->
+                <!--                    </td>-->
+                <!--                </tr>-->
+                <!--                <tr class="bg-white dark:bg-gray-800">-->
+                <!--                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">-->
+                <!--                    <td class="px-6 py-3">-->
+                <!--                        3-->
+                <!--                    </td>-->
+                <!--                    <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">-->
+                <!--                        Sanchez Micaela-->
+                <!--                    </th>-->
+                <!--                    <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">-->
+                <!--                        Puerta Juan-->
+                <!--                    </th>-->
+                <!--                    <td class="px-6 py-3">-->
+                <!--                        01/10/2023-->
+                <!--                    </td>-->
+                <!--                    <td class="px-6 py-3">-->
+                <!--                        16:30 pm-->
+                <!--                    </td>-->
+                <!--                    <td class="px-6 py-3 text-center">-->
+                <!--                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</a>-->
+                <!--                    </td>-->
+                <!--                </tr>-->
                 </tr>
                 </tbody>
             </table>
