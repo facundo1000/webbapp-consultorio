@@ -1,6 +1,7 @@
 package edu.unam.webbapp.consultorio.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serial;
 import java.io.Serializable;
@@ -36,6 +37,7 @@ public class Sesion implements Serializable {
    */
   @NotNull
   @DateTimeFormat(pattern = "yyyy-MM-dd")
+  @FutureOrPresent
   private LocalDate fecha;
 
   /**

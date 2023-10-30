@@ -14,6 +14,10 @@ public enum Especialidad {
     this.nombre = nombre;
   }
 
+  /**
+   * Funcion que retorna el nombre de una especialidad
+   * @return un nombre de especialidad
+   */
   public String getNombre() {
     return nombre;
   }

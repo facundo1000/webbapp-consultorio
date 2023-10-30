@@ -10,7 +10,7 @@ import lombok.Setter;
 
 
 /**
- * Clase Persona (clase padre)
+ * Clase Secretario
  * @author Andre,Gelabert; Pavon, Gabriel; Martinez, Facundo
  */
 @Entity

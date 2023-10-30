@@ -14,7 +14,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
-
+/**
+ * Clase PacienteController
+ * @author Andre,Gelabert; Pavon, Gabriel; Martinez, Facundo
+ */
 @Controller
 @RequiredArgsConstructor
 @SessionAttributes("paciente")
@@ -25,12 +28,21 @@ public class PacienteController {
 
   @GetMapping("/lista-pacientes")
   public String mostrar(Model model) {
-
-    model.addAttribute("titulo", "Listado de Pacientes");
+//    model.addAttribute("titulo", "Listado de Pacientes");
     model.addAttribute("pacientes", service.findAll());
-    return "pacientes/pacientesLista";
+    Paciente paciente = new Paciente();
+    Psicologo psicologo = new Psicologo();
+//    model.addAttribute("titulo", "Registro de Paciente");
+    model.addAttribute("tipos", TipoDocumento.values());
+    model.addAttribute("sexos", Sexo.values());
+    model.addAttribute("estados", EstadoCivil.values());
+    model.addAttribute("paciente", paciente);
+    model.addAttribute("psicologo", psicologo);
+    model.addAttribute("psicologos", psicoService.findAll());
+    return "pacientes/abmPaciente";
   }
 
+  /*
   @GetMapping("/form-paciente")
   public String crear(Model model) {
     Paciente paciente = new Paciente();
@@ -44,6 +56,8 @@ public class PacienteController {
     model.addAttribute("psicologos", psicoService.findAll());
     return "pacientes/formPaciente";
   }
+
+   */
 
   @PostMapping("/form-paciente")
   public String guardar(
@@ -83,13 +97,13 @@ public class PacienteController {
       model.addAttribute("sexos", Sexo.values());
       model.addAttribute("estados", EstadoCivil.values());
       model.addAttribute("psicologos", psicoService.findAll());
+      model.addAttribute("pacientes", service.findAll());
     } else {
       return "redirect:/lista-pacientes";
     }
 
-    model.addAttribute("titulo", "Editar Paciente");
     model.addAttribute("paciente", paciente);
-    return "pacientes/formPaciente";
+    return "pacientes/abmPaciente";
   }
 
   @GetMapping("/eliminar-paciente/{id}")

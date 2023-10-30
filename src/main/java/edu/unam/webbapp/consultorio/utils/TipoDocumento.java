@@ -16,6 +16,10 @@ public enum TipoDocumento {
         this.nombre = nombre;
     }
 
+    /**
+     * Funcion que retorna el nombre de cada documento
+     * @return nombre de un documento
+     */
     public String getNombre() {
         return nombre;
     }

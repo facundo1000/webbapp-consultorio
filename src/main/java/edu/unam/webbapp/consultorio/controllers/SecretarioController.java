@@ -14,7 +14,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
-
+/**
+ * Clase SecretarioController
+ * @author Andre,Gelabert; Pavon, Gabriel; Martinez, Facundo
+ */
 @Controller
 @RequiredArgsConstructor
 @SessionAttributes("secretario")
@@ -23,12 +26,18 @@ public class SecretarioController {
 
   @GetMapping("/listar-secretario")
   public String listar(Model model) {
-    model.addAttribute("titulo", "Lista de Secretarios");
+    Secretario secretario = new Secretario();
+//    model.addAttribute("titulo", "Lista de Secretarios");
     model.addAttribute("secretarios", service.findAll());
+    model.addAttribute("tipos", TipoDocumento.values());
+    model.addAttribute("sexos", Sexo.values());
+    model.addAttribute("secretario", new Secretario());
+    model.addAttribute("secretario",secretario);
 
-    return "secretario/secretariosLista";
+    return "secretario/abmSecretario";
   }
 
+  /*
   @GetMapping("/form-secretario")
   public String crear(Model model) {
     model.addAttribute("titulo", "Crear secretario");
@@ -38,6 +47,8 @@ public class SecretarioController {
     return "secretario/formSecretario";
   }
 
+   */
+
   @PostMapping("/form-secretario")
   public String guardar(
       @Valid Secretario secretario, BindingResult result, Model model, SessionStatus status) {
@@ -46,6 +57,7 @@ public class SecretarioController {
       model.addAttribute("titulo", "Crear secretario");
       model.addAttribute("tipos", TipoDocumento.values());
       model.addAttribute("sexos", Sexo.values());
+      model.addAttribute("secretarios", service.findAll());
       return "secretario/formSecretario";
     }
 
@@ -64,12 +76,13 @@ public class SecretarioController {
 
       model.addAttribute("tipos", TipoDocumento.values());
       model.addAttribute("sexos", Sexo.values());
+      model.addAttribute("secretarios", service.findAll());
     }else {
       return "redirect:/listar-secretario";
     }
-    model.addAttribute("titulo", "Editar secretario");
+//    model.addAttribute("titulo", "Editar secretario");
     model.addAttribute("secretario",secretario);
-    return "secretario/secretariosLista";
+    return "secretario/abmSecretario";
   }
 
   @GetMapping("/eliminar-secretario/{id}")

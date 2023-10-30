@@ -15,7 +15,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
-
+/**
+ * Clase PsicologoController
+ * @author Andre,Gelabert; Pavon, Gabriel; Martinez, Facundo
+ */
 @Controller
 @RequiredArgsConstructor
 @SessionAttributes("psicologo")
@@ -59,7 +62,7 @@ public class PsicologoController {
     return "redirect:/lista-psicologos";
   }
 
-  //TODO: en produccion cuando editas un psicologo te crea un registro nuevo con los mismos datos
+
   @GetMapping("/form-psicologo/{id}")
   public String editar(@PathVariable("id") Integer id, Model model) {
     Psicologo psicologo;

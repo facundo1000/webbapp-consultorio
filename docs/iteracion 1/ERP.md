@@ -97,10 +97,3 @@ creación de aplicaciones web y la gestión de dependencias, lo que
 permite que los desarrolladores se enfoquen en construir la aplicación
 en lugar de preocuparse por los pormenores de la configuración y la
 infraestructura.
-
-### Base de Datos: PostgresSQL
-
-PostgreSQL, una base de datos relacional de código abierto, es una
-elección popular para una amplia variedad de aplicaciones debido a su
-flexibilidad, rendimiento y capacidad de adaptación a diferentes
-necesidades.
