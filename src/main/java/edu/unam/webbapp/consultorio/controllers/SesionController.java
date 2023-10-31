@@ -47,10 +47,18 @@ public class SesionController {
    */
 
   @GetMapping("/lista-sesiones/{id}")
-  public String crear(Model model, @PathVariable Integer id) {
-    Sesion sesion = service.findById(id);
-    model.addAttribute("sesion", sesion);
-    model.addAttribute("sesiones", service.findAll());
+  public String editar(Model model, @PathVariable Integer id) {
+
+    Sesion sesion;
+
+    if(id > 0){
+      sesion = service.findById(id);
+      model.addAttribute("sesiones", service.findAll());
+    }else {
+      return "redirect:/lista-sesiones";
+    }
+
+   model.addAttribute("sesion",sesion);
     return "sesiones/abmSesion";
   }
 
@@ -89,9 +97,11 @@ public class SesionController {
   @GetMapping("/listar-sesiones/{id}")
   public String sesionPorPaciente(@PathVariable("id") Integer id, Model model) {
     List<Sesion> sesions = service.findSesionByPacienteId(id);
+    Paciente paciente = pasService.getById(id);
 
     model.addAttribute("titulo", "Listado de sesiones");
     model.addAttribute("sesiones", sesions);
+    model.addAttribute("paciente",paciente);
 
     return "pacientes/sesionesPorPaciente";
   }
