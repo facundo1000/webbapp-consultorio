@@ -15,6 +15,7 @@ INSERT INTO paciente (dni, apellido, nombre, direccion, fecha_de_nacimiento, sex
 
 -- Insertar datos de secretario
 INSERT INTO secretario (dni,apellido,nombre,direccion,fecha_de_nacimiento,sexo, telefono, eliminado,tipo_doc) VALUES (40357159,'baez','paola','alvear 1234','1994-06-28','FEMENINO','3764796431',false,'PASAPORTE');
+INSERT INTO secretario (dni, apellido, nombre, direccion, fecha_de_nacimiento, sexo, telefono, eliminado, tipo_doc) VALUES (30159756, 'perez', 'juan', 'calle 5678', '1990-03-15', 'MASCULINO', '1234567890', false, 'DNI');
 
 -- Insertar datos de sesion
 INSERT INTO sesion (nro_sesion,fecha,hora,psicologo_dni,paciente_dni, eliminado) VALUES (12,'2023-08-10','16:30',40356896,34789654, false);
