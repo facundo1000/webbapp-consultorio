@@ -76,8 +76,10 @@ public class PacienteController {
     }
 
     @GetMapping("/abm-pacientes/{id}")
-    public String editar(@PathVariable("id") Integer id, Model model) {
+    public String editar(@RequestParam(name = "page", defaultValue = "0") int page, @PathVariable("id") Integer id, Model model) {
         Paciente paciente;
+        int pageSize = 2;
+        Page<Paciente> pageData = service.getPageData(page,pageSize);
 
         if (id > 0) {
             paciente = service.getById(id);
@@ -86,6 +88,7 @@ public class PacienteController {
             model.addAttribute("sexos", Sexo.values());
             model.addAttribute("estados", EstadoCivil.values());
             model.addAttribute("psicologos", psicoService.findAll());
+            model.addAttribute("pageData",pageData);
         } else {
             return "redirect:/abm-pacientes";
         }
