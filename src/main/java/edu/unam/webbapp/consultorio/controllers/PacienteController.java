@@ -8,6 +8,7 @@ import edu.unam.webbapp.consultorio.utils.Sexo;
 import edu.unam.webbapp.consultorio.utils.TipoDocumento;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,11 +28,13 @@ public class PacienteController {
     private final PersonaService<Psicologo> psicoService;
 
     @GetMapping("/abm-pacientes")
-    public String CrearMostrar(Model model) {
+    public String CrearMostrar(@RequestParam(name = "page", defaultValue = "0") int page ,Model model) {
 
         model.addAttribute("titulo", "Registrar nuevo paciente");
         Paciente paciente = new Paciente();
         Psicologo psicologo = new Psicologo();
+        int pageSize = 2;
+        Page<Paciente> pageData = service.getPageData(page,pageSize);
         model.addAttribute("pacientes", service.findAll());
         model.addAttribute("tipos", TipoDocumento.values());
         model.addAttribute("sexos", Sexo.values());
@@ -39,6 +42,7 @@ public class PacienteController {
         model.addAttribute("paciente", paciente);
         model.addAttribute("psicologo", psicologo);
         model.addAttribute("psicologos", psicoService.findAll());
+        model.addAttribute("pageData",pageData);
         return "pacientes/abmPaciente";
     }
 

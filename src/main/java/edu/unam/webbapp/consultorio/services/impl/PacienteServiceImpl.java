@@ -6,6 +6,9 @@ import edu.unam.webbapp.consultorio.repository.PacienteRepositorio;
 import edu.unam.webbapp.consultorio.services.PersonaService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 /**
@@ -88,5 +91,11 @@ public class PacienteServiceImpl implements PersonaService<Paciente> {
     Paciente pc = repo.findById(id).orElseThrow();
     pc.setEliminado(true);
     repo.save(pc);
+  }
+
+  @Override
+  public Page<Paciente> getPageData(int page, int pageSize) {
+    Pageable pageable = PageRequest.of(page,pageSize);
+    return repo.findAll(pageable);
   }
 }
