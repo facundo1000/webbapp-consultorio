@@ -105,4 +105,12 @@ public class SesionController {
 
     return "pacientes/sesionesPorPaciente";
   }
+
+  @GetMapping("/eliminar-sesion/{id}")
+  public String eliminarSesion(@PathVariable Integer id){
+    if(id > 0){
+      service.deleteById(id);
+    }
+    return "redirect:/";
+  }
 }
