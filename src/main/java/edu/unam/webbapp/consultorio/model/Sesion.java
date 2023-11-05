@@ -44,6 +44,7 @@ public class Sesion implements Serializable {
    * Hora en la cual se hará la sesion
    */
   @NotNull
+  @DateTimeFormat(pattern = "HH:mm")
   private LocalTime hora;
 
   /**
