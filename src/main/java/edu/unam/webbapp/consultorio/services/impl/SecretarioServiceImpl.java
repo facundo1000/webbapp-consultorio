@@ -4,6 +4,7 @@ import edu.unam.webbapp.consultorio.model.Secretario;
 import edu.unam.webbapp.consultorio.repository.SecretarioRepository;
 import edu.unam.webbapp.consultorio.services.PersonaService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -75,5 +76,10 @@ public class SecretarioServiceImpl implements PersonaService<Secretario> {
             secretario.setEliminado(true);
             repo.save(secretario);
         }
+    }
+
+    @Override
+    public Page<Secretario> getPageData(int page, int pageSize) {
+        return null;
     }
 }
