@@ -2,18 +2,13 @@ package edu.unam.webbapp.consultorio.services.impl;
 
 import edu.unam.webbapp.consultorio.model.Sesion;
 import edu.unam.webbapp.consultorio.repository.SesionRepositorio;
-
-import java.time.LocalDate;
-import java.time.chrono.ChronoLocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalAccessor;
-import java.util.List;
-
 import edu.unam.webbapp.consultorio.services.SesionService;
 import edu.unam.webbapp.consultorio.utils.EstadosSesion;
 import lombok.RequiredArgsConstructor;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.util.List;
 
 /**
  * Clase SesionServiceImpl
@@ -105,7 +100,7 @@ public class SesionServiceImpl implements SesionService {
         /**
          * TODO:
          *  Esto deberia llevar un metodo un metodo un metodo automatico que esté pendiente del horario del sistema.
-         *  la realizacion se puede hacer de forma manual o de forma automatica
+         *  para que la realizacion se pueda hacer de forma manual o de forma automatica
          */
 
         if (fecha.isBefore(LocalDate.now())) {
