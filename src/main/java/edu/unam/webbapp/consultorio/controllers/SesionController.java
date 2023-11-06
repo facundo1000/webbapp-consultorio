@@ -5,6 +5,8 @@ import edu.unam.webbapp.consultorio.model.Sesion;
 import edu.unam.webbapp.consultorio.services.impl.PacienteServiceImpl;
 import edu.unam.webbapp.consultorio.services.SesionService;
 import jakarta.validation.Valid;
+
+import java.time.LocalDate;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -47,10 +49,18 @@ public class SesionController {
    */
 
   @GetMapping("/lista-sesiones/{id}")
-  public String crear(Model model, @PathVariable Integer id) {
-    Sesion sesion = service.findById(id);
-    model.addAttribute("sesion", sesion);
-    model.addAttribute("sesiones", service.findAll());
+  public String editar(Model model, @PathVariable Integer id) {
+
+    Sesion sesion;
+
+    if(id > 0){
+      sesion = service.findById(id);
+      model.addAttribute("sesiones", service.findAll());
+    }else {
+      return "redirect:/lista-sesiones";
+    }
+
+   model.addAttribute("sesion",sesion);
     return "sesiones/abmSesion";
   }
 
@@ -67,6 +77,7 @@ public class SesionController {
   @PostMapping("/form-sesiones")
   public String guardar(
       @RequestParam("paciente") Paciente paciente,
+      @RequestParam(name = "fecha")LocalDate fecha,
       @Valid Sesion sesion,
       BindingResult result,
       Model model,
@@ -81,7 +92,7 @@ public class SesionController {
 
     sesion.setPsicologo(paciente.getPsicologo());
 
-    service.save(sesion);
+    service.save(service.sesionStatus(fecha,sesion));
     status.setComplete();
     return "redirect:/";
   }
@@ -89,10 +100,20 @@ public class SesionController {
   @GetMapping("/listar-sesiones/{id}")
   public String sesionPorPaciente(@PathVariable("id") Integer id, Model model) {
     List<Sesion> sesions = service.findSesionByPacienteId(id);
+    Paciente paciente = pasService.getById(id);
 
     model.addAttribute("titulo", "Listado de sesiones");
     model.addAttribute("sesiones", sesions);
+    model.addAttribute("paciente",paciente);
 
     return "pacientes/sesionesPorPaciente";
+  }
+
+  @GetMapping("/eliminar-sesion/{id}")
+  public String eliminarSesion(@PathVariable Integer id){
+    if(id > 0){
+      service.deleteById(id);
+    }
+    return "redirect:/";
   }
 }

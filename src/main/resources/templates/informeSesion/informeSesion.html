@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- CDN TailwindCSS-->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!--    Tailwind Config-->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        };
+    </script>
+    <!-- CDN FlowbyteCSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.css"  rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
+    <title th:text="${Titulo}"></title>
+</head>
+<body>
+<header th:replace="~{layout/layout :: header}"></header>
+<aside th:replace="~{layout/layout :: sidebar}"></aside>
+
+<main class="md:ml-64 h-auto pt-20"> <!-- Aca esta la pagina en si -->
+    <div class="border-1 border-gray-300 dark:border-gray-600 mb-4">
+        <div class="p-2 flex justify-between items-center px-4 rounded-t border-b dark:border-gray-600">
+            <!-- Encabezado -->
+
+            <h1 class="text-2xl md:block font-semibold text-gray-900 dark:text-white">Informe de sesión</h1>
+            <button type="button"
+                    class="text-white bg-blue-600 hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                    data-modal-toggle="defaultModal">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+                     xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"></path>
+                </svg>
+            </button>
+        </div>
+        <form th:action="@{/informe-sesion}" th:object="${informeSesion}" method="post"
+              class="p-5 border-gray-200 dark:border-gray-700 dark:bg-gray-900">
+            <h2 class="text-xl pb-4 text-gray-900 dark:text-white">Consultando el informe de la sesión:</h2>
+            <div class="grid md:grid-cols-4 md:gap-6">
+
+                <div class="relative z-0 w-full mb-6 group">
+                    <p class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Paciente:</p>
+                    <p th:field="*{paciente}" name="pacienteNombreApellido" id="nombreApellido" class="text-lg font-semibold">Nombre y apellido</p>
+                </div>
+                <div class="relative z-0 w-full mb-6 group">
+                    <p class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Genero:</p>
+                    <p th:field="*{sexo}" name="pacienteGenero" id="sexo" class="text-lg font-semibold">genero</p>
+                </div>
+                <div class="relative z-0 w-full mb-6 group">
+                    <p class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Nro. Documento:</p>
+                    <p th:field="*{dni}" name="pacienteDni" id="dni" class="text-lg font-semibold">nro doc</p>
+                </div>
+                <div class="relative z-0 w-full mb-6 group">
+                    <p class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Fecha de nacimiento:</p>
+                    <p th:field="*{fechaDeNacimiento}" name="pacienteFechaDeNacimiento" id="fechaDeNacimiento" class="text-lg font-semibold">fecha</p>
+                </div>
+                <div class="relative z-0 w-full mb-6 group">
+                    <p class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Ocupación:</p>
+                    <p th:field="*{ocupacion}" name="pacienteOcupacion" id="ocupacion" class="text-lg font-semibold">ocupacion</p>
+                </div>
+                <div class="relative z-0 w-full mb-6 group">
+                    <p class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Estado civil:</p>
+                    <p th:field="*{estadoCivil}" name="pacienteEstadoCivil" id="estadoCivil" class="text-lg font-semibold">estadoCiv</p>
+                </div>
+                <div class="relative z-0 w-full mb-6 group">
+                    <p class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Dirección:</p>
+                    <p th:field="*{direccion}" name="pacienteDireccion" id="direccion" class="text-lg font-semibold">direccion</p>
+                </div>
+                <div class="relative z-0 w-full mb-6 group">
+                    <p class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Teléfono:</p>
+                    <p th:field="*{telefono}" name="pacienteTelefono" id="telefono" class="text-lg font-semibold">telefono</p>
+                </div>
+
+            </div>
+            <div class="w-full bg-gray-400 h-[1px] mb-4 mt-4"></div> <!-- Divisor de pagina -->
+            <h2 class="text-xl pb-4 text-gray-900 dark:text-white">Datos de la sesión:</h2>
+            <label for="analisis" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"><span class="text-sm font-medium text-red-600">* </span>Analisis:</label>
+            <textarea id="analisis" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Escriba sus pensamientos aqui..."></textarea>
+            <div class="w-full bg-gray-400 h-[1px] mb-4 mt-4"></div> <!-- Divisor de pagina -->
+            <label for="tareas" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tareas:</label>
+            <textarea id="tareas" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Escriba sus pensamientos aqui..."></textarea>
+            <div class="w-full bg-gray-400 h-[1px] mb-4 mt-4"></div> <!-- Divisor de pagina -->
+            <label for="notas" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Notas:</label>
+            <textarea id="notas" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Escriba sus pensamientos aqui..."></textarea>
+            <div class="w-full bg-gray-400 h-[1px] mb-4 mt-4"></div> <!-- Divisor de pagina -->
+            <label for="conlusion" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Conclusión:</label>
+            <textarea id="conlusion" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Escriba sus pensamientos aqui..."></textarea>
+            <button type="submit" class="mt-4 bg-green-600 text-white inline-flex items-center hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:hover:bg-primary-700 dark:focus:ring-primary-800 ">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                Guardar informe de sesión
+            </button>
+        </form>
+    </div>
+</main>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
+</html>

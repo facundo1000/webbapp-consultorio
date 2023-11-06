@@ -112,15 +112,12 @@
                 </svg>
                 Confirmar Sesión
             </button>
-            <!--            <button type="submit"-->
-            <!--                    class="text-white inline-flex items-center hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-yellow-600 dark:hover:bg-yellow-600 dark:focus:ring-yellow-800">-->
-            <!--                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"-->
-            <!--                     stroke="currentColor" class="mr-1 -ml-1 w-6 h-6">-->
-            <!--                    <path stroke-linecap="round" stroke-linejoin="round"-->
-            <!--                          d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/>-->
-            <!--                </svg>-->
-            <!--                Limpiar campos-->
-            <!--            </button>-->
+            <a th:href="@{/lista-sesiones}" type="submit" class="text-white inline-flex items-center hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-yellow-600 dark:hover:bg-yellow-600 dark:focus:ring-yellow-800">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="mr-1 -ml-1 w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                </svg>
+                Limpiar campos
+            </a>
         </form>
         <div class="w-full bg-gray-400 h-[1px] mb-4"></div>
         <h2 class="text-xl pb-2 pl-5 text-gray-900 dark:text-white">
@@ -186,7 +183,13 @@
                         </div>
                     </th>
                     <th scope="col" class="px-6 py-3 text-center">
+                        Estado
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-center">
                         Editar
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-center">
+                        Eliminar
                     </th>
                 </tr>
                 </thead>
@@ -195,65 +198,56 @@
                     <td class="px-6 py-3" th:text="${sesion.paciente.dni}">
 
                     </td>
-                    <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    <td  class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                         th:text="${sesion.paciente.nombre} + ' ' + ${sesion.paciente.apellido}">
 
-                    </th>
-                    <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    </td>
+                    <td scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                         th:text="${sesion.psicologo.nombre} + ' ' + ${sesion.psicologo.apellido}">
 
-                    </th>
-                    <td class="px-6 py-3" th:text="${#temporals.format(sesion.fecha,'dd/MM/yyyy')}">
+                    </td>
+                    <td class="px-6 py-3"  th:text="${#temporals.format(sesion.fecha,'dd/MM/yyyy')}">
 
                     </td>
                     <td class="px-6 py-3" th:text="${sesion.hora}">
                     </td>
+                    <td class="px-6 py-3">
+                        <div class="flex items-center mb-4">
+                            <div th:if="${sesion.estadosSesion.nombre == 'REALIZADA'}"
+                                 class="h-2.5 w-2.5 rounded-full bg-green-500 mr-2"
+                                 th:text="${sesion.estadosSesion.nombre}">
+                            </div>
+                            <div th:if="${sesion.estadosSesion.nombre == 'PENDIENTE'}"
+                                 class="h-2.5 w-2.5 rounded-full bg-yellow-500 mr-2"
+                                 th:text="${sesion.estadosSesion.nombre}">
+                            </div>
+                            <div th:if="${sesion.estadosSesion.nombre == 'CANCELADA'}"
+                                 class="h-2.5 w-2.5 rounded-full bg-red-500 mr-2"
+                                 th:text="${sesion.estadosSesion.nombre}">
+                            </div>
+                        </div>
+                    </td>
+
                     <td class="px-6 py-3 text-center">
                         <a th:href="@{/lista-sesiones/} + ${sesion.nroSesion}"
-                           class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</a>
+                           class="flex mx-auto items-center justify-center px-2 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-lg active:bg-blue-700 hover:bg-blue-700 focus:outline-none focus:shadow-outline-green">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5"
+                                 viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                      d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125"></path>
+                            </svg>
+                        </a>
                     </td>
-                </tr>
-                <!--                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">-->
-                <!--                    <td class="px-6 py-3">-->
-                <!--                        2-->
-                <!--                    </td>-->
-                <!--                    <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">-->
-                <!--                        Rodriguez Pedro-->
-                <!--                    </th>-->
-                <!--                    <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">-->
-                <!--                        Ulises Gabriel-->
-                <!--                    </th>-->
-                <!--                    <td class="px-6 py-3">-->
-                <!--                        01/10/2023-->
-                <!--                    </td>-->
-                <!--                    <td class="px-6 py-3">-->
-                <!--                        16:30 pm-->
-                <!--                    </td>-->
-                <!--                    <td class="px-6 py-3 text-center">-->
-                <!--                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</a>-->
-                <!--                    </td>-->
-                <!--                </tr>-->
-                <!--                <tr class="bg-white dark:bg-gray-800">-->
-                <!--                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">-->
-                <!--                    <td class="px-6 py-3">-->
-                <!--                        3-->
-                <!--                    </td>-->
-                <!--                    <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">-->
-                <!--                        Sanchez Micaela-->
-                <!--                    </th>-->
-                <!--                    <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">-->
-                <!--                        Puerta Juan-->
-                <!--                    </th>-->
-                <!--                    <td class="px-6 py-3">-->
-                <!--                        01/10/2023-->
-                <!--                    </td>-->
-                <!--                    <td class="px-6 py-3">-->
-                <!--                        16:30 pm-->
-                <!--                    </td>-->
-                <!--                    <td class="px-6 py-3 text-center">-->
-                <!--                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</a>-->
-                <!--                    </td>-->
-                <!--                </tr>-->
+                    <td class="px-6 py-3 text-center">
+                        <a th:href="@{/eliminar-sesion/} + ${sesion.nroSesion}"
+                           class="flex mx-auto items-center justify-center px-2 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg active:bg-blue-700 hover:bg-blue-700 focus:outline-none focus:shadow-outline-green">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5"
+                                 viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                      d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"></path>
+                            </svg>
+                        </a>
+                    </td>
                 </tr>
                 </tbody>
             </table>

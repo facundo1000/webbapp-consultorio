@@ -15,9 +15,18 @@ INSERT INTO paciente (dni, apellido, nombre, direccion, fecha_de_nacimiento, sex
 
 -- Insertar datos de secretario
 INSERT INTO secretario (dni,apellido,nombre,direccion,fecha_de_nacimiento,sexo, telefono, eliminado,tipo_doc) VALUES (40357159,'baez','paola','alvear 1234','1994-06-28','FEMENINO','3764796431',false,'PASAPORTE');
+INSERT INTO secretario (dni, apellido, nombre, direccion, fecha_de_nacimiento, sexo, telefono, eliminado, tipo_doc) VALUES (30159756, 'perez', 'juan', 'calle 5678', '1990-03-15', 'MASCULINO', '1234567890', false, 'DNI');
 
 -- Insertar datos de sesion
-INSERT INTO sesion (nro_sesion,fecha,hora,psicologo_dni,paciente_dni, eliminado) VALUES (12,'2023-08-10','16:30',40356896,34789654, false);
+INSERT INTO sesion (nro_sesion,fecha,hora,psicologo_dni,paciente_dni, eliminado,estado) VALUES (12,'2023-08-10','16:30',40356896,34789654, false,'REALIZADA');
+INSERT INTO sesion (nro_sesion,fecha,hora,psicologo_dni,paciente_dni, eliminado,estado) VALUES (11,'2022-07-11','14:00',12345678,39789654, false,'PENDIENTE');
+INSERT INTO sesion (nro_sesion,fecha,hora,psicologo_dni,paciente_dni, eliminado,estado) VALUES (13,'2023-10-22','17:00',87654321,12345678, false,'CANCELADA');
+
+-- Insertar informe de sesion
+INSERT INTO informe_sesion (fecha_informe,hora_informe,analisis,notas,conclusion,eliminado,sesion_nro_sesion) VALUES ('2023-03-01', '08:30','descripcion de prueba','informacion de las notas','informacion de la conclusion',false,12);
+
+
+
 
 -- relacion paciente_psicologo
 
