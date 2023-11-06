@@ -5,6 +5,8 @@ import edu.unam.webbapp.consultorio.model.Sesion;
 import edu.unam.webbapp.consultorio.services.impl.PacienteServiceImpl;
 import edu.unam.webbapp.consultorio.services.SesionService;
 import jakarta.validation.Valid;
+
+import java.time.LocalDate;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -75,6 +77,7 @@ public class SesionController {
   @PostMapping("/form-sesiones")
   public String guardar(
       @RequestParam("paciente") Paciente paciente,
+      @RequestParam(name = "fecha")LocalDate fecha,
       @Valid Sesion sesion,
       BindingResult result,
       Model model,
@@ -89,7 +92,7 @@ public class SesionController {
 
     sesion.setPsicologo(paciente.getPsicologo());
 
-    service.save(sesion);
+    service.save(service.sesionStatus(fecha,sesion));
     status.setComplete();
     return "redirect:/";
   }

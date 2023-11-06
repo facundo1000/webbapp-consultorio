@@ -1,5 +1,6 @@
 package edu.unam.webbapp.consultorio.model;
 
+import edu.unam.webbapp.consultorio.utils.EstadosSesion;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotNull;
@@ -61,6 +62,9 @@ public class Sesion implements Serializable {
   @NotNull
   private Paciente paciente;
 
+//  @OneToOne
+//  private InformeSesion informeSesion;
+
   /**
    * <p>
    *   Valor que justifica si la sesion a sido eliminada,
@@ -68,6 +72,11 @@ public class Sesion implements Serializable {
    * </p>
    */
   private Boolean eliminado;
+
+  @NotNull
+  @Column(name = "estado")
+  @Enumerated(EnumType.STRING)
+  private EstadosSesion estadosSesion;
 
   /**
    * <p>

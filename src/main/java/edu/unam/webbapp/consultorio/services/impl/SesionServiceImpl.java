@@ -2,9 +2,15 @@ package edu.unam.webbapp.consultorio.services.impl;
 
 import edu.unam.webbapp.consultorio.model.Sesion;
 import edu.unam.webbapp.consultorio.repository.SesionRepositorio;
+
+import java.time.LocalDate;
+import java.time.chrono.ChronoLocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
 import java.util.List;
 
 import edu.unam.webbapp.consultorio.services.SesionService;
+import edu.unam.webbapp.consultorio.utils.EstadosSesion;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -79,5 +85,18 @@ public class SesionServiceImpl implements SesionService {
   public void deleteById(Integer id) {
     Sesion sesion = repo.findById(id).orElseThrow();
     sesion.setEliminado(true);
+  }
+
+  @Override
+  public Sesion sesionStatus(LocalDate fecha, Sesion sesion) {
+    if(fecha.isAfter(LocalDate.now())){
+      sesion.setEstadosSesion(EstadosSesion.PENDIENTE);
+    }
+
+    //Esto deberia llevar un metodo un metodo un metodo automatico que esté pendiente del horario del sistema
+    if(fecha.isBefore(LocalDate.now())){
+      sesion.setEstadosSesion(EstadosSesion.REALIZADA);
+    }
+    return sesion;
   }
 }
