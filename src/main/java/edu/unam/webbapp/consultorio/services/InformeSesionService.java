@@ -41,4 +41,6 @@ public interface InformeSesionService {
      * @param id número de identificación de una sesion
      */
     void deleteById(Integer id);
+
+    InformeSesion createInformeSesion(Integer id);
 }
