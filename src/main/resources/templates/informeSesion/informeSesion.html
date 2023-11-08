@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="head">
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8"/>
+    <link rel="icon" type="image/svg+xml" href="/vite.svg"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
     <!-- CDN TailwindCSS-->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -15,7 +15,7 @@
         };
     </script>
     <!-- CDN FlowbyteCSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.css"  rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.css" rel="stylesheet"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
     <title th:text="${Titulo}"></title>
 </head>
@@ -39,61 +39,80 @@
                 </svg>
             </button>
         </div>
-        <form th:action="@{/informe-sesion}" th:object="${informeSesion}" method="post"
-              class="p-5 border-gray-200 dark:border-gray-700 dark:bg-gray-900">
+
             <h2 class="text-xl pb-4 text-gray-900 dark:text-white">Consultando el informe de la sesión:</h2>
             <div class="grid md:grid-cols-4 md:gap-6">
-
                 <div class="relative z-0 w-full mb-6 group">
                     <p class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Paciente:</p>
-                    <p th:field="*{paciente}" name="pacienteNombreApellido" id="nombreApellido" class="text-lg font-semibold">Nombre y apellido</p>
+                    <p th:text="${#strings.toUpperCase(informe.sesion.paciente.nombre)} + ' ' + ${#strings.toUpperCase(informe.sesion.paciente.apellido)}" name="pacienteNombreApellido" id="nombreApellido"
+                       class="text-lg font-semibold"></p>
                 </div>
                 <div class="relative z-0 w-full mb-6 group">
                     <p class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Genero:</p>
-                    <p th:field="*{sexo}" name="pacienteGenero" id="sexo" class="text-lg font-semibold">genero</p>
+                    <p  th:text="${#strings.toUpperCase(informe.sesion.paciente.sexo)}" name="pacienteGenero" id="sexo" class="text-lg font-semibold"></p>
                 </div>
                 <div class="relative z-0 w-full mb-6 group">
                     <p class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Nro. Documento:</p>
-                    <p th:field="*{dni}" name="pacienteDni" id="dni" class="text-lg font-semibold">nro doc</p>
+                    <p th:text="${#strings.toUpperCase(informe.sesion.paciente.dni)}" name="pacienteDni" id="dni" class="text-lg font-semibold"></p>
                 </div>
                 <div class="relative z-0 w-full mb-6 group">
                     <p class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Fecha de nacimiento:</p>
-                    <p th:field="*{fechaDeNacimiento}" name="pacienteFechaDeNacimiento" id="fechaDeNacimiento" class="text-lg font-semibold">fecha</p>
+                    <p th:text="${#strings.toUpperCase(informe.sesion.paciente.fechaDeNacimiento)}" name="pacienteFechaDeNacimiento" id="fechaDeNacimiento" class="text-lg font-semibold"></p>
                 </div>
                 <div class="relative z-0 w-full mb-6 group">
                     <p class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Ocupación:</p>
-                    <p th:field="*{ocupacion}" name="pacienteOcupacion" id="ocupacion" class="text-lg font-semibold">ocupacion</p>
+                    <p th:text="${#strings.toUpperCase(informe.sesion.paciente.ocupacion)}" name="pacienteOcupacion" id="ocupacion" class="text-lg font-semibold"></p>
                 </div>
                 <div class="relative z-0 w-full mb-6 group">
                     <p class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Estado civil:</p>
-                    <p th:field="*{estadoCivil}" name="pacienteEstadoCivil" id="estadoCivil" class="text-lg font-semibold">estadoCiv</p>
+                    <p th:text="${#strings.toUpperCase(informe.sesion.paciente.estadoCivil)}" name="pacienteEstadoCivil" id="estadoCivil" class="text-lg font-semibold"></p>
                 </div>
                 <div class="relative z-0 w-full mb-6 group">
                     <p class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Dirección:</p>
-                    <p th:field="*{direccion}" name="pacienteDireccion" id="direccion" class="text-lg font-semibold">direccion</p>
+                    <p th:text="${#strings.toUpperCase(informe.sesion.paciente.direccion)}" name="pacienteDireccion" id="direccion" class="text-lg font-semibold"></p>
                 </div>
                 <div class="relative z-0 w-full mb-6 group">
                     <p class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Teléfono:</p>
-                    <p th:field="*{telefono}" name="pacienteTelefono" id="telefono" class="text-lg font-semibold">telefono</p>
+                    <p th:text="${#strings.toUpperCase(informe.sesion.paciente.telefono)}" name="pacienteTelefono" id="telefono" class="text-lg font-semibold"></p>
                 </div>
-
             </div>
+
+        <form th:action="@{/informe/} + ${informe.sesion.nroSesion}" th:object="${informe}" method="post"
+              class="p-5 border-gray-200 dark:border-gray-700 dark:bg-gray-900">
             <div class="w-full bg-gray-400 h-[1px] mb-4 mt-4"></div> <!-- Divisor de pagina -->
             <h2 class="text-xl pb-4 text-gray-900 dark:text-white">Datos de la sesión:</h2>
-            <label for="analisis" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"><span class="text-sm font-medium text-red-600">* </span>Analisis:</label>
-            <textarea id="analisis" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Escriba sus pensamientos aqui..."></textarea>
+            <label for="analisis" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"><span
+                    class="text-sm font-medium text-red-600">* </span>Analisis:</label>
+            <textarea id="analisis" name="analisis" rows="4" th:field="*{analisis}"
+                      class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      placeholder="Escriba sus pensamientos aqui..." required></textarea>
+
             <div class="w-full bg-gray-400 h-[1px] mb-4 mt-4"></div> <!-- Divisor de pagina -->
             <label for="tareas" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tareas:</label>
-            <textarea id="tareas" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Escriba sus pensamientos aqui..."></textarea>
+            <textarea id="tareas" name="tareas" rows="4" th:field="*{tareas}"
+                      class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      placeholder="Escriba sus pensamientos aqui..."></textarea>
+
             <div class="w-full bg-gray-400 h-[1px] mb-4 mt-4"></div> <!-- Divisor de pagina -->
             <label for="notas" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Notas:</label>
-            <textarea id="notas" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Escriba sus pensamientos aqui..."></textarea>
+            <textarea id="notas" name="notas" rows="4" th:field="*{notas}"
+                      class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      placeholder="Escriba sus pensamientos aqui..."></textarea>
+
             <div class="w-full bg-gray-400 h-[1px] mb-4 mt-4"></div> <!-- Divisor de pagina -->
-            <label for="conlusion" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Conclusión:</label>
-            <textarea id="conlusion" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Escriba sus pensamientos aqui..."></textarea>
-            <button type="submit" class="mt-4 bg-green-600 text-white inline-flex items-center hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:hover:bg-primary-700 dark:focus:ring-primary-800 ">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            <label for="conlusion"
+                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Conclusión:</label>
+            <textarea id="conlusion" name="conclusion" rows="4" th:field="*{conclusion}"
+                      class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      placeholder="Escriba sus pensamientos aqui..."></textarea>
+
+            <button type="submit"
+                    th:disabled="${textBolean}"
+                    class="mt-4 bg-green-600 text-white inline-flex items-center hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:hover:bg-primary-700 dark:focus:ring-primary-800 ">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                     stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                 </svg>
                 Guardar informe de sesión
             </button>

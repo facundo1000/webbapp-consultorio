@@ -29,7 +29,6 @@ public class InformeSesion {
 
     //Hora de la sesion
     @Column(name = "hora_informe")
-
     @DateTimeFormat(pattern = "HH:mm")
     private LocalTime horaSesion;
 

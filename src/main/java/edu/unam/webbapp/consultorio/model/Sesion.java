@@ -62,7 +62,7 @@ public class Sesion implements Serializable {
   @NotNull
   private Paciente paciente;
 
-  @OneToOne(cascade = {CascadeType.MERGE,CascadeType.PERSIST},mappedBy = "sesion")
+  @OneToOne(mappedBy = "sesion")
   private InformeSesion informeSesion;
 
   /**
