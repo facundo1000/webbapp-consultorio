@@ -1,10 +1,6 @@
 package edu.unam.webbapp.consultorio.model;
 
-import edu.unam.webbapp.consultorio.utils.TipoDeDescripcion;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PastOrPresent;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.temporal.TemporalUnit;
 
 @Entity
 @Setter
@@ -20,10 +17,7 @@ import java.time.LocalTime;
 @Table(name = "informe_sesion")
 public class InformeSesion {
 
-    //TODO: Solucionar validacion con id.
-    //Identificador unico de un informe
     @Id
-    @NotNull
     @Column(name = "id_informe")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idInforme;
@@ -31,26 +25,23 @@ public class InformeSesion {
     //Fecha de la sesion
     @Column(name = "fecha_informe")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @NotNull
     private LocalDate fechaSesion;
 
     //Hora de la sesion
     @Column(name = "hora_informe")
-    @PastOrPresent
-    @NotNull
     @DateTimeFormat(pattern = "HH:mm")
     private LocalTime horaSesion;
 
-
-    @NotEmpty
-    @Column(nullable = false)
     private String analisis;
 
     private String notas;
 
     private String conclusion;
 
+    private String tareas;
+
     @OneToOne
+    @JoinColumn(name = "sesion_id")
     private Sesion sesion;
 
 //    @Enumerated(EnumType.STRING)
@@ -75,5 +66,9 @@ public class InformeSesion {
     @PrePersist
     public void prePersist() {
         eliminado = Boolean.FALSE;
+        fechaSesion = LocalDate.now();
+        horaSesion = LocalTime.now();
     }
+
+
 }

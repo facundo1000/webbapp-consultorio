@@ -24,7 +24,6 @@ import org.springframework.web.bind.support.SessionStatus;
 public class SesionController {
 
   private final SesionService service;
-//  private final PersonaService<Psicologo> psicoService;
   private final PacienteServiceImpl pasService;
 
   /**
@@ -89,7 +88,6 @@ public class SesionController {
 
     paciente.getPsicologo().addSesion(sesion);
     paciente.addSesion(sesion);
-
     sesion.setPsicologo(paciente.getPsicologo());
 
     service.save(service.sesionStatus(fecha,sesion));

@@ -62,8 +62,8 @@ public class Sesion implements Serializable {
   @NotNull
   private Paciente paciente;
 
-//  @OneToOne
-//  private InformeSesion informeSesion;
+  @OneToOne(mappedBy = "sesion")
+  private InformeSesion informeSesion;
 
   /**
    * <p>

@@ -23,7 +23,7 @@ INSERT INTO sesion (nro_sesion,fecha,hora,psicologo_dni,paciente_dni, eliminado,
 INSERT INTO sesion (nro_sesion,fecha,hora,psicologo_dni,paciente_dni, eliminado,estado) VALUES (13,'2023-10-22','17:00',87654321,12345678, false,'CANCELADA');
 
 -- Insertar informe de sesion
-INSERT INTO informe_sesion (fecha_informe,hora_informe,analisis,notas,conclusion,eliminado,sesion_nro_sesion) VALUES ('2023-03-01', '08:30','descripcion de prueba','informacion de las notas','informacion de la conclusion',false,12);
+INSERT INTO informe_sesion (fecha_informe,hora_informe,analisis,notas,conclusion,tareas,eliminado,sesion_id) VALUES ('2023-03-01', '08:30','descripcion de prueba','informacion de las notas','informacion de la conclusion','esto es una tarea',false,12);
 
 
 
