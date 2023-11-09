@@ -102,6 +102,6 @@ public class PacienteController {
         if (id > 0) {
             service.deleteById(id);
         }
-        return "redirect:/abm-paciente";
+        return "redirect:/abm-pacientes";
     }
 }
