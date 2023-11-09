@@ -26,15 +26,19 @@ public class PsicologoController {
 
   private final PersonaService<Psicologo> service;
 
-  @GetMapping("/lista-psicologos")
+  @GetMapping("/abm-psicologo")
   public String listar(Model model) {
-
-    model.addAttribute("titulo", "Listado de Psicologos");
+//    model.addAttribute("titulo", "Listado de Psicologos");
     model.addAttribute("psicologos", service.findAll());
-
-    return "psicologo/psicologosLista";
+    model.addAttribute("titulo", "Crear Psicologo");
+    model.addAttribute("especialidades", Especialidad.values());
+    model.addAttribute("tipos", TipoDocumento.values());
+    model.addAttribute("sexos", Sexo.values());
+    model.addAttribute("psicologo", new Psicologo());
+    return "psicologo/abmPsicologo";
   }
 
+  /*
   @GetMapping("/form-psicologo")
   public String crear(Model model) {
     model.addAttribute("titulo", "Crear Psicologo");
@@ -45,6 +49,8 @@ public class PsicologoController {
     return "psicologo/formPsicologo";
   }
 
+   */
+
   @PostMapping("/form-psicologo")
   public String guardar(
       @Valid Psicologo psicologo, BindingResult result, Model model, SessionStatus status) {
@@ -54,16 +60,17 @@ public class PsicologoController {
       model.addAttribute("especialidades", Especialidad.values());
       model.addAttribute("tipos", TipoDocumento.values());
       model.addAttribute("sexos", Sexo.values());
-      return "psicologo/formPsicologo";
+      model.addAttribute("psicologos", service.findAll());
+      return "psicologo/abmPsicologo";
     }
 
     service.save(psicologo);
     status.setComplete();
-    return "redirect:/lista-psicologos";
+    return "redirect:/abm-psicologo";
   }
 
-  //TODO: en produccion cuando editas un psicologo te crea un registro nuevo con los mismos datos
-  @GetMapping("/form-psicologo/{id}")
+
+  @GetMapping("/edit-psicologo/{id}")
   public String editar(@PathVariable("id") Integer id, Model model) {
     Psicologo psicologo;
 
@@ -73,11 +80,12 @@ public class PsicologoController {
       model.addAttribute("especialidades", Especialidad.values());
       model.addAttribute("tipos", TipoDocumento.values());
       model.addAttribute("sexos", Sexo.values());
-      model.addAttribute("psicologo", psicologo);
-      return "psicologo/formPsicologo";
+      model.addAttribute("psicologos", service.findAll());
     } else {
-      return "redirect:/lista-psicologos";
+      return "redirect:/abm-psicologo";
     }
+    model.addAttribute("psicologo", psicologo);
+    return "psicologo/abmPsicologo";
   }
 
   @GetMapping("/eliminar-psicologo/{id}")
@@ -85,7 +93,7 @@ public class PsicologoController {
     if(id > 0){
       service.deleteById(id);
     }
-    return "redirect:/lista-psicologos";
+    return "redirect:/abm-psicologo";
   }
 
 

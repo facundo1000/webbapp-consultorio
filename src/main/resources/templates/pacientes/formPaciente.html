@@ -25,14 +25,14 @@
                         <div class="col-sm-6">
                             <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     id="tipo" th:field="*{tipoDoc}"
-                                    th:errorclass="'form-control alert-danger'">
+                                    th:errorclass="'bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-red-100 dark:border-red-400'">
                                 <option value="">---Seleccionar---</option>
                                 <option th:each="tipo : ${tipos}" th:text="${tipo.nombre}"
                                         th:value="${tipo.nombre}"></option>
                             </select>
                         </div>
                         <div>
-                            <small class="form-text text-danger" th:if="${#fields.hasErrors('tipoDoc')}"
+                            <small class="mt-2 text-sm text-red-600 dark:text-red-500" th:if="${#fields.hasErrors('tipoDoc')}"
                                    th:errors="*{tipoDoc}"></small>
                         </div>
                     </div>
@@ -180,7 +180,7 @@
                             <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     id="psicologo" name="psicologo"
                                     th:errorclass="'form-control alert-danger'">
-                                <option value="">---Seleccionar---</option>
+                                <option value=" ">---Seleccionar---</option>
                                 <option th:each="psico : ${psicologos}"
                                         th:text="${psico.nombre} +'  '+ ${psico.apellido} +'  '+ ${psico.especialidad}"
                                         th:value="${psico.dni}"></option>

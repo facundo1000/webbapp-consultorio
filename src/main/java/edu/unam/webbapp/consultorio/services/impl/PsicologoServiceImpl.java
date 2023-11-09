@@ -4,6 +4,7 @@ import edu.unam.webbapp.consultorio.model.Psicologo;
 import edu.unam.webbapp.consultorio.repository.PsicologoRepository;
 import edu.unam.webbapp.consultorio.services.PersonaService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -74,5 +75,10 @@ public class PsicologoServiceImpl implements PersonaService<Psicologo> {
       psicologo.setEliminado(true);
       repo.save(psicologo);
     }
+  }
+
+  @Override
+  public Page<Psicologo> getPageData(int page, int pageSize) {
+    return null;
   }
 }

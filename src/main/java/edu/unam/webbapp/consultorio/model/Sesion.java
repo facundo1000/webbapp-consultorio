@@ -1,6 +1,8 @@
 package edu.unam.webbapp.consultorio.model;
 
+import edu.unam.webbapp.consultorio.utils.EstadosSesion;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serial;
 import java.io.Serializable;
@@ -36,12 +38,14 @@ public class Sesion implements Serializable {
    */
   @NotNull
   @DateTimeFormat(pattern = "yyyy-MM-dd")
+  @FutureOrPresent
   private LocalDate fecha;
 
   /**
    * Hora en la cual se hará la sesion
    */
   @NotNull
+  @DateTimeFormat(pattern = "HH:mm")
   private LocalTime hora;
 
   /**
@@ -58,6 +62,9 @@ public class Sesion implements Serializable {
   @NotNull
   private Paciente paciente;
 
+  @OneToOne(mappedBy = "sesion")
+  private InformeSesion informeSesion;
+
   /**
    * <p>
    *   Valor que justifica si la sesion a sido eliminada,
@@ -65,6 +72,11 @@ public class Sesion implements Serializable {
    * </p>
    */
   private Boolean eliminado;
+
+  @NotNull
+  @Column(name = "estado")
+  @Enumerated(EnumType.STRING)
+  private EstadosSesion estadosSesion;
 
   /**
    * <p>
