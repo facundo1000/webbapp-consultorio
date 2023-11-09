@@ -41,7 +41,6 @@ public class InformeSesionController {
         }
 
 
-
         Sesion sesion = sesionService.findById(id);
         informe.setAnalisis(analisis);
         informe.setTareas(tareas);
