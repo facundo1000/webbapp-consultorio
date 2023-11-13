@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
-@SessionAttributes
+@SessionAttributes("informe")
 public class InformeSesionController {
 
     private final InformeSesionServiceImpl service;
@@ -22,6 +22,9 @@ public class InformeSesionController {
     public String crearInforme(@PathVariable Integer id, Model model) {
         InformeSesion informe = service.createInformeSesion(id);
         model.addAttribute("informe", informe);
+//        model.addAttribute("boton",true);
+        model.addAttribute("boton",service.existeInformeSesion(id));
+
         return "informeSesion/informeSesion";
     }
 
