@@ -43,4 +43,6 @@ public interface InformeSesionService {
     void deleteById(Integer id);
 
     InformeSesion createInformeSesion(Integer id);
+
+    Boolean existeInformeSesion(Integer id);
 }

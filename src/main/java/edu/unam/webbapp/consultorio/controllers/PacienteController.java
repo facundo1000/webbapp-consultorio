@@ -14,7 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
-
 /**
  * Clase PacienteController
  * @author Andre,Gelabert; Pavon, Gabriel; Martinez, Facundo
@@ -103,6 +102,6 @@ public class PacienteController {
         if (id > 0) {
             service.deleteById(id);
         }
-        return "redirect:/abm-paciente";
+        return "redirect:/abm-pacientes";
     }
 }
