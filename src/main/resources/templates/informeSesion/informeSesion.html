@@ -91,7 +91,7 @@
             <h2 class="text-xl pb-4 text-gray-900 dark:text-white">Datos de la sesión:</h2>
             <label for="analisis" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"><span
                     class="text-sm font-medium text-red-600">* </span>Analisis:</label>
-            <textarea id="analisis" name="analisis" rows="4" th:field="*{analisis}"
+            <textarea id="analisis" name="analisis" rows="4" th:field="*{analisis}"  th:disabled="${boton}"
                       class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       placeholder="Escriba sus pensamientos aqui..." required></textarea>
 
@@ -115,7 +115,7 @@
                       placeholder="Escriba sus pensamientos aqui..."></textarea>
 
             <button type="submit" data-modal-toggle="popup-modal"
-                    th:disabled="${textBolean}"
+                     id="submitButton" th:disabled="${boton}"
                     class="mt-4 bg-green-600 text-white inline-flex items-center hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:hover:bg-primary-700 dark:focus:ring-primary-800 ">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                      stroke="currentColor" class="w-6 h-6">
@@ -159,10 +159,15 @@
                     </div>
                 </div>
             </div>
-
         </form>
     </div>
 </main>
 </body>
+
+
+
+
+
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
 </html>

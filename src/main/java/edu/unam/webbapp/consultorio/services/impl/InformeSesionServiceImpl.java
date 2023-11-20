@@ -64,4 +64,16 @@ public class InformeSesionServiceImpl implements InformeSesionService {
         return informe;
     }
 
+    @Override
+    public Boolean existeInformeSesion(Integer id) {
+        Optional<Sesion> sesion = repoSesion.findById(id);
+
+        if(sesion.isPresent()){
+            if(sesion.get().getInformeSesion() != null){
+                InformeSesion informeSesion = repo.getInformeSesionBySesion_NroSesion(id).orElseThrow();
+                return informeSesion.equals(sesion.get().getInformeSesion());
+            }
+        }
+        return null;
+    }
 }

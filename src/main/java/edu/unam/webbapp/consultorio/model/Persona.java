@@ -69,6 +69,7 @@ public class Persona implements Serializable {
 
   @NotEmpty
   @Column(length = 100)
+  @Pattern(regexp = "^[0-9]+$", message = "coloque un numero de telefono")
   private String telefono;
 
   /**
