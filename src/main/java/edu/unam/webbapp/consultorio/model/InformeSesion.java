@@ -9,7 +9,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.temporal.TemporalUnit;
-
+/**
+ * Clase InformeSesion
+ * @author Andre,Gelabert; Pavon, Gabriel; Martinez, Facundo
+ */
 @Entity
 @Setter
 @Getter
@@ -44,9 +47,10 @@ public class InformeSesion {
     @JoinColumn(name = "sesion_id")
     private Sesion sesion;
 
-//    @Enumerated(EnumType.STRING)
-//    @Column(name = "tipo_descripcion")
-//    private TipoDeDescripcion tipoDeDescripcion;
+    @ManyToOne
+    @JoinColumn(name = "historia_id")
+    private HistoriaClinica historia;
+
 
     /**
      * <p>
