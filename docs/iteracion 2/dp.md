@@ -1,4 +1,4 @@
-# Trabajo en Equipo
+**# Trabajo en Equipo
 
 El líder del equipo en esta iteración será Pavon Gabriel. 
 El trabajo que realizará cada integrante es el siguiente:
@@ -73,7 +73,7 @@ Actor |                                                                         
 |   El Psicólogo redacta el informe escribiendo en el input de la descripción seleccionada    |
 |    El psicólogo hace clic sobre el botón “registrar informe”       |                                                                                                                                                                                            
      El usuario ingresa la fecha en la que se realizará la sesión.   |                                                                                                                                                                                                                                                                      |
-|       |                                                                                                              El sistema registra el informe
+|       |                                                                                                              El sistema registra el informe**
 
 
 **Flujo Alternativo**:
