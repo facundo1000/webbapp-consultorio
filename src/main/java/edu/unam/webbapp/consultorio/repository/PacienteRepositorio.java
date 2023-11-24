@@ -4,9 +4,10 @@ import edu.unam.webbapp.consultorio.model.Paciente;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
- * Clase Persona (clase padre)
+ * Interface Persona (clase padre)
  * @author Andre,Gelabert; Pavon, Gabriel; Martinez, Facundo
  */
 public interface PacienteRepositorio extends JpaRepository<Paciente, Integer> {
@@ -17,4 +18,6 @@ public interface PacienteRepositorio extends JpaRepository<Paciente, Integer> {
      * @return un listado de pacientes
      */
     List<Paciente> findAllByEliminadoEquals(Boolean eliminado);
+
+    Optional<Paciente> findByDni(Integer dni);
 }
