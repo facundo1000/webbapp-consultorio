@@ -1,25 +1,6 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-<!-- <head th:replace="~{layout/layout :: head}"></head> -->
-<head th:fragment="head">
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <!-- CDN TailwindCSS-->
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <!--    Tailwind Config-->
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-        };
-    </script>
-    <!-- CDN FlowbyteCSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.css"  rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
-    <title th:text="${Titulo}"></title>
-</head>
+<head th:replace="~{layout/layout :: head}"></head>
 <body>
 <header th:replace="~{layout/layout :: header}"></header>
 <aside th:replace="~{layout/layout :: sidebar}"></aside>
