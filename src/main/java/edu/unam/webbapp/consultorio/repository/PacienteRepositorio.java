@@ -19,5 +19,11 @@ public interface PacienteRepositorio extends JpaRepository<Paciente, Integer> {
      */
     List<Paciente> findAllByEliminadoEquals(Boolean eliminado);
 
+    /**
+     * Funcion que sirve para encontrar un paciente a partir de su dni.
+     * @param dni numero entero dni
+     * @return un paciente
+     */
+
     Optional<Paciente> findByDni(Integer dni);
 }
