@@ -72,23 +72,24 @@
                 <tbody>
                 <tr th:each="informe: ${informes}"
                     class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                    <td th:text="${informe.sesion.paciente.tipoDoc}"
-                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"></td>
-                    <td class="px-6 py-4"  th:text="${informe.sesion.paciente.dni}"></td>
-                    <td class="px-6 py-4"  th:text="${informe.sesion.paciente.nombre} + ' ' + ${informe.sesion.paciente.apellido}"></td>
-                    <td class="px-6 py-4" th:text="${informes.size()}" ></td>
-                    <td class="px-6 py-4"  th:text="${informe.sesion.psicologo.nombre} + ' ' + ${informe.sesion.psicologo.apellido}"></td>
-                    <td class="px-4 py-2 font-medium flex flex-row text-gray-900 whitespace-nowrap dark:text-white">
-<!--                        <a th:href="@{/edit-psicologo/} + ${psico.dni}"-->
-<!--                           class="flex mx-auto items-center justify-center px-2 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-lg active:bg-blue-700 hover:bg-blue-700 focus:outline-none focus:shadow-outline-green">-->
-<!--                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5"-->
-<!--                                 viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">-->
-<!--                                <path stroke-linecap="round" stroke-linejoin="round"-->
-<!--                                      d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125"></path>-->
-<!--                            </svg>-->
-<!--                        </a>-->
+                    <div th:each="info :${informe.informeSesions}">
 
-                    </td>
+                        <td th:text="${info.sesion.paciente.tipoDoc}"
+                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"></td>
+                        <td class="px-6 py-4" th:text="${info.sesion.paciente.dni}"></td>
+                        <td class="px-6 py-4"
+                            th:text="${info.sesion.paciente.nombre} + ' ' + ${info.sesion.paciente.apellido}"></td>
+                        <td class="px-6 py-4" th:text="${informe.informeSesions.size()}"></td>
+                        <td class="px-6 py-4"
+                            th:text="${info.sesion.psicologo.nombre} + ' ' + ${info.sesion.psicologo.apellido}"></td>
+                        <td class="px-4 py-2 font-medium flex flex-row text-gray-900 whitespace-nowrap dark:text-white">
+                            <a th:href="@{/informe-detalle/} + ${info.sesion.paciente.dni}"
+                               class="flex mx-auto items-center justify-center px-2 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-lg active:bg-blue-700 hover:bg-blue-700 focus:outline-none focus:shadow-outline-green">
+                                Detalle
+                            </a>
+
+                        </td>
+                    </div>
 
                 </tr>
                 </tbody>
@@ -100,10 +101,6 @@
     </div>
 </main>
 </body>
-
-
-
-
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
