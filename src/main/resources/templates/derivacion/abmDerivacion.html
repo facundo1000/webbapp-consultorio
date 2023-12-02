@@ -185,6 +185,9 @@
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th scope="col" class="px-6 py-3">
+                        Psicologo Emisor
+                    </th>
+                    <th scope="col" class="px-6 py-3">
                         Documento del paciente
                     </th>
                     <th scope="col" class="px-6 py-3">
@@ -214,6 +217,7 @@
                 <tr th:each="derivacion : ${pageData.content} "
                     class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
                     th:if="${derivacion.eliminada != true}">
+                    <td class="px-6 py-4" th:text="${derivacion.psicologo.nombre} + ' ' + ${derivacion.psicologo.apellido}"></td>
                     <th th:text="${paciente.dni}" scope="row"
                         class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"></th>
                     <td class="px-6 py-4" th:text="${derivacion.paciente.nombre} + ' ' + ${derivacion.paciente.apellido}"></td>
