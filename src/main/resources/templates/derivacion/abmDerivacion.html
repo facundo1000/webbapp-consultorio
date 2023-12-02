@@ -40,6 +40,19 @@
             <h2 th:text="${titulo}" class="text-xl pb-4 text-gray-900 dark:text-white"></h2>
             <div class="grid md:grid-cols-5 md:gap-6"> <!-- selector de paciente conectado con el controlador -->
                 <div class="relative z-0 w-full mb-6 group">
+                    <select name="flotantePaciente" id="psicologoemisor" th:field="*{psicoEmisor}"
+                            th:errorclass="'form-control alert-danger'"
+                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" required>
+                        <option value="">---Seleccionar---</option>
+                        <option th:each="Psicologo : ${psicoEmisor}"
+                                th:text="${psicoEmisor.nombre} +'  '+ ${psicoEmisor.apellido} +'  '+ ${psicoEmisor.dni}"
+                                th:value="${psicoEmisor.dni}"></option>
+                    </select>
+                    <label for="psicologoemisor"
+                           class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                        Psicologo emisor</label>
+                </div>
+                <div class="relative z-0 w-full mb-6 group">
                     <select name="flotantePaciente" id="paciente" th:field="*{paciente}"
                             th:errorclass="'form-control alert-danger'"
                             class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" required>
@@ -98,14 +111,14 @@
                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                            placeholder=" " required/>
                     <label for="dni"
-                           class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Número
+                           class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Numero
                         de documento</label>
                     <p th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}"
                        class="font-medium mt-2 text-sm text-red-600 dark:text-red-500"></p>
                 </div>
 
             </div>
-            <h3 class="text-l pb-4 text-gray-900 dark:text-white">Clínica destinataria</h3>
+            <h3 class="text-l pb-4 text-gray-900 dark:text-white">Clinica destinataria</h3>
             <div class="grid md:grid-cols-2 md:gap-6">
                 <div class="grid md:grid-cols-2 md:gap-6">
                     <div class="relative z-0 w-full mb-6 group"> <!-- input del nombre de la clinica conectado con el controlador -->
@@ -114,7 +127,7 @@
                                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                placeholder=" " required/>
                         <label for="clinica"
-                               class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Clínica</label>
+                               class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Clinica</label>
                         <p th:if="${#fields.hasErrors('clinica')}" th:errors="*{clinica}"
                            class="font-medium mt-2 text-sm text-red-600 dark:text-red-500"></p>
                     </div>
@@ -125,7 +138,7 @@
                                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                placeholder=" " required/>
                         <label for="telefonoCli"
-                               class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Teléfono</label>
+                               class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Telefono</label>
                         <p th:if="${#fields.hasErrors('telefonoCli')}" th:errors="*{telefonoCli}"
                            class="font-medium mt-2 text-sm text-red-600 dark:text-red-500"></p>
                     </div>
@@ -136,7 +149,7 @@
                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                            placeholder=" " required/>
                     <label for="direccionCli"
-                           class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Dirección</label>
+                           class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Direccion</label>
                     <p th:if="${#fields.hasErrors('direccionCli')}" th:errors="*{direccionCli}"
                        class="font-medium mt-2 text-sm text-red-600 dark:text-red-500"></p>
                 </div>
@@ -151,7 +164,7 @@
                           d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
                           clip-rule="evenodd"></path>
                 </svg>
-                Registrar derivación
+                Registrar derivacion
             </button>
             <a th:href="@{/lista-pacientes}" type="submit"
                class="text-white inline-flex items-center hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-yellow-600 dark:hover:bg-yellow-600 dark:focus:ring-yellow-800">
@@ -172,6 +185,9 @@
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th scope="col" class="px-6 py-3">
+                        Psicologo Emisor
+                    </th>
+                    <th scope="col" class="px-6 py-3">
                         Documento del paciente
                     </th>
                     <th scope="col" class="px-6 py-3">
@@ -184,13 +200,13 @@
                         Profesional destinatario
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Clínica destinataria
+                        Clinica destinataria
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Teléfono de la clinica
+                        Telefono de la clinica
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Dirección de la clinica
+                        Direccion de la clinica
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Acciones
@@ -201,6 +217,7 @@
                 <tr th:each="derivacion : ${pageData.content} "
                     class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
                     th:if="${derivacion.eliminada != true}">
+                    <td class="px-6 py-4" th:text="${derivacion.psicologo.nombre} + ' ' + ${derivacion.psicologo.apellido}"></td>
                     <th th:text="${paciente.dni}" scope="row"
                         class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"></th>
                     <td class="px-6 py-4" th:text="${derivacion.paciente.nombre} + ' ' + ${derivacion.paciente.apellido}"></td>

@@ -55,6 +55,14 @@ public class Psicologo extends Persona implements Serializable {
       uniqueConstraints = @UniqueConstraint(columnNames = {"psicologo_id", "sesion_id"}))
   private Set<Sesion> sesions;
 
+  @OneToMany
+  @JoinTable(
+          name = "tbl_psicologo_derivaciones",
+          joinColumns = @JoinColumn(name = "psicologo_id"),
+          inverseJoinColumns = @JoinColumn(name = "derivacion_id"),
+          uniqueConstraints = @UniqueConstraint(columnNames = {"psicologo_id", "derivacion_id"}))
+  private List<Derivacion> derivacions;
+
   /**
    * Funcion que agrega un paciente a una lista
    * @param paciente un objeto paciente
@@ -109,6 +117,14 @@ public class Psicologo extends Persona implements Serializable {
     for (Sesion s : sesions) {
       removeSesion(s);
     }
+  }
+
+  public void agregarDerivacion(Derivacion derivacion){
+    this.derivacions.add(derivacion);
+  }
+
+  public void removerDerivacion(Derivacion derivacion){
+    this.derivacions.remove(derivacion);
   }
 
   @Serial private static final long serialVersionUID = 5396190148242599611L;

@@ -61,6 +61,10 @@ public class Paciente extends Persona implements Serializable {
   private Set<Sesion> sesions = new HashSet<>();
 
 
+  @OneToOne(mappedBy = "paciente")
+  private Derivacion derivacion;
+
+
   /**
    * Funcion para agregar una sesion a la lista de sesiones
    * @param sesion un objeto sesion
