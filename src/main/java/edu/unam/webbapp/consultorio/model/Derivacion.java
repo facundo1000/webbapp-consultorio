@@ -45,6 +45,6 @@ public class Derivacion {
 
     private String descripcion;
 
-    @OneToOne(mappedBy = "derivacion")
+    @OneToOne
     private Paciente paciente;
 }

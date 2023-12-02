@@ -61,7 +61,7 @@ public class Paciente extends Persona implements Serializable {
   private Set<Sesion> sesions = new HashSet<>();
 
 
-  @OneToOne
+  @OneToOne(mappedBy = "paciente")
   private Derivacion derivacion;
 
 
