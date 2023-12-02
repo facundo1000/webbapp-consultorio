@@ -26,6 +26,12 @@ public class InformeSesionController {
         return "informeSesion/informeSesion";
     }
 
+    @GetMapping("informe-mostrar/{id}")
+    public String buscarInforme(@PathVariable Integer id, Model model){
+        model.addAttribute("informe",service.findById(id));
+        return "informeSesion/informeSesion";
+    }
+
     @PostMapping("/informe/{id}")
     public String enviarInforme(@RequestParam("analisis") String analisis,
                                 @RequestParam("tareas") String tareas,
