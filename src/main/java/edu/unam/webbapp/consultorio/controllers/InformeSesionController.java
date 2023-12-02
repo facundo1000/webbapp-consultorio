@@ -11,10 +11,14 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * Clase InformeSesionController
+ */
+
 @Controller
 @RequiredArgsConstructor
 @SessionAttributes("informe")
-public class InformeSesionController {
+public class    InformeSesionController {
 
     private final InformeSesionServiceImpl service;
     private final SesionService sesionService;

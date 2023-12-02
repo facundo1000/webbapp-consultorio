@@ -27,6 +27,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name = "sesion")
 public class Sesion implements Serializable {
 
+  /**
+   * Numero que identifica una sesion
+   */
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "nro_sesion")
