@@ -165,17 +165,17 @@
         </form>
         <div class="w-full bg-gray-400 h-[1px] mb-4"></div>
         <h2 class="text-xl pb-2 pl-5 text-gray-900 dark:text-white">
-            Todos los pacientes
+            Todos los psicologos
         </h2>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
             <table class="w-full text-sm text-center text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th scope="col" class="px-6 py-3">
-                        Tipo de.Doc
+                        Número de documento
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Número de documento
+                        Tipo de.Doc
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Nombre
@@ -207,9 +207,9 @@
                 <tr th:each="psico : ${psicologos} "
                     class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
                     th:if="${psico.eliminado != true}">
-                    <th th:text="${psico.tipoDoc}" scope="row"
+                    <th th:text="${psico.dni}" scope="row"
                         class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"></th>
-                    <td class="px-6 py-4" th:text="${psico.dni}"></td>
+                    <td class="px-6 py-4" th:text="${psico.tipoDoc}"></td>
                     <td class="px-6 py-4" th:text="${psico.nombre}"></td>
                     <td class="px-6 py-4" th:text="${psico.apellido}"></td>
                     <td class="px-6 py-4" th:text="${psico.sexo}"></td>

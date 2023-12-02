@@ -22,16 +22,21 @@ INSERT INTO sesion (nro_sesion,fecha,hora,psicologo_dni,paciente_dni, eliminado,
 INSERT INTO sesion (nro_sesion,fecha,hora,psicologo_dni,paciente_dni, eliminado,estado) VALUES (11,'2022-07-11','14:00',12345678,39789654, false,'PENDIENTE');
 INSERT INTO sesion (nro_sesion,fecha,hora,psicologo_dni,paciente_dni, eliminado,estado) VALUES (13,'2023-10-22','17:00',87654321,12345678, false,'CANCELADA');
 
+
+-- Insertar historia_clinica
+INSERT INTO historia_clinica (cant_sesiones) VALUES (3);
+
 -- Insertar informe de sesion
-INSERT INTO informe_sesion (fecha_informe,hora_informe,analisis,notas,conclusion,tareas,eliminado,sesion_id) VALUES ('2023-03-01', '08:30','descripcion de prueba','informacion de las notas','informacion de la conclusion','esto es una tarea',false,12);
+INSERT INTO informe_sesion (fecha_informe,hora_informe,analisis,notas,conclusion,tareas,eliminado,sesion_id,historia_id) VALUES ('2023-03-01', '08:30','descripcion de prueba','informacion de las notas','informacion de la conclusion','esto es una tarea',false,12,1);
 
-
-
+-- relacion informeSesion-historiaClinica
+INSERT INTO tbl_informe_historia (historia_id,informe_id) VALUES (1,1);
 
 -- relacion paciente_psicologo
-
 INSERT INTO tbl_paciente_psicologo (psicologo_id, paciente_id) VALUES (40356896,34789654);
 
+-- relacion paciente_sesion
 INSERT INTO tbl_paciente_sesion (paciente_id, sesion_id) VALUES (34789654,12);
 
+-- relacion psicologo-sesion
 INSERT INTO tbl_psicologo_sesion (psicologo_id, sesion_id) VALUES (40356896,12);

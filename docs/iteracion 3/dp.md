@@ -85,4 +85,6 @@ Actor |                                                                         
 - Crear el controlador correspondiente HistoriaUsuarioController.
 - Crear las vistas correspondientes con el controlador.
 
+---
+
 
