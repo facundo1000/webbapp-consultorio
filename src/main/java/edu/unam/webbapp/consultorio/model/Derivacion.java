@@ -45,6 +45,13 @@ public class Derivacion {
 
     private String descripcion;
 
+    private Boolean eliminado;
+
     @OneToOne
     private Paciente paciente;
+
+    @PrePersist
+    public void setEliminado(){
+        this.eliminado = Boolean.FALSE;
+    }
 }
