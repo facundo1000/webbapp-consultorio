@@ -28,7 +28,6 @@ public class PsicologoController {
 
   @GetMapping("/abm-psicologo")
   public String listar(Model model) {
-//    model.addAttribute("titulo", "Listado de Psicologos");
     model.addAttribute("psicologos", service.findAll());
     model.addAttribute("titulo", "Crear Psicologo");
     model.addAttribute("especialidades", Especialidad.values());
@@ -48,7 +47,6 @@ public class PsicologoController {
     model.addAttribute("psicologo", new Psicologo());
     return "psicologo/formPsicologo";
   }
-
    */
 
   @PostMapping("/form-psicologo")
