@@ -40,13 +40,13 @@
             <h2 th:text="${titulo}" class="text-xl pb-4 text-gray-900 dark:text-white"></h2>
             <div class="grid md:grid-cols-5 md:gap-6"> <!-- selector de paciente conectado con el controlador -->
                 <div class="relative z-0 w-full mb-6 group">
-                    <select name="flotantePaciente" id="psicologoemisor" th:field="*{psicoEmisor}"
+                    <select name="flotantePaciente" id="psicologoemisor" th:field="*{psicologoEmisor}"
                             th:errorclass="'form-control alert-danger'"
                             class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" required>
                         <option value="">---Seleccionar---</option>
-                        <option th:each="Psicologo : ${psicoEmisor}"
-                                th:text="${psicoEmisor.nombre} +'  '+ ${psicoEmisor.apellido} +'  '+ ${psicoEmisor.dni}"
-                                th:value="${psicoEmisor.dni}"></option>
+                        <option th:each="psico : ${psicos}"
+                                th:text="${psico.nombre} +'  '+ ${psico.apellido} +'  '+ ${psico.dni}"
+                                th:value="${psico.dni}"></option>
                     </select>
                     <label for="psicologoemisor"
                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
@@ -57,7 +57,7 @@
                             th:errorclass="'form-control alert-danger'"
                             class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" required>
                         <option value="">---Seleccionar---</option>
-                        <option th:each="paciente : ${paciente}"
+                        <option th:each="paciente :${pacientes}"
                                 th:text="${paciente.nombre} +'  '+ ${paciente.apellido} +'  '+ ${paciente.dni}"
                                 th:value="${paciente.dni}"></option>
                     </select>
@@ -71,33 +71,33 @@
             <div class="grid md:grid-cols-4 md:gap-6">
 
                 <div class="relative z-0 w-full mb-6 group"> <!-- input de nombre conectado con el controlador -->
-                    <input type="text" th:field="*{nombre}" name="flotanteProfesionalNombre" id="nombre"
+                    <input type="text" th:field="*{nombreDestinatario}" name="flotanteProfesionalNombre" id="nombre"
                            th:errorclass="'form-control alert-danger'"
                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                            placeholder=" " required/>
                     <label for="nombre"
                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Nombre/s</label>
-                    <p th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"
+                    <p th:if="${#fields.hasErrors('nombreDestinatario')}" th:errors="*{nombreDestinatario}"
                        class="font-medium mt-2 text-sm text-red-600 dark:text-red-500"></p>
                 </div>
 
                 <div class="relative z-0 w-full mb-6 group"> <!-- input de apellido conectado con el controlador -->
-                    <input type="text" th:field="*{apellido}" name="flotanteProfesionalApellido" id="apellido"
+                    <input type="text" th:field="*{apellidoDestinatario}" name="flotanteProfesionalApellido" id="apellido"
                            th:errorclass="'form-control alert-danger'"
                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                            placeholder=" " required/>
                     <label for="apellido"
                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Apellido/s</label>
-                    <p th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}"
+                    <p th:if="${#fields.hasErrors('apellidoDestinatario')}" th:errors="*{apellidoDestinatario}"
                        class="font-medium mt-2 text-sm text-red-600 dark:text-red-500"></p>
                 </div>
 
                 <div class="relative z-0 w-full mb-6 group"> <!-- selector de tipo de documento conectado con el controlador -->
-                    <select name="flotanteProfesionalTipoDni" id="tipo" th:field="*{tipoDoc}"
+                    <select name="flotanteProfesionalTipoDni" id="tipo" th:field="*{tipoDocDestinatario}"
                             th:errorclass="'form-control alert-danger'"
                             class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" required>
                         <option value="">---Seleccionar---</option>
-                        <option th:each="tipo : ${tipos}" th:text="${tipo.nombre}"
+                        <option th:each="tipo : ${tipoDoc}" th:text="${tipo.nombre}"
                                 th:value="${tipo.nombre}"></option>
                     </select>
                     <label for="tipo"
@@ -106,14 +106,14 @@
                 </div>
 
                 <div class="relative z-0 w-full mb-6 group"> <!-- input de documento conectado con el controlador -->
-                    <input type="text" th:field="*{dni}" name="flotanteProfesionalDni" id="dni"
+                    <input type="text" th:field="*{dniDestinatario}" name="flotanteProfesionalDni" id="dni"
                            th:errorclass="'form-control alert-danger'"
                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                            placeholder=" " required/>
                     <label for="dni"
                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Numero
                         de documento</label>
-                    <p th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}"
+                    <p th:if="${#fields.hasErrors('dniDestinatario')}" th:errors="*{dniDestinatario}"
                        class="font-medium mt-2 text-sm text-red-600 dark:text-red-500"></p>
                 </div>
 
@@ -122,35 +122,35 @@
             <div class="grid md:grid-cols-2 md:gap-6">
                 <div class="grid md:grid-cols-2 md:gap-6">
                     <div class="relative z-0 w-full mb-6 group"> <!-- input del nombre de la clinica conectado con el controlador -->
-                        <input type="text" th:field="*{clinica}" name="flotanteclinicaNombre" id="clinica"
+                        <input type="text" th:field="*{clinicaDestinataria}" name="flotanteclinicaNombre" id="clinica"
                                th:errorclass="'form-control alert-danger'"
                                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                placeholder=" " required/>
                         <label for="clinica"
                                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Clinica</label>
-                        <p th:if="${#fields.hasErrors('clinica')}" th:errors="*{clinica}"
+                        <p th:if="${#fields.hasErrors('clinicaDestinataria')}" th:errors="*{clinicaDestinataria}"
                            class="font-medium mt-2 text-sm text-red-600 dark:text-red-500"></p>
                     </div>
 
                     <div class="relative z-0 w-full mb-6 group"> <!-- input del telefono de la clinica conectado con el controlador -->
-                        <input type="text" th:field="*{telefonoCli}" name="flotanteCliTelefono" id="telefonoCli" pattern="^[0-9]+$"
+                        <input type="text" th:field="*{telClinicaDestinataria}" name="flotanteCliTelefono" id="telefonoCli" pattern="^[0-9]+$"
                                th:errorclass="'form-control alert-danger'"
                                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                placeholder=" " required/>
                         <label for="telefonoCli"
                                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Telefono</label>
-                        <p th:if="${#fields.hasErrors('telefonoCli')}" th:errors="*{telefonoCli}"
+                        <p th:if="${#fields.hasErrors('telClinicaDestinataria')}" th:errors="*{telClinicaDestinataria}"
                            class="font-medium mt-2 text-sm text-red-600 dark:text-red-500"></p>
                     </div>
                 </div>
                 <div class="relative z-0 w-full mb-6 group"> <!-- input de la direccion de la clinica conectado con el controlador -->
-                    <input type="text" th:field="*{direccionCli}" name="flotanteCliDireccion" id="direccionCli"
+                    <input type="text" th:field="*{direccionClinicaDestinataria}" name="flotanteCliDireccion" id="direccionCli"
                            th:errorclass="'form-control alert-danger'"
                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                            placeholder=" " required/>
                     <label for="direccionCli"
                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Direccion</label>
-                    <p th:if="${#fields.hasErrors('direccionCli')}" th:errors="*{direccionCli}"
+                    <p th:if="${#fields.hasErrors('direccionClinicaDestinataria')}" th:errors="*{direccionClinicaDestinataria}"
                        class="font-medium mt-2 text-sm text-red-600 dark:text-red-500"></p>
                 </div>
 
@@ -194,7 +194,7 @@
                         Paciente
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Documento del profesional
+                        Documento del profesional Dest.
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Profesional destinatario
@@ -214,20 +214,20 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="derivacion : ${pageData.content} "
+                <tr th:each="derivacion : ${derivaciones} "
                     class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
-                    th:if="${derivacion.eliminada != true}">
-                    <td class="px-6 py-4" th:text="${derivacion.psicologo.nombre} + ' ' + ${derivacion.psicologo.apellido}"></td>
-                    <th th:text="${paciente.dni}" scope="row"
+                    th:if="${derivacion.eliminado != true}">
+                    <td class="px-6 py-4" th:text="${derivacion.psicologoEmisor.nombre} + ' ' + ${derivacion.psicologoEmisor.apellido}"></td>
+                    <th th:text="${derivacion.paciente.dni}" scope="row"
                         class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"></th>
                     <td class="px-6 py-4" th:text="${derivacion.paciente.nombre} + ' ' + ${derivacion.paciente.apellido}"></td>
-                    <td class="px-6 py-4" th:text="${profesional.dni}"></td>
-                    <td class="px-6 py-4" th:text="${derivacion.profesional.nombre} + ' ' + ${derivacion.profesional.apellido}"></td>
-                    <td class="px-6 py-4" th:text="${derivacion.clinica}"></td>
-                    <td class="px-6 py-4" th:text="${derivacion.telefonoCli}"></td>
-                    <td class="px-6 py-4" th:text="${derivacion.direccionCli}"></td>
+                    <td class="px-6 py-4" th:text="${derivacion.dniDestinatario}"></td>
+                    <td class="px-6 py-4" th:text="${derivacion.nombreDestinatario} + ' ' + ${derivacion.apellidoDestinatario}"></td>
+                    <td class="px-6 py-4" th:text="${derivacion.clinicaDestinataria}"></td>
+                    <td class="px-6 py-4" th:text="${derivacion.telClinicaDestinataria}"></td>
+                    <td class="px-6 py-4" th:text="${derivacion.direccionClinicaDestinataria}"></td>
                     <td class="px-4 py-2 font-medium flex flex-row text-gray-900 whitespace-nowrap dark:text-white">
-                        <a th:href="@{/abm-derivaciones/} + ${paciente.dni}"
+                        <a th:href="@{/abm-derivaciones/} + ${derivacion.idDerivacion}"
                            class="flex mx-auto items-center justify-center px-2 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-lg active:bg-blue-700 hover:bg-blue-700 focus:outline-none focus:shadow-outline-green">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5"
                                  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -235,7 +235,7 @@
                                       d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125"></path>
                             </svg>
                         </a>
-                        <a th:href="@{/eliminar-derivacion/} + ${paciente.dni}"
+                        <a th:href="@{/eliminar-derivaciones/} + ${derivacion.idDerivacion}"
                            onclick="return confirm('Esta seguro de eliminar?')"
                            class="flex mx-auto items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg active:bg-red-600 hover:bg-red-600 focus:outline-none focus:shadow-outline-red">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5"
@@ -249,27 +249,27 @@
                 </tbody>
             </table>
             <!--Parte para la paginacion de multiples pacientes-->
-            <nav class="flex items-center justify-between pt-4" aria-label="Table navigation">
-                <span class="text-sm font-normal text-gray-500 dark:text-gray-400">Mostrando <span
-                        class="font-semibold text-gray-900 dark:text-white"
-                        th:text="${pageData.content.size()+ ' de '  }"></span>  <span
-                        class="font-semibold text-gray-900 dark:text-white" th:text="${derivacion.size()}"></span></span>
-                <ul class="inline-flex -space-x-px text-sm h-8">
-                    <li th:if="${pageData.hasPrevious()}" class="page-item">
-                        <a th:href="@{'/abm-pacientes?page='} + ${pageData.number - 1}"
-                           class="flex items-center justify-center px-3 h-8 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Anterior</a>
-                    </li>
-                    <li th:each="i: ${#numbers.sequence(0, pageData.totalPages - 1)}" class="page-item">
-                        <a th:href="@{'/abm-pacientes?page=' + ${i}}" aria-current="page" th:text="${i}+1"
-                           class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"></a>
-                    </li>
+<!--            <nav class="flex items-center justify-between pt-4" aria-label="Table navigation">-->
+<!--                <span class="text-sm font-normal text-gray-500 dark:text-gray-400">Mostrando <span-->
+<!--                        class="font-semibold text-gray-900 dark:text-white"-->
+<!--                        th:text="${pageData.content.size()+ ' de '  }"></span>  <span-->
+<!--                        class="font-semibold text-gray-900 dark:text-white" th:text="${derivacion.size()}"></span></span>-->
+<!--                <ul class="inline-flex -space-x-px text-sm h-8">-->
+<!--                    <li th:if="${pageData.hasPrevious()}" class="page-item">-->
+<!--                        <a th:href="@{'/abm-pacientes?page='} + ${pageData.number - 1}"-->
+<!--                           class="flex items-center justify-center px-3 h-8 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Anterior</a>-->
+<!--                    </li>-->
+<!--                    <li th:each="i: ${#numbers.sequence(0, pageData.totalPages - 1)}" class="page-item">-->
+<!--                        <a th:href="@{'/abm-pacientes?page=' + ${i}}" aria-current="page" th:text="${i}+1"-->
+<!--                           class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"></a>-->
+<!--                    </li>-->
 
-                    <li th:if="${pageData.hasNext()}">
-                        <a th:href="@{'/abm-pacientes?page='} + ${pageData.number + 1}"
-                           class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Siguiente</a>
-                    </li>
-                </ul>
-            </nav>
+<!--                    <li th:if="${pageData.hasNext()}">-->
+<!--                        <a th:href="@{'/abm-pacientes?page='} + ${pageData.number + 1}"-->
+<!--                           class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Siguiente</a>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </nav>-->
 
         </div>
     </div>
