@@ -24,7 +24,7 @@
 
         <!--TODO: no se pudo concretar la vista de las validaciones-->
 
-        <form class="p-5 border-gray-200 dark:border-gray-700 dark:bg-gray-900" th:action="@{/form-sesiones}"
+        <form class="p-5 border-gray-200 dark:border-gray-700 dark:bg-gray-900" th:action="@{/lista-sesiones}"
               th:object="${sesion}" method="post">
             <h2 class="text-xl pb-4 text-gray-900 dark:text-white">
                 Registrar nueva sesión
@@ -134,7 +134,8 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600" th:each="sesion :${sesiones}">
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600" th:each="sesion :${sesiones}"
+                th:if="${sesion.eliminado != true}">
                     <td class="px-6 py-3" th:text="${sesion.paciente.dni}">
 
                     </td>
