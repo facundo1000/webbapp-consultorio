@@ -88,6 +88,7 @@ public class SesionServiceImpl implements SesionService {
     public void deleteById(Integer id) {
         Sesion sesion = repo.findById(id).orElseThrow();
         sesion.setEliminado(true);
+        repo.save(sesion);
     }
 
 
