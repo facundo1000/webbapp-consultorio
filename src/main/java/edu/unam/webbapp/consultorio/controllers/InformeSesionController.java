@@ -58,6 +58,7 @@ public class    InformeSesionController {
         informe.setNotas(notas);
         informe.setConclusion(conclusion);
         informe.setSesion(sesion);
+        sesion.setInformeSesion(informe);
         service.save(informe);
         return "redirect:/";
     }
