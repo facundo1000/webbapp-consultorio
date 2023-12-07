@@ -28,7 +28,7 @@ public class SesionController {
 
   /**
    * Este metodo permite visualizar la pantalla de sesiones
-   * @param model
+   * @param model permite establecer una clave y un valor para los atributos que pasan a la vista
    * @return la vista en html de abmSesion.html
    */
   @GetMapping(path = {"/","/lista-sesiones"})
@@ -42,11 +42,12 @@ public class SesionController {
 
   /**
    * Funcion que permite visualizar los datos de una sesion para ser editados
-   * @param model
+   * @param model permite establecer una clave y un valor para los atributos que pasan a la vista
    * @param id id de una sesion en especifica
    * @return la vista en html de abmSesion.html
    */
 
+  //TODO: solucionar metodo editar ( no funciona)
   @GetMapping("/lista-sesiones/{id}")
   public String editar(Model model, @PathVariable Integer id) {
 
@@ -68,12 +69,12 @@ public class SesionController {
    * @param paciente objeto paciente
    * @param sesion objeto sesion
    * @param result permite ver si hubo errores en el proceso de relleno del formulario
-   * @param model
+   * @param model permite establecer una clave y un valor para los atributos que pasan a la vista
    * @param status permite manejar la sesion
    * @return redireciona al controlador que muestra
    */
 
-  @PostMapping("/form-sesiones")
+  @PostMapping("/lista-sesiones")
   public String guardar(
       @RequestParam("paciente") Paciente paciente,
       @RequestParam(name = "fecha")LocalDate fecha,
@@ -95,8 +96,9 @@ public class SesionController {
     return "redirect:/";
   }
 
+
   @GetMapping("/listar-sesiones/{id}")
-  public String sesionPorPaciente(@PathVariable("id") Integer id, Model model) {
+  public String sesionPorPaciente(@PathVariable Integer id, Model model) {
     List<Sesion> sesions = service.findSesionByPacienteId(id);
     Paciente paciente = pasService.getById(id);
 

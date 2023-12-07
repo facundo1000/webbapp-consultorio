@@ -77,6 +77,15 @@ public class PsicologoServiceImpl implements PersonaService<Psicologo> {
     }
   }
 
+  /**
+   * Funcion que retorna un psicologo a partir de su dni
+   * @param dni numero de dni
+   * @return un psicologo
+   */
+  public Psicologo getByDni(Integer dni){
+    return repo.findByDni(dni).orElseThrow();
+  }
+
   @Override
   public Page<Psicologo> getPageData(int page, int pageSize) {
     return null;

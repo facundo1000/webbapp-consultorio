@@ -30,12 +30,26 @@ public class HistoriaClinicaController {
 
     private final SesionService sesionService;
 
+    /**
+     * Funcion que permite visualizar los datos de una historia-clinica para ser mostrados
+     * @param model permite establecer una clave y un valor para los atributos que pasan a la vista
+     * @return retorna la vista html historia/listado.
+     * @throws Exception
+     */
+
     @GetMapping("/historia-clinica")
     public String mostrar(Model model) throws Exception {
         List<HistoriaClinica> historiaClinica = service.findAllHistoriaClinica();
         model.addAttribute("informes", historiaClinica);
         return "historia/listado";
     }
+
+    /**
+     * Funcion que permite visualizar los datos de una historia-clinica para ser mostrados
+     * @param model permite establecer una clave y un valor para los atributos que pasan a la vista
+     * @param dni permite ingresar el parametro dni
+     * @return retorna la vista html
+     */
 
     @GetMapping("/informe-detalle/{dni}")
     public String mostrarListadoInformesDeSesionXPaciente(Model model, @PathVariable Integer dni) {

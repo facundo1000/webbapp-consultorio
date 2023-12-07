@@ -26,6 +26,19 @@ public class PsicologoController {
 
   private final PersonaService<Psicologo> service;
 
+  /**
+   * Funcion que permite visualizar los datos de una historia-clinica para ser mostrados
+   * @param model permite establecer una clave y un valor para los atributos que pasan a la vista
+   * @param dni permite ingresar el parametro dni
+   * @return retorna la vista html
+   */
+
+  /**
+   * Funcion que permite visualizar los datos de un psicologo para ser mostrados
+   * @param model permite establecer una clave y un valor para los atributos que pasan a la vista
+   * @return retorna la vista html
+   */
+
   @GetMapping("/abm-psicologo")
   public String listar(Model model) {
     model.addAttribute("psicologos", service.findAll());
@@ -37,16 +50,13 @@ public class PsicologoController {
     return "psicologo/abmPsicologo";
   }
 
-  /*
-  @GetMapping("/form-psicologo")
-  public String crear(Model model) {
-    model.addAttribute("titulo", "Crear Psicologo");
-    model.addAttribute("especialidades", Especialidad.values());
-    model.addAttribute("tipos", TipoDocumento.values());
-    model.addAttribute("sexos", Sexo.values());
-    model.addAttribute("psicologo", new Psicologo());
-    return "psicologo/formPsicologo";
-  }
+  /**
+   * Funcion que permite guardar los datos de un psicologo para ser mostrados
+   * @param psicologo parametro psicologo
+   * @param result parametro para mapear los errores en el front-end
+   * @param model permite establecer una clave y un valor para los atributos que pasan a la vista
+   * @param status parametro que permite manejar la sesion dentro del controlador
+   * @return retorna la vista html
    */
 
   @PostMapping("/form-psicologo")
@@ -68,6 +78,13 @@ public class PsicologoController {
   }
 
 
+  /**
+   * Funcion que permite editar los datos de un psicologo
+   * @param id parametro que indica el id de un psicologo
+   * @param model permite establecer una clave y un valor para los atributos que pasan a la vista
+   * @return retorna la vista html
+   */
+
   @GetMapping("/edit-psicologo/{id}")
   public String editar(@PathVariable("id") Integer id, Model model) {
     Psicologo psicologo;
@@ -85,6 +102,12 @@ public class PsicologoController {
     model.addAttribute("psicologo", psicologo);
     return "psicologo/abmPsicologo";
   }
+
+  /**
+   * Funcion que permite eliminar un psicologo a partir de su id
+   * @param id parametro que indica el id de un psicologo
+   * @return retorna la vista html
+   */
 
   @GetMapping("/eliminar-psicologo/{id}")
   public String eliminar(@PathVariable("id") Integer id){
