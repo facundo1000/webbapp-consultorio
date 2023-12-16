@@ -21,7 +21,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class HistoriaClinicaServiceImpl implements HistoriaClinicaService {
 
-    private final HistoriaClinicaRepository repo;
     private final InformeSesionRepository repoInforme;
 
     @Override
