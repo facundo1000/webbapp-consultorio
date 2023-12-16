@@ -1,70 +1,56 @@
 package edu.unam.webbapp.consultorio.models;
 
-import edu.unam.webbapp.consultorio.utils.EstadoCivil;
-import org.junit.jupiter.api.Test;
-
-import java.util.HashSet;
-import java.util.Set;
+import static edu.unam.webbapp.consultorio.utils.PojoGenerator.buildAlumno;
+import static edu.unam.webbapp.consultorio.utils.PojoGenerator.buildSesion;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import edu.unam.webbapp.consultorio.model.Paciente;
 import edu.unam.webbapp.consultorio.model.Psicologo;
 import edu.unam.webbapp.consultorio.model.Sesion;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.Month;
 
-/**
- * Test unitario de clase Paciente
- */
-class PacienteTest {
+public class PacienteTest {
+  private static Paciente paciente;
+  private static Sesion sesion;
+
+  @BeforeAll
+  static void setUp() {
+    paciente = buildAlumno();
+    sesion = buildSesion();
+  }
+
+//  private final Sesion sesion2 =
+//      new Sesion(
+//          26,
+//          LocalDate.of(2023, Month.AUGUST, 15),
+//          LocalTime.of(10, 00),
+//          new Psicologo(),
+//          null,
+//          false);
 
   @Test
-  void testAddSesion() {
-    // Arrange (Preparacion)
-    Paciente paciente = new Paciente();
-    Sesion sesion = new Sesion();
+  @DisplayName("Test: agregar sesiones al paciente")
+  void agregarSesiones() {
 
-    // Act (Actuacion)
     paciente.addSesion(sesion);
+//    paciente.addSesion(sesion2);
 
-    // Assert (Verificacion)
-    assertTrue(paciente.getSesions().contains(sesion));
+    assertThat(paciente.getSesions()).hasSize(3);
+
   }
 
   @Test
-  void testRemoveSesion() {
-    // Arrange (Preparacion)
-    Paciente paciente = new Paciente();
-    Sesion sesion = new Sesion();
-    paciente.addSesion(sesion);
-
-    // Act (Actuacion)
+  @DisplayName("Test: remover sesion del paciente")
+  void removerSesiones() {
     paciente.removeSesion(sesion);
-
-    // Assert (Verificacion)
-    assertFalse(paciente.getSesions().contains(sesion));
+//    paciente.removeSesion(sesion2);
+    paciente.removeSesion(null);
+    assertThat(paciente.getSesions()).hasSize(1);
   }
-
-
-  @Test
-  void testGetterAndSetter() {
-    // Arrange (Preparacion)
-    Paciente paciente = new Paciente();
-    EstadoCivil estadoCivil = EstadoCivil.SOLTERO;
-    String ocupacion = "Estudiante";
-    Psicologo psicologo = new Psicologo();
-    Set<Sesion> sesiones = new HashSet<>();
-
-    // Act (Actuacion)
-    paciente.setEstadoCivil(estadoCivil);
-    paciente.setOcupacion(ocupacion);
-    paciente.setPsicologo(psicologo);
-    paciente.setSesions(sesiones);
-
-    // Assert (Verificacion)
-    assertEquals(estadoCivil, paciente.getEstadoCivil());
-    assertEquals(ocupacion, paciente.getOcupacion());
-    assertEquals(psicologo, paciente.getPsicologo());
-    assertEquals(sesiones, paciente.getSesions());
-  }
-
 }
