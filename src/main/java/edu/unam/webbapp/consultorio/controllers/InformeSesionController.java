@@ -4,6 +4,7 @@ import edu.unam.webbapp.consultorio.model.InformeSesion;
 import edu.unam.webbapp.consultorio.model.Sesion;
 import edu.unam.webbapp.consultorio.services.SesionService;
 import edu.unam.webbapp.consultorio.services.impl.InformeSesionServiceImpl;
+import edu.unam.webbapp.consultorio.utils.EstadosSesion;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -21,7 +22,6 @@ import org.springframework.web.bind.annotation.*;
 public class    InformeSesionController {
 
     private final InformeSesionServiceImpl service;
-    private final SesionService sesionService;
     @GetMapping(path = {"/informe/{id}", "/informe"})
     public String crearInforme(@PathVariable Integer id, Model model) {
         InformeSesion informe = service.createInformeSesion(id);
@@ -52,14 +52,10 @@ public class    InformeSesionController {
         }
 
 
-        Sesion sesion = sesionService.findById(id);
-        informe.setAnalisis(analisis);
-        informe.setTareas(tareas);
-        informe.setNotas(notas);
-        informe.setConclusion(conclusion);
-        informe.setSesion(sesion);
-        sesion.setInformeSesion(informe);
+        service.formInformation(analisis, tareas, notas, conclusion, id, informe);
         service.save(informe);
         return "redirect:/";
     }
+
+
 }
