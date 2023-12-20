@@ -4,11 +4,17 @@ import edu.unam.webbapp.consultorio.model.Sesion;
 import edu.unam.webbapp.consultorio.repository.SesionRepositorio;
 import edu.unam.webbapp.consultorio.services.SesionService;
 import edu.unam.webbapp.consultorio.utils.EstadosSesion;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
+
+import static org.hibernate.internal.util.collections.ArrayHelper.forEach;
 
 /**
  * Clase SesionServiceImpl
@@ -17,6 +23,7 @@ import java.util.List;
  */
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class SesionServiceImpl implements SesionService {
 
     private final SesionRepositorio repo;
@@ -88,25 +95,68 @@ public class SesionServiceImpl implements SesionService {
     public void deleteById(Integer id) {
         Sesion sesion = repo.findById(id).orElseThrow();
         sesion.setEliminado(true);
+        sesion.setEstadosSesion(EstadosSesion.CANCELADA);
         repo.save(sesion);
     }
 
 
+    /**
+     * Funcion que retorna un objeto sesion, a partir de una comparacion entre fechas
+     *
+     * @param fecha  objeto fecha
+     * @param sesion objeto sesion
+     * @return un objeto sesion
+     */
     @Override
     public Sesion sesionStatus(LocalDate fecha, Sesion sesion) {
         if (fecha.isAfter(LocalDate.now()) || fecha.isEqual(LocalDate.now())) {
             sesion.setEstadosSesion(EstadosSesion.PENDIENTE);
         }
 
-        /**
-         * TODO:
-         *  Esto deberia llevar un metodo un metodo un metodo automatico que esté pendiente del horario del sistema.
-         *  para que la realizacion se pueda hacer de forma manual o de forma automatica
-         */
-
-        if (fecha.isBefore(LocalDate.now())) {
-            sesion.setEstadosSesion(EstadosSesion.REALIZADA);
-        }
         return sesion;
+    }
+
+    /**
+     * Funcion que permite cambiar aquellos estados de sesion que son "pendientes"
+     * a estado "cancelado" luego de 24hs
+     */
+    @Scheduled(cron = "* 59 23 * * *")
+    public void scheduleTask() {
+
+        Optional<List<Sesion>> fechaBefore = repo.findSesionByFechaBefore(LocalDate.now());
+
+        if(fechaBefore.isPresent()){
+
+           fechaBefore.orElseThrow().forEach(fecha -> {
+
+               if(fecha.getEstadosSesion() == EstadosSesion.PENDIENTE){
+
+                   fecha.setEstadosSesion(EstadosSesion.CANCELADA);
+                   fecha.setEliminado(true);
+                   repo.save(fecha);
+                   log.info("La sesion {} ha sido cancelada luego de 24 hs", fecha.getNroSesion());
+               }
+           });
+        };
+
+
+    }
+
+    /**
+     * Funcion que permite ejecutar la funcion anotada con @Schedule
+     * luego de la creacion del constructor
+     */
+    @PostConstruct
+    public void init(){
+        scheduleTask();
+    }
+
+    @Override
+    public Boolean existeSesion(Integer id) {
+        Optional<Sesion> sesion = repo.findById(id);
+        if (sesion.isPresent()) {
+            return Boolean.TRUE;
+        }
+        return Boolean.FALSE;
     }
 }
