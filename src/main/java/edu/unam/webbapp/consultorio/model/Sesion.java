@@ -41,7 +41,6 @@ public class Sesion implements Serializable {
    */
   @NotNull
   @DateTimeFormat(pattern = "yyyy-MM-dd")
-  @FutureOrPresent
   private LocalDate fecha;
 
   /**
