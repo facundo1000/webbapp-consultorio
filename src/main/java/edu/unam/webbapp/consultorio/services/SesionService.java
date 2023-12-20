@@ -55,4 +55,5 @@ public interface SesionService {
   void deleteById(Integer id);
 
   Sesion sesionStatus(LocalDate fecha,Sesion sesion);
+
 }

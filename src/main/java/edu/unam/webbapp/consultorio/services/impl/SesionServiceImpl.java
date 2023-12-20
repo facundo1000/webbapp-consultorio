@@ -151,12 +151,5 @@ public class SesionServiceImpl implements SesionService {
         scheduleTask();
     }
 
-    @Override
-    public Boolean existeSesion(Integer id) {
-        Optional<Sesion> sesion = repo.findById(id);
-        if (sesion.isPresent()) {
-            return Boolean.TRUE;
-        }
-        return Boolean.FALSE;
-    }
+
 }
