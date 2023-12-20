@@ -20,7 +20,7 @@ INSERT INTO secretario (dni, apellido, nombre, direccion, fecha_de_nacimiento, s
 -- Insertar datos de sesion
 INSERT INTO sesion (nro_sesion,fecha,hora,psicologo_dni,paciente_dni, eliminado,estado) VALUES (12,'2023-08-10','16:30',40356896,34789654, false,'REALIZADA');
 INSERT INTO sesion (nro_sesion,fecha,hora,psicologo_dni,paciente_dni, eliminado,estado) VALUES (11,'2022-07-11','14:00',12345678,39789654, false,'PENDIENTE');
-INSERT INTO sesion (nro_sesion,fecha,hora,psicologo_dni,paciente_dni, eliminado,estado) VALUES (13,'2023-10-22','17:00',87654321,12345678, false,'CANCELADA');
+INSERT INTO sesion (nro_sesion,fecha,hora,psicologo_dni,paciente_dni, eliminado,estado) VALUES (13,'2023-10-22','17:00',87654321,12345678, true,'CANCELADA');
 
 
 -- Insertar historia_clinica
