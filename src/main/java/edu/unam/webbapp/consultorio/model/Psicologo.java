@@ -47,7 +47,7 @@ public class Psicologo extends Persona implements Serializable {
    * Lista de sesiones que corresponden a un determinado psicologo
    */
 
-  @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+  @OneToMany()
   @JoinTable(
       name = "tbl_psicologo_sesion",
       joinColumns = @JoinColumn(name = "psicologo_id"),

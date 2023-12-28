@@ -1,12 +1,15 @@
 package edu.unam.webbapp.consultorio.controllers;
 
 import edu.unam.webbapp.consultorio.model.Paciente;
+import edu.unam.webbapp.consultorio.model.Psicologo;
 import edu.unam.webbapp.consultorio.model.Sesion;
 import edu.unam.webbapp.consultorio.services.impl.PacienteServiceImpl;
 import edu.unam.webbapp.consultorio.services.SesionService;
+import edu.unam.webbapp.consultorio.services.impl.PsicologoServiceImpl;
 import jakarta.validation.Valid;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -25,6 +28,7 @@ public class SesionController {
 
   private final SesionService service;
   private final PacienteServiceImpl pasService;
+  private final PsicologoServiceImpl psicoService;
 
   /**
    * Este metodo permite visualizar la pantalla de sesiones
@@ -37,6 +41,7 @@ public class SesionController {
     model.addAttribute("sesion", sesion);
     model.addAttribute("pacientes", pasService.getAllEliminadoEquals(false));
     model.addAttribute("sesiones", service.findAll());
+
     return "sesiones/abmSesion";
   }
 
@@ -60,13 +65,13 @@ public class SesionController {
       return "redirect:/lista-sesiones";
     }
 
-   model.addAttribute("sesion",sesion);
+    model.addAttribute("sesion",sesion);
     return "sesiones/abmSesion";
   }
 
   /**
    * Funcion que se encarga de manejar la confirmacion de una sesion
-   * @param paciente objeto paciente
+   * @param dni dni del objeto paciente
    * @param sesion objeto sesion
    * @param result permite ver si hubo errores en el proceso de relleno del formulario
    * @param model permite establecer una clave y un valor para los atributos que pasan a la vista
@@ -76,8 +81,9 @@ public class SesionController {
 
   @PostMapping("/lista-sesiones")
   public String guardar(
-      @RequestParam("paciente") Paciente paciente,
+      @RequestParam(name = "paciente") Integer dni,
       @RequestParam(name = "fecha")LocalDate fecha,
+      @RequestParam(name = "hora") LocalTime hora,
       @Valid Sesion sesion,
       BindingResult result,
       Model model,
@@ -85,13 +91,21 @@ public class SesionController {
 
     if (result.hasErrors()) {
       model.addAttribute("pacientes", pasService.findAll());
+      model.addAttribute("sesiones", service.findAll());
+      return "sesiones/abmSesion";
     }
 
-    paciente.getPsicologo().addSesion(sesion);
-    paciente.addSesion(sesion);
-    sesion.setPsicologo(paciente.getPsicologo());
+    Paciente pacienteDni = pasService.getPacienteByDni(dni);
+//    Psicologo psicologo = psicoService.getByDni(pacienteDni.getPsicologo().getDni());
 
-    service.save(service.sesionStatus(fecha,sesion));
+    sesion.setPsicologo(pacienteDni.getPsicologo());
+    sesion.setPaciente(pacienteDni);
+//    psicologo.addSesion(sesion);
+    pacienteDni.getPsicologo().addSesion(sesion);
+    pacienteDni.addSesion(sesion);
+    Sesion sesioned = service.sesionStatus(fecha, sesion, hora);
+
+    service.save(sesioned);
     status.setComplete();
     return "redirect:/";
   }
@@ -110,7 +124,8 @@ public class SesionController {
   }
 
   @GetMapping("/eliminar-sesion/{id}")
-  public String eliminarSesion(@PathVariable Integer id){
+  public String eliminarSesion(@PathVariable Integer id, Model model){
+
     if(id > 0){
       service.deleteById(id);
     }

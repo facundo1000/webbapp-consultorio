@@ -11,6 +11,9 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -97,6 +100,8 @@ public class SesionServiceImpl implements SesionService {
         sesion.setEliminado(true);
         sesion.setEstadosSesion(EstadosSesion.CANCELADA);
         repo.save(sesion);
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        log.info("La sesion {} se ha cancelado manualmente; Fecha: {}", sesion.getNroSesion(), LocalDateTime.now().format(df));
     }
 
 
@@ -108,11 +113,15 @@ public class SesionServiceImpl implements SesionService {
      * @return un objeto sesion
      */
     @Override
-    public Sesion sesionStatus(LocalDate fecha, Sesion sesion) {
+    public Sesion sesionStatus(LocalDate fecha, Sesion sesion, LocalTime hora) {
         if (fecha.isAfter(LocalDate.now()) || fecha.isEqual(LocalDate.now())) {
-            sesion.setEstadosSesion(EstadosSesion.PENDIENTE);
-        }
 
+            if(hora.isAfter(LocalTime.now()) || hora.equals(LocalTime.now())){
+
+                sesion.setEstadosSesion(EstadosSesion.PENDIENTE);
+            }
+
+        }
         return sesion;
     }
 
@@ -125,19 +134,21 @@ public class SesionServiceImpl implements SesionService {
 
         Optional<List<Sesion>> fechaBefore = repo.findSesionByFechaBefore(LocalDate.now());
 
-        if(fechaBefore.isPresent()){
+        if (fechaBefore.isPresent()) {
 
-           fechaBefore.orElseThrow().forEach(fecha -> {
+            fechaBefore.orElseThrow().forEach(fecha -> {
 
-               if(fecha.getEstadosSesion() == EstadosSesion.PENDIENTE){
+                if (fecha.getEstadosSesion() == EstadosSesion.PENDIENTE) {
 
-                   fecha.setEstadosSesion(EstadosSesion.CANCELADA);
-                   fecha.setEliminado(true);
-                   repo.save(fecha);
-                   log.info("La sesion {} ha sido cancelada luego de 24 hs", fecha.getNroSesion());
-               }
-           });
-        };
+                    fecha.setEstadosSesion(EstadosSesion.CANCELADA);
+                    fecha.setEliminado(true);
+                    repo.save(fecha);
+                    DateTimeFormatter df = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+                    log.info("La sesion {} ha sido cancelada luego de 24 hs. Fecha de cancelacion: {}", fecha.getNroSesion(), LocalDateTime.now().format(df));
+                }
+            });
+        }
+        ;
 
 
     }
@@ -147,7 +158,7 @@ public class SesionServiceImpl implements SesionService {
      * luego de la creacion del constructor
      */
     @PostConstruct
-    public void init(){
+    public void init() {
         scheduleTask();
     }
 

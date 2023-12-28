@@ -74,9 +74,10 @@ public class PacienteController {
         paciente.setPsicologo(psicologo);
         paciente.setEliminado(Boolean.FALSE);
         psicologo.addPaciente(paciente);
+        paciente.setSesions(psicologo.getSesions());
+        service.save(paciente);
         psicoService.save(psicologo);
 
-        service.save(paciente);
         status.setComplete();
         return "redirect:/abm-pacientes";
     }
