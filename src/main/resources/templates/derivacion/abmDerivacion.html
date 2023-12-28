@@ -36,26 +36,30 @@
                 </svg>
             </button>
         </div>
-        <form th:action="@{/abm-derivaciones}" th:object="${derivacion}" method="post" class="p-5 border-gray-200 dark:border-gray-700 dark:bg-gray-900">
-            <h2 th:text="${titulo}" class="text-xl pb-4 text-gray-900 dark:text-white"></h2>
+        <form th:action="@{/abm-derivaciones}" th:object="${derivacion}" method="post"
+              class="p-5 border-gray-200 dark:border-gray-700 dark:bg-gray-900">
+            <h2 class="text-xl pb-4 text-gray-900 dark:text-white">Formulario de Derivaciones</h2>
             <div class="grid md:grid-cols-5 md:gap-6"> <!-- selector de paciente conectado con el controlador -->
-                <div class="relative z-0 w-full mb-6 group">
-                    <select name="psicologo" id="psicologo" th:field="*{psicologoEmisor}"
-                            th:errorclass="'form-control alert-danger'"
-                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" required>
-                        <option value="">---Seleccionar---</option>
-                        <option th:each="psico : ${psicos}"
-                                th:text="${psico.nombre} +'  '+ ${psico.apellido} +'  '+ ${psico.dni}"
-                                th:value="${psico.dni}"></option>
-                    </select>
-                    <label for="psicologo"
-                           class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                        Psicologo emisor</label>
-                </div>
+<!--                <div class="relative z-0 w-full mb-6 group">-->
+<!--                    <select name="psicologo" id="psicologo" th:field="*{psicologoEmisor}"-->
+<!--                            th:errorclass="'form-control alert-danger'"-->
+<!--                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"-->
+<!--                            required>-->
+<!--                        <option value="">-&#45;&#45;Seleccionar-&#45;&#45;</option>-->
+<!--                        <option th:each="psico : ${psicos}"-->
+<!--                                th:text="${psico.nombre} +'  '+ ${psico.apellido} +'  '+ ${psico.dni}"-->
+<!--                                th:value="${psico.dni}"></option>-->
+<!--                    </select>-->
+<!--                    <label for="psicologo"-->
+<!--                           class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">-->
+<!--                        Psicologo emisor</label>-->
+<!--                </div>-->
+
                 <div class="relative z-0 w-full mb-6 group">
                     <select name="paciente" id="paciente" th:field="*{paciente}"
                             th:errorclass="'form-control alert-danger'"
-                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" required>
+                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            required>
                         <option value="">---Seleccionar---</option>
                         <option th:each="paciente :${pacientes}"
                                 th:text="${paciente.nombre} +'  '+ ${paciente.apellido} +'  '+ ${paciente.dni}"
@@ -68,7 +72,7 @@
             </div>
             <div class="w-full bg-gray-400 h-[1px] mb-4"></div>
             <h3 class="text-l pb-4 text-gray-900 dark:text-white">Profesional destinatario</h3>
-            <div class="grid md:grid-cols-4 md:gap-6">
+            <div class="grid md:grid-cols-2 md:gap-6">
 
                 <div class="relative z-0 w-full mb-6 group"> <!-- input de nombre conectado con el controlador -->
                     <input type="text" th:field="*{nombreDestinatario}" name="flotanteProfesionalNombre" id="nombre"
@@ -82,7 +86,8 @@
                 </div>
 
                 <div class="relative z-0 w-full mb-6 group"> <!-- input de apellido conectado con el controlador -->
-                    <input type="text" th:field="*{apellidoDestinatario}" name="flotanteProfesionalApellido" id="apellido"
+                    <input type="text" th:field="*{apellidoDestinatario}" name="flotanteProfesionalApellido"
+                           id="apellido"
                            th:errorclass="'form-control alert-danger'"
                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                            placeholder=" " required/>
@@ -92,10 +97,12 @@
                        class="font-medium mt-2 text-sm text-red-600 dark:text-red-500"></p>
                 </div>
 
-                <div class="relative z-0 w-full mb-6 group"> <!-- selector de tipo de documento conectado con el controlador -->
+                <div class="relative z-0 w-full mb-6 group">
+                    <!-- selector de tipo de documento conectado con el controlador -->
                     <select name="flotanteProfesionalTipoDni" id="tipo" th:field="*{tipoDocDestinatario}"
                             th:errorclass="'form-control alert-danger'"
-                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" required>
+                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            required>
                         <option value="">---Seleccionar---</option>
                         <option th:each="tipo : ${tipoDoc}" th:text="${tipo.nombre}"
                                 th:value="${tipo.nombre}"></option>
@@ -117,11 +124,17 @@
                        class="font-medium mt-2 text-sm text-red-600 dark:text-red-500"></p>
                 </div>
 
+
+                <textarea id="descripcion" name="descripcion" rows="4" th:field="*{descripcion}"
+                          class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                          placeholder="Escriba la descripcion aqui..."></textarea>
+
             </div>
             <h3 class="text-l pb-4 text-gray-900 dark:text-white">Clinica destinataria</h3>
             <div class="grid md:grid-cols-2 md:gap-6">
                 <div class="grid md:grid-cols-2 md:gap-6">
-                    <div class="relative z-0 w-full mb-6 group"> <!-- input del nombre de la clinica conectado con el controlador -->
+                    <div class="relative z-0 w-full mb-6 group">
+                        <!-- input del nombre de la clinica conectado con el controlador -->
                         <input type="text" th:field="*{clinicaDestinataria}" name="flotanteclinicaNombre" id="clinica"
                                th:errorclass="'form-control alert-danger'"
                                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
@@ -132,8 +145,10 @@
                            class="font-medium mt-2 text-sm text-red-600 dark:text-red-500"></p>
                     </div>
 
-                    <div class="relative z-0 w-full mb-6 group"> <!-- input del telefono de la clinica conectado con el controlador -->
-                        <input type="text" th:field="*{telClinicaDestinataria}" name="flotanteCliTelefono" id="telefonoCli" pattern="^[0-9]+$"
+                    <div class="relative z-0 w-full mb-6 group">
+                        <!-- input del telefono de la clinica conectado con el controlador -->
+                        <input type="text" th:field="*{telClinicaDestinataria}" name="flotanteCliTelefono"
+                               id="telefonoCli" pattern="^[0-9]+$"
                                th:errorclass="'form-control alert-danger'"
                                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                placeholder=" " required/>
@@ -143,14 +158,17 @@
                            class="font-medium mt-2 text-sm text-red-600 dark:text-red-500"></p>
                     </div>
                 </div>
-                <div class="relative z-0 w-full mb-6 group"> <!-- input de la direccion de la clinica conectado con el controlador -->
-                    <input type="text" th:field="*{direccionClinicaDestinataria}" name="flotanteCliDireccion" id="direccionCli"
+                <div class="relative z-0 w-full mb-6 group">
+                    <!-- input de la direccion de la clinica conectado con el controlador -->
+                    <input type="text" th:field="*{direccionClinicaDestinataria}" name="flotanteCliDireccion"
+                           id="direccionCli"
                            th:errorclass="'form-control alert-danger'"
                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                            placeholder=" " required/>
                     <label for="direccionCli"
                            class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Direccion</label>
-                    <p th:if="${#fields.hasErrors('direccionClinicaDestinataria')}" th:errors="*{direccionClinicaDestinataria}"
+                    <p th:if="${#fields.hasErrors('direccionClinicaDestinataria')}"
+                       th:errors="*{direccionClinicaDestinataria}"
                        class="font-medium mt-2 text-sm text-red-600 dark:text-red-500"></p>
                 </div>
 
@@ -180,7 +198,8 @@
         <h2 class="text-xl pb-2 pl-5 text-gray-900 dark:text-white">
             Todas las derivaciones
         </h2>
-        <div class="relative overflow-x-auto shadow-md sm:rounded-lg"> <!-- tabla que recupera de la base de datos todas las derivaciones -->
+        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+            <!-- tabla que recupera de la base de datos todas las derivaciones -->
             <table class="w-full text-sm text-center text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
@@ -213,41 +232,23 @@
                 <tbody>
                 <tr th:each="derivacion : ${derivaciones} "
                     class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
-                    >
-                    <td class="px-6 py-4" th:text="${derivacion.psicologoEmisor.nombre} + ' ' + ${derivacion.psicologoEmisor.apellido}"></td>
+                >
+                    <td class="px-6 py-4"
+                        th:text="${derivacion.psicologoEmisor.nombre} + ' ' + ${derivacion.psicologoEmisor.apellido}"></td>
                     <th th:text="${derivacion.paciente.dni}" scope="row"
                         class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"></th>
-                    <td class="px-6 py-4" th:text="${derivacion.paciente.nombre} + ' ' + ${derivacion.paciente.apellido}"></td>
+                    <td class="px-6 py-4"
+                        th:text="${derivacion.paciente.nombre} + ' ' + ${derivacion.paciente.apellido}"></td>
                     <td class="px-6 py-4" th:text="${derivacion.dniDestinatario}"></td>
-                    <td class="px-6 py-4" th:text="${derivacion.nombreDestinatario} + ' ' + ${derivacion.apellidoDestinatario}"></td>
+                    <td class="px-6 py-4"
+                        th:text="${derivacion.nombreDestinatario} + ' ' + ${derivacion.apellidoDestinatario}"></td>
                     <td class="px-6 py-4" th:text="${derivacion.clinicaDestinataria}"></td>
                     <td class="px-6 py-4" th:text="${derivacion.telClinicaDestinataria}"></td>
                     <td class="px-6 py-4" th:text="${derivacion.direccionClinicaDestinataria}"></td>
                 </tr>
                 </tbody>
             </table>
-            <!--Parte para la paginacion de multiples pacientes-->
-<!--            <nav class="flex items-center justify-between pt-4" aria-label="Table navigation">-->
-<!--                <span class="text-sm font-normal text-gray-500 dark:text-gray-400">Mostrando <span-->
-<!--                        class="font-semibold text-gray-900 dark:text-white"-->
-<!--                        th:text="${pageData.content.size()+ ' de '  }"></span>  <span-->
-<!--                        class="font-semibold text-gray-900 dark:text-white" th:text="${derivacion.size()}"></span></span>-->
-<!--                <ul class="inline-flex -space-x-px text-sm h-8">-->
-<!--                    <li th:if="${pageData.hasPrevious()}" class="page-item">-->
-<!--                        <a th:href="@{'/abm-pacientes?page='} + ${pageData.number - 1}"-->
-<!--                           class="flex items-center justify-center px-3 h-8 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Anterior</a>-->
-<!--                    </li>-->
-<!--                    <li th:each="i: ${#numbers.sequence(0, pageData.totalPages - 1)}" class="page-item">-->
-<!--                        <a th:href="@{'/abm-pacientes?page=' + ${i}}" aria-current="page" th:text="${i}+1"-->
-<!--                           class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"></a>-->
-<!--                    </li>-->
 
-<!--                    <li th:if="${pageData.hasNext()}">-->
-<!--                        <a th:href="@{'/abm-pacientes?page='} + ${pageData.number + 1}"-->
-<!--                           class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Siguiente</a>-->
-<!--                    </li>-->
-<!--                </ul>-->
-<!--            </nav>-->
 
         </div>
     </div>

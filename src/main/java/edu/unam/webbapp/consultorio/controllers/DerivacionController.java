@@ -4,7 +4,6 @@ import edu.unam.webbapp.consultorio.model.Derivacion;
 import edu.unam.webbapp.consultorio.model.Paciente;
 import edu.unam.webbapp.consultorio.model.Psicologo;
 import edu.unam.webbapp.consultorio.services.DerivacionesService;
-import edu.unam.webbapp.consultorio.services.PersonaService;
 import edu.unam.webbapp.consultorio.services.impl.PacienteServiceImpl;
 import edu.unam.webbapp.consultorio.services.impl.PsicologoServiceImpl;
 import edu.unam.webbapp.consultorio.utils.TipoDocumento;
@@ -37,35 +36,31 @@ public class DerivacionController {
         model.addAttribute("derivacion", new Derivacion());
         return "derivacion/abmDerivacion";
     }
-
-    //TODO: agregar @RequestParam para psicologo y paciente
-
+//    @RequestParam(value = "psicologo", required = false) Integer psicoId,
     @PostMapping("/abm-derivaciones")
-    public String guardarDerivacion(@Valid Derivacion derivacion,
-                                    BindingResult result,
-                                    Model model,
-                                    SessionStatus status ,
-                                    @RequestParam("psicologo") Integer psicoId,
-                                    @RequestParam("paciente") Integer pacienteId) {
+    public String guardarDerivacion(
+            @RequestParam(value = "paciente", required = false) Integer pacienteId,
+            @RequestParam(value = "descripcion") String descripcion,
+            @Valid Derivacion derivacion,
+            BindingResult result,
+            Model model,
+            SessionStatus status) {
 
         if (result.hasErrors()) {
             model.addAttribute("psicos", psicoService.findAll());
             model.addAttribute("pacientes", pacienteService.findAll());
             model.addAttribute("derivaciones", service.findAll());
             model.addAttribute("tipoDoc", TipoDocumento.values());
-            model.addAttribute("derivacion", new Derivacion());
-            model.addAttribute("derivacion", derivacion);
-        } else {
-
             return "derivacion/abmDerivacion";
         }
 
 
-        Psicologo psicologo = psicoService.getByDni(psicoId);
+//        Psicologo psicologo = psicoService.getByDni(psicoId);
         Paciente paciente = pacienteService.getPacienteByDni(pacienteId);
-
+        derivacion.setPsicologoEmisor(paciente.getPsicologo());
         derivacion.setPaciente(paciente);
-        derivacion.setPsicologoEmisor(psicologo);
+        derivacion.setDescripcion(descripcion);
+
         service.save(derivacion);
         status.setComplete();
         return "redirect:/abm-derivaciones";
