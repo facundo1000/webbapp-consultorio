@@ -21,14 +21,12 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class HistoriaClinicaServiceImpl implements HistoriaClinicaService {
 
-    private final HistoriaClinicaRepository repo;
     private final InformeSesionRepository repoInforme;
 
     @Override
     public List<HistoriaClinica> findAllHistoriaClinica() throws Exception {
 
-        List<HistoriaClinica> historia = repo.findAll();
-
+        List<HistoriaClinica> historiaClinicas = new ArrayList<>();
 
         List<InformeSesion> informes = repoInforme.findAll();
 
@@ -37,7 +35,6 @@ public class HistoriaClinicaServiceImpl implements HistoriaClinicaService {
             List<Integer> integers = informes.stream()
                     .map(informeSesion -> informeSesion.getSesion().getPaciente().getDni()).distinct().toList();
 
-            List<HistoriaClinica> historiaClinicas = new ArrayList<>();
             for (Integer dni : integers) {
 
                 Optional<List<InformeSesion>> informesDni = repoInforme.getInformeSesionBySesion_Paciente_Dni(dni);

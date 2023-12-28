@@ -4,6 +4,7 @@ import edu.unam.webbapp.consultorio.model.Sesion;
 import edu.unam.webbapp.consultorio.utils.EstadosSesion;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,5 +55,6 @@ public interface SesionService {
    */
   void deleteById(Integer id);
 
-  Sesion sesionStatus(LocalDate fecha,Sesion sesion);
+  Sesion sesionStatus(LocalDate fecha, Sesion sesion, LocalTime hora);
+
 }

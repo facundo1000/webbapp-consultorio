@@ -1,6 +1,5 @@
 edu.unam.webbapp.consultorio
 edu.unam.webbapp.consultorio.controllers
-edu.unam.webbapp.consultorio.exception
 edu.unam.webbapp.consultorio.model
 edu.unam.webbapp.consultorio.models
 edu.unam.webbapp.consultorio.repository

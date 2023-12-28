@@ -5,6 +5,8 @@ import edu.unam.webbapp.consultorio.model.Sesion;
 import edu.unam.webbapp.consultorio.repository.InformeSesionRepository;
 import edu.unam.webbapp.consultorio.repository.SesionRepositorio;
 import edu.unam.webbapp.consultorio.services.InformeSesionService;
+import edu.unam.webbapp.consultorio.services.SesionService;
+import edu.unam.webbapp.consultorio.utils.EstadosSesion;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
@@ -13,12 +15,17 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+/**
+ * Clase InformeSesionServiceImpl
+ * @author Andre,Gelabert; Pavon, Gabriel; Martinez, Facundo
+ */
 @Service
 @RequiredArgsConstructor
 public class InformeSesionServiceImpl implements InformeSesionService {
 
     private final InformeSesionRepository repo;
     private final SesionRepositorio repoSesion;
+    private final SesionService sesionService;
     @Override
     public List<InformeSesion> findAll() {
         return repo.findAll();
@@ -75,5 +82,18 @@ public class InformeSesionServiceImpl implements InformeSesionService {
             }
         }
         return null;
+    }
+
+    public void formInformation(String analisis, String tareas, String notas, String conclusion, Integer id, InformeSesion informe){
+        Sesion sesion = sesionService.findById(id);
+        informe.setAnalisis(analisis);
+        informe.setTareas(tareas);
+        informe.setNotas(notas);
+        informe.setConclusion(conclusion);
+        informe.setSesion(sesion);
+        informe.setFechaSesion(sesion.getFecha());
+        informe.setHoraSesion(sesion.getHora());
+        sesion.setInformeSesion(informe);
+        sesion.setEstadosSesion(EstadosSesion.REALIZADA);
     }
 }

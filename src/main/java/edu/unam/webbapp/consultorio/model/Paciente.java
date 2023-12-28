@@ -45,20 +45,24 @@ public class Paciente extends Persona implements Serializable {
    * Psicologo asignado al paciente
    */
 
-  @ManyToOne
+  @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.PERSIST})
   @NotNull
   private Psicologo psicologo;
 
   /**
    * Sesiones asignadas al paciente
    */
-  @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+  @OneToMany()
   @JoinTable(
       name = "tbl_paciente_sesion",
       joinColumns = @JoinColumn(name = "paciente_id"),
       inverseJoinColumns = @JoinColumn(name = "sesion_id"),
       uniqueConstraints = @UniqueConstraint(columnNames = {"paciente_id", "sesion_id"}))
   private Set<Sesion> sesions = new HashSet<>();
+
+
+  @OneToOne(mappedBy = "paciente")
+  private Derivacion derivacion;
 
 
   /**

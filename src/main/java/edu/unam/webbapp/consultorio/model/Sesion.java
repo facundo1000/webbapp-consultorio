@@ -27,6 +27,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name = "sesion")
 public class Sesion implements Serializable {
 
+  /**
+   * Numero que identifica una sesion
+   */
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "nro_sesion")
@@ -38,7 +41,6 @@ public class Sesion implements Serializable {
    */
   @NotNull
   @DateTimeFormat(pattern = "yyyy-MM-dd")
-  @FutureOrPresent
   private LocalDate fecha;
 
   /**
@@ -51,14 +53,14 @@ public class Sesion implements Serializable {
   /**
    * Psicologo asociado a una determinada sesion
    */
-  @ManyToOne
+  @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
   private Psicologo psicologo;
 
   /**
    * Paciente asociada a una determinado sesion
    */
 
-  @ManyToOne
+  @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.PERSIST})
   @NotNull
   private Paciente paciente;
 

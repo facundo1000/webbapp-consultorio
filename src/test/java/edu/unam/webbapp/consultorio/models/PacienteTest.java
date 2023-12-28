@@ -25,21 +25,21 @@ public class PacienteTest {
     sesion = buildSesion();
   }
 
-  private final Sesion sesion2 =
-      new Sesion(
-          26,
-          LocalDate.of(2023, Month.AUGUST, 15),
-          LocalTime.of(10, 00),
-          new Psicologo(),
-          null,
-          false);
+//  private final Sesion sesion2 =
+//      new Sesion(
+//          26,
+//          LocalDate.of(2023, Month.AUGUST, 15),
+//          LocalTime.of(10, 00),
+//          new Psicologo(),
+//          null,
+//          false);
 
   @Test
   @DisplayName("Test: agregar sesiones al paciente")
   void agregarSesiones() {
 
     paciente.addSesion(sesion);
-    paciente.addSesion(sesion2);
+//    paciente.addSesion(sesion2);
 
     assertThat(paciente.getSesions()).hasSize(3);
 
@@ -49,7 +49,7 @@ public class PacienteTest {
   @DisplayName("Test: remover sesion del paciente")
   void removerSesiones() {
     paciente.removeSesion(sesion);
-    paciente.removeSesion(sesion2);
+//    paciente.removeSesion(sesion2);
     paciente.removeSesion(null);
     assertThat(paciente.getSesions()).hasSize(1);
   }

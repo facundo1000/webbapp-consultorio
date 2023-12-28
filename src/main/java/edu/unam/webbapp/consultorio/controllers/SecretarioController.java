@@ -37,17 +37,6 @@ public class SecretarioController {
     return "secretario/abmSecretario";
   }
 
-  /*
-  @GetMapping("/form-secretario")
-  public String crear(Model model) {
-    model.addAttribute("titulo", "Crear secretario");
-    model.addAttribute("tipos", TipoDocumento.values());
-    model.addAttribute("sexos", Sexo.values());
-    model.addAttribute("secretario", new Secretario());
-    return "secretario/formSecretario";
-  }
-
-   */
 
   @PostMapping("/form-secretario")
   public String guardar(

@@ -26,6 +26,13 @@ public class PacienteController {
     private final PersonaService<Paciente> service;
     private final PersonaService<Psicologo> psicoService;
 
+    /**
+     * Funcion que sirve para mostrar la vista pacientes
+     * @param page parametro que se utiliza para la paginacion
+     * @param model permite establecer una clave y un valor para los atributos que pasan a la vista
+     * @return retorna la vista html
+     */
+
     @GetMapping("/abm-pacientes")
     public String CrearMostrar(@RequestParam(name = "page", defaultValue = "0") int page ,Model model) {
 
@@ -67,9 +74,10 @@ public class PacienteController {
         paciente.setPsicologo(psicologo);
         paciente.setEliminado(Boolean.FALSE);
         psicologo.addPaciente(paciente);
+        paciente.setSesions(psicologo.getSesions());
+        service.save(paciente);
         psicoService.save(psicologo);
 
-        service.save(paciente);
         status.setComplete();
         return "redirect:/abm-pacientes";
     }

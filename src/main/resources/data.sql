@@ -20,7 +20,7 @@ INSERT INTO secretario (dni, apellido, nombre, direccion, fecha_de_nacimiento, s
 -- Insertar datos de sesion
 INSERT INTO sesion (nro_sesion,fecha,hora,psicologo_dni,paciente_dni, eliminado,estado) VALUES (12,'2023-08-10','16:30',40356896,34789654, false,'REALIZADA');
 INSERT INTO sesion (nro_sesion,fecha,hora,psicologo_dni,paciente_dni, eliminado,estado) VALUES (11,'2022-07-11','14:00',12345678,39789654, false,'PENDIENTE');
-INSERT INTO sesion (nro_sesion,fecha,hora,psicologo_dni,paciente_dni, eliminado,estado) VALUES (13,'2023-10-22','17:00',87654321,12345678, false,'CANCELADA');
+INSERT INTO sesion (nro_sesion,fecha,hora,psicologo_dni,paciente_dni, eliminado,estado) VALUES (13,'2023-10-22','17:00',87654321,12345678, true,'CANCELADA');
 
 
 -- Insertar historia_clinica
@@ -28,6 +28,12 @@ INSERT INTO historia_clinica (cant_sesiones) VALUES (3);
 
 -- Insertar informe de sesion
 INSERT INTO informe_sesion (fecha_informe,hora_informe,analisis,notas,conclusion,tareas,eliminado,sesion_id,historia_id) VALUES ('2023-03-01', '08:30','descripcion de prueba','informacion de las notas','informacion de la conclusion','esto es una tarea',false,12,1);
+
+-- Insertar derivacion de psicologo
+INSERT INTO derivacion (nombre_dest,apellido_dest,tipo_doc_dest,dni_dest,clinica_dest,tel_clinica_dest,direc_clinica_dest,descripcion,psicologo_emisor_dni, paciente_dni, eliminado) VALUES ('armando','martinez','DNI','46639845','clinica mayo','+5578965412', 'fuenzalida 145','el paciente debe ser tranferido a la clinica mayo',12345678,34789654,false);
+
+-- relacion psicologo-derivacion
+INSERT INTO tbl_psicologo_derivaciones (psicologo_id,derivacion_id) VALUES (12345678,1);
 
 -- relacion informeSesion-historiaClinica
 INSERT INTO tbl_informe_historia (historia_id,informe_id) VALUES (1,1);
