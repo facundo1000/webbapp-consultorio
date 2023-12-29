@@ -15,6 +15,7 @@
     <description>webbapp-consultorio</description>
     <properties>
         <java.version>17</java.version>
+        <start-class>edu.unam.webbapp.consultorio.WebbappConsultorioApplication</start-class>
     </properties>
     <dependencies>
         <dependency>
@@ -64,6 +65,8 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
+                    <mainClass>edu.unam.webbapp.consultorio.WebbappConsultorioApplication</mainClass>
+                    <layout>JAR</layout>
                 </configuration>
                 <executions>
                     <execution>
@@ -77,15 +80,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
                 <version>3.12.1</version>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                            <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>edu.unam.webbapp.consultorio.WebbappConsultorioApplication</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
