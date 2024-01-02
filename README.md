@@ -10,6 +10,8 @@ Server Side Rendering (SSR).
 - H2 Database
 - Lombock
 
+Acceso a la aplicación: [consiltorio](https://consultorio-oey7.onrender.com)
+
 Esta aplicación nace como parte de un proyecto integrador de la materia Programación Orientada a Objetos II, de la carrera
 Analista en Sistemas.
 
