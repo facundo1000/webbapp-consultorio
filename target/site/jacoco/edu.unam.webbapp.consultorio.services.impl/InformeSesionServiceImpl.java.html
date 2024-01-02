@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>InformeSesionServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">webbapp-consultorio</a> &gt; <a href="index.source.html" class="el_package">edu.unam.webbapp.consultorio.services.impl</a> &gt; <span class="el_source">InformeSesionServiceImpl.java</span></div><h1>InformeSesionServiceImpl.java</h1><pre class="source lang-java linenums">package edu.unam.webbapp.consultorio.services.impl;
+
+import edu.unam.webbapp.consultorio.model.InformeSesion;
+import edu.unam.webbapp.consultorio.model.Sesion;
+import edu.unam.webbapp.consultorio.repository.InformeSesionRepository;
+import edu.unam.webbapp.consultorio.repository.SesionRepositorio;
+import edu.unam.webbapp.consultorio.services.InformeSesionService;
+import edu.unam.webbapp.consultorio.services.SesionService;
+import edu.unam.webbapp.consultorio.utils.EstadosSesion;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Example;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+
+/**
+ * Clase InformeSesionServiceImpl
+ * @author Andre,Gelabert; Pavon, Gabriel; Martinez, Facundo
+ */
+@Service
+<span class="fc" id="L23">@RequiredArgsConstructor</span>
+public class InformeSesionServiceImpl implements InformeSesionService {
+
+    private final InformeSesionRepository repo;
+    private final SesionRepositorio repoSesion;
+    private final SesionService sesionService;
+    @Override
+    public List&lt;InformeSesion&gt; findAll() {
+<span class="nc" id="L31">        return repo.findAll();</span>
+    }
+
+    @Override
+    public InformeSesion findById(Integer id) {
+<span class="nc" id="L36">        return repo.findById(id).orElseThrow() ;</span>
+    }
+
+    @Override
+    public InformeSesion save(InformeSesion informe) {
+<span class="nc" id="L41">        return repo.save(informe);</span>
+    }
+
+    @Override
+    public InformeSesion update(Integer id, InformeSesion informe) {
+<span class="nc" id="L46">        return null;</span>
+    }
+
+    @Override
+    public void deleteById(Integer id) {
+<span class="nc bnc" id="L51" title="All 2 branches missed.">        if (id &gt; 0){</span>
+<span class="nc" id="L52">            InformeSesion informe = repo.findById(id).orElseThrow();</span>
+<span class="nc" id="L53">            informe.setEliminado(true);</span>
+<span class="nc" id="L54">            repo.save(informe);</span>
+        }
+<span class="nc" id="L56">    }</span>
+
+    @Override
+    public InformeSesion createInformeSesion(Integer id) {
+
+<span class="nc" id="L61">        InformeSesion informe = new InformeSesion();</span>
+<span class="nc" id="L62">        Optional&lt;Sesion&gt; sesion = repoSesion.findById(id);</span>
+
+<span class="nc bnc" id="L64" title="All 2 branches missed.">        if(sesion.isPresent()){</span>
+<span class="nc bnc" id="L65" title="All 2 branches missed.">            if(sesion.get().getInformeSesion() != null){</span>
+<span class="nc" id="L66">                return repo.getInformeSesionBySesion_NroSesion(id).orElseThrow();</span>
+            }
+<span class="nc" id="L68">            informe.setSesion(sesion.get());</span>
+        }
+
+<span class="nc" id="L71">        return informe;</span>
+    }
+
+    @Override
+    public Boolean existeInformeSesion(Integer id) {
+<span class="nc" id="L76">        Optional&lt;Sesion&gt; sesion = repoSesion.findById(id);</span>
+
+<span class="nc bnc" id="L78" title="All 2 branches missed.">        if(sesion.isPresent()){</span>
+<span class="nc bnc" id="L79" title="All 2 branches missed.">            if(sesion.get().getInformeSesion() != null){</span>
+<span class="nc" id="L80">                InformeSesion informeSesion = repo.getInformeSesionBySesion_NroSesion(id).orElseThrow();</span>
+<span class="nc" id="L81">                return informeSesion.equals(sesion.get().getInformeSesion());</span>
+            }
+        }
+<span class="nc" id="L84">        return null;</span>
+    }
+
+    public void formInformation(String analisis, String tareas, String notas, String conclusion, Integer id, InformeSesion informe){
+<span class="nc" id="L88">        Sesion sesion = sesionService.findById(id);</span>
+<span class="nc" id="L89">        informe.setAnalisis(analisis);</span>
+<span class="nc" id="L90">        informe.setTareas(tareas);</span>
+<span class="nc" id="L91">        informe.setNotas(notas);</span>
+<span class="nc" id="L92">        informe.setConclusion(conclusion);</span>
+<span class="nc" id="L93">        informe.setSesion(sesion);</span>
+<span class="nc" id="L94">        informe.setFechaSesion(sesion.getFecha());</span>
+<span class="nc" id="L95">        informe.setHoraSesion(sesion.getHora());</span>
+<span class="nc" id="L96">        sesion.setInformeSesion(informe);</span>
+<span class="nc" id="L97">        sesion.setEstadosSesion(EstadosSesion.REALIZADA);</span>
+<span class="nc" id="L98">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

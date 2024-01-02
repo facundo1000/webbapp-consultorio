@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/layout :: head}"></head>
+
+<body>
+<header th:replace="~{layout/layout :: header}"></header>
+<aside th:replace="~{layout/layout :: sidebar}"></aside>
+
+
+<main class="md:ml-64 h-auto pt-20">
+    <div class="border-1 border-gray-300 dark:border-gray-600 mb-4">
+        <div class="p-2 flex justify-between items-center px-4 rounded-t border-b dark:border-gray-600">
+
+            <h4 class="text-2xl md:block font-semibold text-gray-900 dark:text-white"
+                th:text="'Listado de Sesiones por Paciente - Paciente: ' + ${paciente.nombre} + ' ' + ${paciente.apellido}"></h4>
+            <button type="button"
+                    class="text-white bg-blue-600 hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                    data-modal-toggle="defaultModal">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+                     xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"></path>
+                </svg>
+            </button>
+        </div>
+
+        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="px-6 py-3">
+                        ID - Sesion
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Fecha de Sesion
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Hora de Sesion
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Psicologo
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Terapia
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        <span class="sr-only">Edit</span>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="sesion : ${sesiones}"
+                        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white" th:text="${sesion.nroSesion}">
+                    </th>
+                    <td class="px-6 py-4" th:text="${#temporals.format(sesion.fecha,'dd/MM/yyyy')}">
+                    </td>
+                    <td class="px-6 py-4" th:text="${sesion.hora}">
+                    </td>
+                    <td class="px-6 py-4" th:text="${sesion.psicologo.nombre} + ' ' + ${sesion.psicologo.apellido}">
+                    </td>
+                    <td class="px-6 py-4" th:text="${sesion.psicologo.especialidad}">
+                    </td>
+<!--                    <td class="px-6 py-4 text-right">-->
+<!--                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>-->
+<!--                    </td>-->
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr class="font-semibold text-gray-900 dark:text-white">
+                    <th scope="row" class="px-6 py-3 text-base">Total de sesiones</th>
+                    <td class="px-6 py-3" th:text="${sesiones.size()}"></td>
+
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+
+    </div>
+</main>
+
+
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
+</html>

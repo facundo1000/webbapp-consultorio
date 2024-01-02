@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/layout :: head}"></head>
+<body>
+
+<header th:replace="~{layout/layout :: header}"></header>
+<aside th:replace="~{layout/layout :: sidebar}"></aside>
+
+<div class="flex items-center justify-center h-screen">
+    <div class="block max-w-md p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+
+
+            <h2 class="text-2xl font-extrabold dark:text-white" th:text="${titulo}"></h2>
+
+
+
+
+            <h4 class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                <a th:href="@{/form-paciente}" class="btn-outline-primary"> Crear Paciente</a>
+            </h4>
+
+
+            <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th class="px6 py-3">Tipo.Doc</th>
+                        <th class="px6 py-3">Dni</th>
+                        <th class="px6 py-3">Nombre</th>
+                        <th class="px6 py-3">Apellido</th>
+                        <th class="px6 py-3">Telefono</th>
+                        <th class="px6 py-3">Direccion</th>
+                        <th class="px6 py-3">Sexo</th>
+                        <th class="px6 py-3">Ocupacion</th>
+                        <th class="px6 py-3">Fecha de Nac.</th>
+                        <th class="px6 py-3">Estado Civil</th>
+                        <th class="px6 py-3">Psicologo</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="paciente : ${pacientes} " class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        <div th:if="${paciente.eliminado != true}">
+                            <td th:text="${paciente.tipoDoc}" class="px-6 py-4"></td>
+                            <td th:text="${paciente.dni}" class="px-6 py-4"></td>
+                            <td th:text="${paciente.nombre}" class="px-6 py-4"></td>
+                            <td th:text="${paciente.apellido}" class="px-6 py-4"></td>
+                            <td th:text="${paciente.telefono}" class="px-6 py-4"></td>
+                            <td th:text="${paciente.direccion}" class="px-6 py-4"></td>
+                            <td th:text="${paciente.sexo}" class="px-6 py-4"></td>
+                            <td th:text="${paciente.ocupacion}" class="px-6 py-4"></td>
+                            <td th:text="${#temporals.format(paciente.fechaDeNacimiento,'dd-MM-yyyy')}" class="px-6 py-4"></td>
+                            <td th:text="${paciente.estadoCivil}" class="px-6 py-4"></td>
+                            <td th:text="${paciente.psicologo.nombre} + ' ' +${paciente.psicologo.apellido}" class="px-6 py-4"></td>
+                            <td><a class="btn btn-warning" th:href="@{/form-paciente/} + ${paciente.dni}">Editar</a></td>
+                            <td><a class="btn btn-danger" th:href="@{/eliminar-paciente/} + ${paciente.dni}"
+                                   onclick="return confirm('Esta seguro de eliminar?')">Eliminar</a></td>
+                            <td>
+                                <a th:href="@{/listar-sesiones/} + ${paciente.dni}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512">
+                                        <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                                        <path d="M288 80c-65.2 0-118.8 29.6-159.9 67.7C89.6 183.5 63 226 49.4 256c13.6 30 40.2 72.5 78.6 108.3C169.2 402.4 222.8 432 288 432s118.8-29.6 159.9-67.7C486.4 328.5 513 286 526.6 256c-13.6-30-40.2-72.5-78.6-108.3C406.8 109.6 353.2 80 288 80zM95.4 112.6C142.5 68.8 207.2 32 288 32s145.5 36.8 192.6 80.6c46.8 43.5 78.1 95.4 93 131.1c3.3 7.9 3.3 16.7 0 24.6c-14.9 35.7-46.2 87.7-93 131.1C433.5 443.2 368.8 480 288 480s-145.5-36.8-192.6-80.6C48.6 356 17.3 304 2.5 268.3c-3.3-7.9-3.3-16.7 0-24.6C17.3 208 48.6 156 95.4 112.6zM288 336c44.2 0 80-35.8 80-80s-35.8-80-80-80c-.7 0-1.3 0-2 0c1.3 5.1 2 10.5 2 16c0 35.3-28.7 64-64 64c-5.5 0-10.9-.7-16-2c0 .7 0 1.3 0 2c0 44.2 35.8 80 80 80zm0-208a128 128 0 1 1 0 256 128 128 0 1 1 0-256z"/>
+                                    </svg>
+                                </a>
+
+                            </td>
+                        </div>
+
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+    </div>
+
+</div>
+
+
+<!--<footer th:replace="~{layout/layout :: footer}"></footer>-->
+
+</body>
+</html>

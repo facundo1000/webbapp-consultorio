@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Paciente.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">webbapp-consultorio</a> &gt; <a href="index.source.html" class="el_package">edu.unam.webbapp.consultorio.model</a> &gt; <span class="el_source">Paciente.java</span></div><h1>Paciente.java</h1><pre class="source lang-java linenums">package edu.unam.webbapp.consultorio.model;
+
+import edu.unam.webbapp.consultorio.utils.EstadoCivil;
+import jakarta.persistence.*;
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import lombok.*;
+
+/**
+ * Clase Paciente
+ * @author Andre,Gelabert; Pavon, Gabriel; Martinez, Facundo
+ */
+
+@Entity
+@Getter
+<span class="nc" id="L22">@Setter</span>
+<span class="fc" id="L23">@NoArgsConstructor</span>
+<span class="nc" id="L24">@AllArgsConstructor</span>
+@Table(name = &quot;paciente&quot;)
+public class Paciente extends Persona implements Serializable {
+
+  /**
+   * Estado Civil del paciente
+   */
+
+  @Column(name = &quot;estado_civil&quot;)
+  @Enumerated(EnumType.STRING)
+  @NotNull
+<span class="nc" id="L35">  private EstadoCivil estadoCivil;</span>
+
+  /**
+   * Ocupacion del paciente
+   */
+
+  @NotEmpty
+<span class="nc" id="L42">  private String ocupacion;</span>
+
+  /**
+   * Psicologo asignado al paciente
+   */
+
+  @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.PERSIST})
+  @NotNull
+<span class="nc" id="L50">  private Psicologo psicologo;</span>
+
+  /**
+   * Sesiones asignadas al paciente
+   */
+<span class="pc" id="L55">  @OneToMany()</span>
+  @JoinTable(
+      name = &quot;tbl_paciente_sesion&quot;,
+      joinColumns = @JoinColumn(name = &quot;paciente_id&quot;),
+      inverseJoinColumns = @JoinColumn(name = &quot;sesion_id&quot;),
+      uniqueConstraints = @UniqueConstraint(columnNames = {&quot;paciente_id&quot;, &quot;sesion_id&quot;}))
+<span class="nc" id="L61">  private Set&lt;Sesion&gt; sesions = new HashSet&lt;&gt;();</span>
+
+
+  @OneToOne(mappedBy = &quot;paciente&quot;)
+<span class="nc" id="L65">  private Derivacion derivacion;</span>
+
+
+  /**
+   * Funcion para agregar una sesion a la lista de sesiones
+   * @param sesion un objeto sesion
+   */
+
+  public void addSesion(Sesion sesion) {
+<span class="nc" id="L74">    this.sesions.add(sesion);</span>
+<span class="nc" id="L75">  }</span>
+
+  /**
+   * Funcion para remover una sesion de una lista de sesiones
+   * @param sesion un objeto sesion
+   */
+
+  public void removeSesion(Sesion sesion) {
+<span class="nc" id="L83">    this.sesions.remove(sesion);</span>
+<span class="nc" id="L84">  }</span>
+
+  /**
+   * Funcion para remover todas las sesiones de la lista de sesiones
+   */
+
+  public void removeAllSesions(){
+<span class="nc bnc" id="L91" title="All 2 branches missed.">    for (Sesion s : sesions) {</span>
+<span class="nc" id="L92">        removeSesion(s);</span>
+<span class="nc" id="L93">    }</span>
+<span class="nc" id="L94">  }</span>
+
+  @Serial private static final long serialVersionUID = -2165208220281546948L;
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

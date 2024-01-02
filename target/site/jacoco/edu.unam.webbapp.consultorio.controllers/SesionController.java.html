@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SesionController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">webbapp-consultorio</a> &gt; <a href="index.source.html" class="el_package">edu.unam.webbapp.consultorio.controllers</a> &gt; <span class="el_source">SesionController.java</span></div><h1>SesionController.java</h1><pre class="source lang-java linenums">package edu.unam.webbapp.consultorio.controllers;
+
+import edu.unam.webbapp.consultorio.model.Paciente;
+import edu.unam.webbapp.consultorio.model.Psicologo;
+import edu.unam.webbapp.consultorio.model.Sesion;
+import edu.unam.webbapp.consultorio.services.impl.PacienteServiceImpl;
+import edu.unam.webbapp.consultorio.services.SesionService;
+import edu.unam.webbapp.consultorio.services.impl.PsicologoServiceImpl;
+import jakarta.validation.Valid;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.List;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
+/**
+ * Clase SesionController
+ * @author Andre,Gelabert; Pavon, Gabriel; Martinez, Facundo
+ */
+@Controller
+<span class="fc" id="L25">@RequiredArgsConstructor</span>
+@SessionAttributes(value = {&quot;sesion&quot; ,&quot;pacientes&quot;})
+public class SesionController {
+
+  private final SesionService service;
+  private final PacienteServiceImpl pasService;
+  private final PsicologoServiceImpl psicoService;
+
+  /**
+   * Este metodo permite visualizar la pantalla de sesiones
+   * @param model permite establecer una clave y un valor para los atributos que pasan a la vista
+   * @return la vista en html de abmSesion.html
+   */
+  @GetMapping(path = {&quot;/&quot;,&quot;/lista-sesiones&quot;})
+  public String listar(Model model) {
+<span class="nc" id="L40">    Sesion sesion = new Sesion();</span>
+<span class="nc" id="L41">    model.addAttribute(&quot;sesion&quot;, sesion);</span>
+<span class="nc" id="L42">    model.addAttribute(&quot;pacientes&quot;, pasService.getAllEliminadoEquals(false));</span>
+<span class="nc" id="L43">    model.addAttribute(&quot;sesiones&quot;, service.findAll());</span>
+
+<span class="nc" id="L45">    return &quot;sesiones/abmSesion&quot;;</span>
+  }
+
+  /**
+   * Funcion que permite visualizar los datos de una sesion para ser editados
+   * @param model permite establecer una clave y un valor para los atributos que pasan a la vista
+   * @param id id de una sesion en especifica
+   * @return la vista en html de abmSesion.html
+   */
+
+  //TODO: solucionar metodo editar ( no funciona)
+  @GetMapping(&quot;/lista-sesiones/{id}&quot;)
+  public String editar(Model model, @PathVariable Integer id) {
+
+    Sesion sesion;
+
+<span class="nc bnc" id="L61" title="All 2 branches missed.">    if(id &gt; 0){</span>
+<span class="nc" id="L62">      sesion = service.findById(id);</span>
+<span class="nc" id="L63">      model.addAttribute(&quot;sesiones&quot;, service.findAll());</span>
+    }else {
+<span class="nc" id="L65">      return &quot;redirect:/lista-sesiones&quot;;</span>
+    }
+
+<span class="nc" id="L68">    model.addAttribute(&quot;sesion&quot;,sesion);</span>
+<span class="nc" id="L69">    return &quot;sesiones/abmSesion&quot;;</span>
+  }
+
+  /**
+   * Funcion que se encarga de manejar la confirmacion de una sesion
+   * @param dni dni del objeto paciente
+   * @param sesion objeto sesion
+   * @param result permite ver si hubo errores en el proceso de relleno del formulario
+   * @param model permite establecer una clave y un valor para los atributos que pasan a la vista
+   * @param status permite manejar la sesion
+   * @return redireciona al controlador que muestra
+   */
+
+  @PostMapping(&quot;/lista-sesiones&quot;)
+  public String guardar(
+      @RequestParam(name = &quot;paciente&quot;) Integer dni,
+      @RequestParam(name = &quot;fecha&quot;)LocalDate fecha,
+      @RequestParam(name = &quot;hora&quot;) LocalTime hora,
+      @Valid Sesion sesion,
+      BindingResult result,
+      Model model,
+      SessionStatus status) {
+
+<span class="nc bnc" id="L92" title="All 2 branches missed.">    if (result.hasErrors()) {</span>
+<span class="nc" id="L93">      model.addAttribute(&quot;pacientes&quot;, pasService.findAll());</span>
+<span class="nc" id="L94">      model.addAttribute(&quot;sesiones&quot;, service.findAll());</span>
+<span class="nc" id="L95">      return &quot;sesiones/abmSesion&quot;;</span>
+    }
+
+<span class="nc" id="L98">    Paciente pacienteDni = pasService.getPacienteByDni(dni);</span>
+//    Psicologo psicologo = psicoService.getByDni(pacienteDni.getPsicologo().getDni());
+
+<span class="nc" id="L101">    sesion.setPsicologo(pacienteDni.getPsicologo());</span>
+<span class="nc" id="L102">    sesion.setPaciente(pacienteDni);</span>
+//    psicologo.addSesion(sesion);
+<span class="nc" id="L104">    pacienteDni.getPsicologo().addSesion(sesion);</span>
+<span class="nc" id="L105">    pacienteDni.addSesion(sesion);</span>
+<span class="nc" id="L106">    Sesion sesioned = service.sesionStatus(fecha, sesion, hora);</span>
+
+<span class="nc" id="L108">    service.save(sesioned);</span>
+<span class="nc" id="L109">    status.setComplete();</span>
+<span class="nc" id="L110">    return &quot;redirect:/&quot;;</span>
+  }
+
+
+  @GetMapping(&quot;/listar-sesiones/{id}&quot;)
+  public String sesionPorPaciente(@PathVariable Integer id, Model model) {
+<span class="nc" id="L116">    List&lt;Sesion&gt; sesions = service.findSesionByPacienteId(id);</span>
+<span class="nc" id="L117">    Paciente paciente = pasService.getById(id);</span>
+
+<span class="nc" id="L119">    model.addAttribute(&quot;titulo&quot;, &quot;Listado de sesiones&quot;);</span>
+<span class="nc" id="L120">    model.addAttribute(&quot;sesiones&quot;, sesions);</span>
+<span class="nc" id="L121">    model.addAttribute(&quot;paciente&quot;,paciente);</span>
+
+<span class="nc" id="L123">    return &quot;pacientes/sesionesPorPaciente&quot;;</span>
+  }
+
+  @GetMapping(&quot;/eliminar-sesion/{id}&quot;)
+  public String eliminarSesion(@PathVariable Integer id, Model model){
+
+<span class="nc bnc" id="L129" title="All 2 branches missed.">    if(id &gt; 0){</span>
+<span class="nc" id="L130">      service.deleteById(id);</span>
+    }
+<span class="nc" id="L132">    return &quot;redirect:/&quot;;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
