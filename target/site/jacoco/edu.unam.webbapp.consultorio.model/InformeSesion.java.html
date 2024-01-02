@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>InformeSesion.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">webbapp-consultorio</a> &gt; <a href="index.source.html" class="el_package">edu.unam.webbapp.consultorio.model</a> &gt; <span class="el_source">InformeSesion.java</span></div><h1>InformeSesion.java</h1><pre class="source lang-java linenums">package edu.unam.webbapp.consultorio.model;
+
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.temporal.TemporalUnit;
+/**
+ * Clase InformeSesion
+ * @author Andre,Gelabert; Pavon, Gabriel; Martinez, Facundo
+ */
+@Entity
+<span class="pc" id="L17">@Setter</span>
+@Getter
+<span class="fc" id="L19">@NoArgsConstructor</span>
+@Table(name = &quot;informe_sesion&quot;)
+public class InformeSesion {
+
+    @Id
+    @Column(name = &quot;id_informe&quot;)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+<span class="fc" id="L26">    private Integer idInforme;</span>
+
+    //Fecha de la sesion
+    @Column(name = &quot;fecha_informe&quot;)
+    @DateTimeFormat(pattern = &quot;yyyy-MM-dd&quot;)
+<span class="fc" id="L31">    private LocalDate fechaSesion;</span>
+
+    //Hora de la sesion
+    @Column(name = &quot;hora_informe&quot;)
+    @DateTimeFormat(pattern = &quot;HH:mm&quot;)
+<span class="fc" id="L36">    private LocalTime horaSesion;</span>
+
+<span class="fc" id="L38">    private String analisis;</span>
+
+<span class="fc" id="L40">    private String notas;</span>
+
+<span class="fc" id="L42">    private String conclusion;</span>
+
+<span class="fc" id="L44">    private String tareas;</span>
+
+    @OneToOne
+    @JoinColumn(name = &quot;sesion_id&quot;)
+<span class="fc" id="L48">    private Sesion sesion;</span>
+
+    @ManyToOne
+    @JoinColumn(name = &quot;historia_id&quot;)
+<span class="fc" id="L52">    private HistoriaClinica historia;</span>
+
+
+    /**
+     * &lt;p&gt;
+     * Valor que justifica si la sesion a sido eliminada,
+     * o no.
+     * &lt;/p&gt;
+     */
+<span class="fc" id="L61">    private Boolean eliminado;</span>
+
+    /**
+     * &lt;p&gt;
+     * Metodo que configura por defecto
+     * el valor de 'falso' antes que se persista
+     * una entidad en una base de datos
+     * &lt;/p&gt;
+     */
+    @PrePersist
+    public void prePersist() {
+<span class="fc" id="L72">        eliminado = Boolean.FALSE;</span>
+<span class="fc" id="L73">        fechaSesion = LocalDate.now();</span>
+<span class="fc" id="L74">        horaSesion = LocalTime.now();</span>
+<span class="fc" id="L75">    }</span>
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

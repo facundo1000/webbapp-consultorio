@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+    <meta charset="UTF-8"/>
+    <link rel="icon" type="image/svg+xml" href="/vite.svg"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <!-- CDN TailwindCSS-->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!--    Tailwind Config-->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        };
+    </script>
+    <!-- CDN FlowbyteCSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
+    <title th:text="${Titulo}"></title>
+</head>
+<body>
+<header th:replace="~{layout/layout :: header}"></header>
+<aside th:replace="~{layout/layout :: sidebar}"></aside>
+
+<main class="md:ml-64 h-auto pt-20"> <!-- Aca esta la pagina en si -->
+    <div class="border-1 border-gray-300 dark:border-gray-600 mb-4">
+        <div class="p-2 flex justify-between items-center px-4 rounded-t border-b dark:border-gray-600">
+            <!-- Encabezado -->
+
+            <h1 class="text-2xl md:block font-semibold text-gray-900 dark:text-white">Informacion del Paciente</h1>
+            <button type="button"
+                    class="text-white bg-blue-600 hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                    data-modal-toggle="defaultModal">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+                     xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"></path>
+                </svg>
+            </button>
+        </div>
+
+
+        <hr>
+        <!--        <h2 class="text-xl pb-4 text-gray-900 dark:text-white">Informacion del paciente</h2>-->
+        <div class="grid md:grid-cols-4 md:gap-6">
+            <div class="relative z-0 w-full mb-6 group">
+                <p class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Paciente:</p>
+                <p th:text="${#strings.toUpperCase(paciente.nombre)} + ' ' + ${#strings.toUpperCase(paciente.apellido)}"
+                   name="pacienteNombreApellido" id="nombreApellido"
+                   class="text-lg font-semibold"></p>
+            </div>
+            <div class="relative z-0 w-full mb-6 group">
+                <p class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Genero:</p>
+                <p th:text="${#strings.toUpperCase(paciente.sexo)}" name="pacienteGenero" id="sexo"
+                   class="text-lg font-semibold"></p>
+            </div>
+            <div class="relative z-0 w-full mb-6 group">
+                <p class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Nro. Documento:</p>
+                <p th:text="${#strings.toUpperCase(paciente.dni)}" name="pacienteDni" id="dni"
+                   class="text-lg font-semibold"></p>
+            </div>
+            <div class="relative z-0 w-full mb-6 group">
+                <p class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Fecha de nacimiento:</p>
+                <p th:text="${#strings.toUpperCase(#temporals.format(paciente.fechaDeNacimiento, 'dd-MM-yyyy'))}"
+                   name="pacienteFechaDeNacimiento" id="fechaDeNacimiento" class="text-lg font-semibold"></p>
+            </div>
+            <div class="relative z-0 w-full mb-6 group">
+                <p class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Ocupación:</p>
+                <p th:text="${#strings.toUpperCase(paciente.ocupacion)}" name="pacienteOcupacion"
+                   id="ocupacion" class="text-lg font-semibold"></p>
+            </div>
+            <div class="relative z-0 w-full mb-6 group">
+                <p class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Estado civil:</p>
+                <p th:text="${#strings.toUpperCase(paciente.estadoCivil)}" name="pacienteEstadoCivil"
+                   id="estadoCivil" class="text-lg font-semibold"></p>
+            </div>
+            <div class="relative z-0 w-full mb-6 group">
+                <p class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Dirección:</p>
+                <p th:text="${#strings.toUpperCase(paciente.direccion)}" name="pacienteDireccion"
+                   id="direccion" class="text-lg font-semibold"></p>
+            </div>
+            <div class="relative z-0 w-full mb-6 group">
+                <p class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Teléfono:</p>
+                <p th:text="${#strings.toUpperCase(paciente.telefono)}" name="pacienteTelefono"
+                   id="telefono" class="text-lg font-semibold"></p>
+            </div>
+        </div>
+
+        <div class="w-full bg-gray-400 h-[1px] mb-4"></div>
+        <h2 class="text-xl pb-2 pl-5 text-gray-900 dark:text-white">
+            Listado de Informes de Sesiones
+        </h2>
+        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="px-6 py-3 text-center">
+                        <div class="flex items-center">
+                            N° de Sesion
+                            <a href="#">
+                                <svg class="w-3 h-3 ml-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                     fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-center">
+                        <div class="flex items-center">
+                            N° de Informe
+                            <a href="#">
+                                <svg class="w-3 h-3 ml-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                     fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-center">
+                        <div class="flex items-center">
+                            Psico.Responsable
+                            <a href="#">
+                                <svg class="w-3 h-3 ml-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                     fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </th>
+
+                    <th scope="col" class="px-6 py-3 text-center">
+                        <div class="flex items-center">
+                            Fecha
+                            <a href="#">
+                                <svg class="w-3 h-3 ml-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                     fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-center">
+                        <div class="flex items-center">
+                            Hora
+                            <a href="#">
+                                <svg class="w-3 h-3 ml-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                     fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-center">
+                        <div class="flex items-center">
+                            Acciones
+                            <a href="#">
+                                <svg class="w-3 h-3 ml-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                     fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                    th:each="sesion :${sesions}">
+
+                        <td class="px-6 py-3" th:text="${sesion.nroSesion}">
+                        </td>
+                        <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                            th:text="${sesion.informeSesion.idInforme}">
+                        </th>
+                        <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                            th:text="${sesion.psicologo.nombre} + ' ' + ${sesion.psicologo.apellido}">
+                        </th>
+                        <td class="px-6 py-3" th:text="${#temporals.format(sesion.fecha,'dd-MM-yyyy')}">
+                        </td>
+                        <td class="px-6 py-3" th:text="${#temporals.format(sesion.hora,'HH:mm')}">
+                        </td>
+                        <td class="px-4 py-2 font-medium flex flex-row text-gray-900 whitespace-nowrap dark:text-white">
+                            <a th:href="@{/informe-mostrar/} + ${sesion.informeSesion.idInforme}"
+                               class="flex mx-auto items-center justify-center px-2 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-lg active:bg-blue-700 hover:bg-blue-700 focus:outline-none focus:shadow-outline-green">
+                                Detalle
+                            </a>
+                        </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+</body>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
+</html>

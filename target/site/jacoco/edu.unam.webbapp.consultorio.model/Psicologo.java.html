@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Psicologo.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">webbapp-consultorio</a> &gt; <a href="index.source.html" class="el_package">edu.unam.webbapp.consultorio.model</a> &gt; <span class="el_source">Psicologo.java</span></div><h1>Psicologo.java</h1><pre class="source lang-java linenums">package edu.unam.webbapp.consultorio.model;
+
+import edu.unam.webbapp.consultorio.utils.Especialidad;
+import jakarta.persistence.*;
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.List;
+import java.util.Set;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+/**
+ * Clase Psicologo
+ * @author Andre,Gelabert; Pavon, Gabriel; Martinez, Facundo
+ */
+
+@Entity
+<span class="nc" id="L20">@Setter</span>
+@Getter
+<span class="fc" id="L22">@NoArgsConstructor</span>
+@Table(name = &quot;psicologo&quot;)
+public class Psicologo extends Persona implements Serializable {
+
+  /**
+   * Especialidad que corresponde a un determinado psicologo
+   */
+
+  @Enumerated(EnumType.STRING)
+<span class="nc" id="L31">  private Especialidad especialidad;</span>
+
+  /**
+   * Lista de pacientes que corresponden a cada
+   * paciente que atiende un determinado psicologo
+   */
+
+  @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+  @JoinTable(
+      name = &quot;tbl_paciente_psicologo&quot;,
+      joinColumns = @JoinColumn(name = &quot;psicologo_id&quot;),
+      inverseJoinColumns = @JoinColumn(name = &quot;paciente_id&quot;),
+      uniqueConstraints = @UniqueConstraint(columnNames = {&quot;psicologo_id&quot;, &quot;paciente_id&quot;}))
+<span class="nc" id="L44">  private Set&lt;Paciente&gt; pacientes;</span>
+
+  /**
+   * Lista de sesiones que corresponden a un determinado psicologo
+   */
+
+  @OneToMany()
+  @JoinTable(
+      name = &quot;tbl_psicologo_sesion&quot;,
+      joinColumns = @JoinColumn(name = &quot;psicologo_id&quot;),
+      inverseJoinColumns = @JoinColumn(name = &quot;sesion_id&quot;),
+      uniqueConstraints = @UniqueConstraint(columnNames = {&quot;psicologo_id&quot;, &quot;sesion_id&quot;}))
+<span class="nc" id="L56">  private Set&lt;Sesion&gt; sesions;</span>
+
+  @OneToMany
+  @JoinTable(
+          name = &quot;tbl_psicologo_derivaciones&quot;,
+          joinColumns = @JoinColumn(name = &quot;psicologo_id&quot;),
+          inverseJoinColumns = @JoinColumn(name = &quot;derivacion_id&quot;),
+          uniqueConstraints = @UniqueConstraint(columnNames = {&quot;psicologo_id&quot;, &quot;derivacion_id&quot;}))
+<span class="nc" id="L64">  private List&lt;Derivacion&gt; derivacions;</span>
+
+  /**
+   * Funcion que agrega un paciente a una lista
+   * @param paciente un objeto paciente
+   */
+
+  public void addPaciente(Paciente paciente) {
+<span class="nc" id="L72">    this.pacientes.add(paciente);</span>
+<span class="nc" id="L73">  }</span>
+
+  /**
+   * Funcion que agrega una sesion a una lista
+   * @param sesion un objeto sesion
+   */
+
+  public void addSesion(Sesion sesion) {
+<span class="nc" id="L81">    this.sesions.add(sesion);</span>
+<span class="nc" id="L82">  }</span>
+
+  /**
+   * Funcion que remueve un paciente de la lista de pacientes
+   * @param paciente un objeto paciente
+   */
+  public void removePaciente(Paciente paciente) {
+<span class="nc" id="L89">    this.pacientes.remove(paciente);</span>
+<span class="nc" id="L90">  }</span>
+
+  /**
+   * Funcion que agrega una sesion a una lista de sesiones
+   * @param sesion un objeto sesion
+   */
+
+  public void removeSesion(Sesion sesion) {
+<span class="nc" id="L98">    this.sesions.remove(sesion);</span>
+<span class="nc" id="L99">  }</span>
+
+  /**
+   * Funcion que remueve todos los pacientes de
+   * una lista de pacientes
+   */
+  public void removeAllPacientes() {
+<span class="nc bnc" id="L106" title="All 2 branches missed.">    for (Paciente p : pacientes) {</span>
+<span class="nc" id="L107">      removePaciente(p);</span>
+<span class="nc" id="L108">    }</span>
+<span class="nc" id="L109">  }</span>
+
+  /**
+   * Funcion que remueve todos las sesiones de una
+   * lista de sesiones
+   */
+
+  public void removeAllSesions() {
+<span class="nc bnc" id="L117" title="All 2 branches missed.">    for (Sesion s : sesions) {</span>
+<span class="nc" id="L118">      removeSesion(s);</span>
+<span class="nc" id="L119">    }</span>
+<span class="nc" id="L120">  }</span>
+
+  public void agregarDerivacion(Derivacion derivacion){
+<span class="nc" id="L123">    this.derivacions.add(derivacion);</span>
+<span class="nc" id="L124">  }</span>
+
+  public void removerDerivacion(Derivacion derivacion){
+<span class="nc" id="L127">    this.derivacions.remove(derivacion);</span>
+<span class="nc" id="L128">  }</span>
+
+  @Serial private static final long serialVersionUID = 5396190148242599611L;
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

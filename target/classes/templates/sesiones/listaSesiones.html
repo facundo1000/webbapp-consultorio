@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/layout :: head}"></head>
+<body>
+<header th:replace="~{layout/layout :: header}"></header>
+<aside th:replace="~{layout/layout :: sidebar}"></aside>
+
+<div class="flex items-center justify-center h-screen">
+    <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 w-full">
+
+        <div class="text-2xl font-extrabold dark:text-white">
+            <h2 th:text="${titulo}"></h2>
+        </div>
+
+        <hr class="m-3">
+
+        <h4>
+            <a th:href="@{/form-sesiones}"
+               class="mt-4 mb-4  text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                Crear Sesion</a>
+        </h4>
+
+
+        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+            <table class="mt-5 w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th class="px-6 py-3">N° de Sesion</th>
+                    <th class="px-6 py-3">Fecha de Sesion</th>
+                    <th class="px-6 py-3">Hora de Sesion</th>
+                    <th class="px-6 py-3">Paciente ID</th>
+                    <!--                        <th>Psicologo ID</th>-->
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="sesion : ${sesiones}"
+                    class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+
+                    <td class="px-6 py-4" th:text="${sesion.nroSesion}"></td>
+                    <td class="px-6 py-4" th:text="${sesion.fecha}"></td>
+                    <td class="px-6 py-4" th:text="${sesion.hora}"></td>
+                    <!--                            <td><a type="button" class="btn btn-info"-->
+                    <!--                                   data-bs-toggle="modal" th:text="${sesion.psicologo.dni}"></a></td>-->
+                    <td><a type="button" class="btn btn-info" th:text="${sesion.paciente.dni}"></a></td>
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<!--<footer th:replace="~{layout/layout :: footer}"></footer>-->
+</body>
+</html>

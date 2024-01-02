@@ -1,0 +1,5 @@
+edu\unam\webbapp\consultorio\WebbappConsultorioApplicationTests.class
+edu\unam\webbapp\consultorio\models\InformeSesionTest.class
+edu\unam\webbapp\consultorio\models\PersonaTest.class
+edu\unam\webbapp\consultorio\models\SesionTest.class
+edu\unam\webbapp\consultorio\utils\PojoGenerator.class

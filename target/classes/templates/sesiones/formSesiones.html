@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/layout :: head}"></head>
+<body>
+<header th:replace="~{layout/layout :: header}"></header>
+<aside th:replace="~{layout/layout :: sidebar}"></aside>
+
+<div class="flex items-center justify-center h-screen">
+    <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+
+        <h1 th:text="${titulo}"></h1>
+
+        <form th:action="@{/form-sesiones}" th:object="${sesion}" method="post">
+
+
+            <!--        <div class="form-group">-->
+            <!--            <label class="col-sm-2 col-form-label" for="nroSesion">N° de Sesion</label>-->
+            <!--            <div class="col-sm-6">-->
+            <!--                <input type="text" th:field="*{nroSesion}" id="nroSesion" class="form-control"-->
+            <!--                       th:errorclass="'form-control alert-danger'" th:value="${sesionNum}" th:placeholder="${sesionNum}" disabled>-->
+            <!--            </div>-->
+            <!--            <div>-->
+            <!--                <small class="form-text text-danger" th:if="${#fields.hasErrors('nroSesion')}"-->
+            <!--                       th:errors="*{nroSesion}"></small>-->
+            <!--            </div>-->
+            <!--        </div>-->
+            <!--        <label>N° de Sesion</label>-->
+            <!--        <h4 th:text="${sesionNum}"></h4>-->
+
+
+            <div class="mb-6">
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="fecha">Fecha de Sesion</label>
+                <div class="col-sm-6">
+                    <input type="date" th:field="*{fecha}" id="fecha" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                           th:errorclass="'form-control alert-danger'">
+                </div>
+                <div>
+                    <small class="form-text text-danger" th:if="${#fields.hasErrors('fecha')}"
+                           th:errors="*{fecha}"></small>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="hora">Hora de Sesion</label>
+                <div class="">
+                    <input type="time" th:field="*{hora}" id="hora" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                           th:errorclass="'form-control alert-danger'">
+                </div>
+                <div>
+                    <small class="form-text text-danger" th:if="${#fields.hasErrors('hora')}"
+                           th:errors="*{hora}"></small>
+                </div>
+            </div>
+
+            <!--        <div class="form-group">-->
+            <!--            <label class="col-sm-2 col-form-label" for="psicologo">Psicologo</label>-->
+            <!--            <div class="col-sm-6">-->
+            <!--                <select class="form-select" id="psicologo" th:field="*{psicologo}" th:errorclass="'form-control alert-danger'">-->
+            <!--                    <option value="">-&#45;&#45;Seleccionar-&#45;&#45;</option>-->
+            <!--                    <option th:each="psico : ${psicologos}" th:text="${psico.nombre} +'  '+ ${psico.apellido} +'  '+ ${psico.especialidad}" th:value="${psico.dni}"></option>-->
+            <!--                </select>-->
+            <!--            </div>-->
+            <!--            <div>-->
+            <!--                <small class="form-text text-danger" th:if="${#fields.hasErrors('psicologo')}"-->
+            <!--                       th:errors="*{psicologo}"></small>-->
+            <!--            </div>-->
+            <!--        </div>-->
+
+
+            <div class="mb-6">
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="paciente">Paciente</label>
+                <div class="col-sm-6">
+                    <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="paciente" th:field="*{paciente}"
+                            th:errorclass="'form-control alert-danger'" name="paciente">
+                        <option value="">---Seleccionar---</option>
+                        <option th:each="paciente : ${pacientes}"
+                                th:text="${paciente.nombre} + ' ' + ${paciente.apellido} + ' ' + ${paciente.dni}"
+                                th:value="${paciente.dni}"></option>
+
+                    </select>
+                </div>
+                <div>
+                    <small class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" th:if="${#fields.hasErrors('paciente')}"
+                           th:errors="*{paciente}"></small>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-sm-6 py-4">
+                    <input type="submit" class="btn btn-success" value="Guardar">
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+</div>
+
+
+
+
+
+<!--<footer th:replace="~{layout/layout :: footer}"></footer>-->
+</body>
+</html>

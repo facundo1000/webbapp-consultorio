@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/layout :: head}"></head>
+<body>
+
+<!--<header th:replace="~{layout/layout :: header}"></header>-->
+<aside th:replace="~{layout/layout :: sidebar}"></aside>
+
+
+
+
+
+    <div class="flex items-center justify-center h-screen">
+
+        <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 mx-auto w-full">
+            <h1 class="text-2xl py-3 font-extrabold dark:text-white" th:text="${titulo}"></h1>
+            <hr>
+            <form th:action="@{/form-paciente}" th:object="${paciente}" method="post">
+
+                <div class="grid gap-6 mb-6 md:grid-cols-2">
+
+                    <div class="form-group">
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="tipo">Tipo de
+                            Documento</label>
+                        <div class="col-sm-6">
+                            <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    id="tipo" th:field="*{tipoDoc}"
+                                    th:errorclass="'bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-red-100 dark:border-red-400'">
+                                <option value="">---Seleccionar---</option>
+                                <option th:each="tipo : ${tipos}" th:text="${tipo.nombre}"
+                                        th:value="${tipo.nombre}"></option>
+                            </select>
+                        </div>
+                        <div>
+                            <small class="mt-2 text-sm text-red-600 dark:text-red-500" th:if="${#fields.hasErrors('tipoDoc')}"
+                                   th:errors="*{tipoDoc}"></small>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="col-sm-2 col-form-label" for="dni">N° de Dni</label>
+                        <div class="col-sm-6">
+                            <input type="text" th:field="*{dni}" id="dni"
+                                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                   placeholder="dni"
+                                   th:errorclass="'form-control alert-danger'">
+                        </div>
+                        <div>
+                            <small class="form-text text-danger" th:if="${#fields.hasErrors('dni')}"
+                                   th:errors="*{dni}"></small>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 col-form-label" for="nombre">Nombre/s</label>
+                        <div class="col-sm-6">
+                            <input type="text" th:field="*{nombre}" id="nombre"
+                                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                   placeholder="nombre"
+                                   th:errorclass="'form-control alert-danger'">
+                        </div>
+                        <div>
+                            <small class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}"
+                                   th:errors="*{nombre}"></small>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 col-form-label" for="apellido">Apellido/s</label>
+                        <div class="col-sm-6">
+                            <input type="text" th:field="*{apellido}" id="apellido"
+                                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                   placeholder="apellido"
+                                   th:errorclass="'form-control alert-danger'">
+                        </div>
+                        <div>
+                            <small class="form-text text-danger" th:if="${#fields.hasErrors('apellido')}"
+                                   th:errors="*{apellido}"></small>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 col-form-label" for="telefono">Telefono</label>
+
+                        <div class="col-sm-6">
+                            <input type="text" th:field="*{telefono}" id="telefono"
+                                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                   placeholder="telefono"
+                                   th:errorclass="'form-control alert-danger'">
+                        </div>
+                        <div>
+                            <small class="form-text text-danger" th:if="${#fields.hasErrors('telefono')}"
+                                   th:errors="*{telefono}"></small>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 col-form-label" for="direccion">Direccion</label>
+                        <div class="col-sm-6">
+                            <input type="text" th:field="*{direccion}" id="direccion"
+                                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                   placeholder="direccion"
+                                   th:errorclass="'form-control alert-danger'">
+                        </div>
+                        <div>
+                            <small class="form-text text-danger" th:if="${#fields.hasErrors('direccion')}"
+                                   th:errors="*{direccion}"></small>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 col-form-label" for="ocupacion">Ocupacion</label>
+                        <div class="col-sm-6">
+                            <input type="text" th:field="*{ocupacion}" id="ocupacion"
+                                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                   placeholder="ocupacion"
+                                   th:errorclass="'form-control alert-danger'">
+                        </div>
+                        <div>
+                            <small class="form-text text-danger" th:if="${#fields.hasErrors('ocupacion')}"
+                                   th:errors="*{ocupacion}"></small>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="tipo">Sexo</label>
+                        <div class="col-sm-6">
+                            <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    id="sexo" th:field="*{sexo}"
+                                    th:errorclass="'form-control alert-danger'">
+                                <option value="">---Seleccionar---</option>
+                                <option th:each="sexo : ${sexos}" th:text="${sexo.nombre}"
+                                        th:value="${sexo.nombre}"></option>
+                            </select>
+                        </div>
+                        <div>
+                            <small class="form-text text-danger" th:if="${#fields.hasErrors('sexo')}"
+                                   th:errors="*{sexo}"></small>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 col-form-label" for="estados">Estado Civil</label>
+                        <div class="col-sm-6">
+                            <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    id="estados" th:field="*{estadoCivil}"
+                                    th:errorclass="'form-control alert-danger'">
+                                <option value="">---Seleccionar---</option>
+                                <option th:each="estado : ${estados}" th:text="${estado.name()}"
+                                        th:value="${estado.name()}"></option>
+                            </select>
+                        </div>
+                        <div>
+                            <small class="form-text text-danger" th:if="${#fields.hasErrors('estadoCivil')}"
+                                   th:errors="*{estadoCivil}"></small>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="col-sm-2 col-form-label" for="nac">Fecha de Nacimiento</label>
+                        <div class="col-sm-6">
+                            <input type="date" th:field="*{fechaDeNacimiento}" id="nac"
+                                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                   placeholder="Fecha Nac.">
+                        </div>
+                        <div>
+                            <small class="form-text text-danger" th:if="${#fields.hasErrors('fechaDeNacimiento')}"
+                                   th:errors="*{fechaDeNacimiento}"></small>
+                        </div>
+                    </div>
+
+
+                    <!-- NO TOCAR EL ATRIBUTO NAME-->
+                    <div class="form-group">
+                        <label class="col-sm-2 col-form-label" for="psicologo">Psicologo</label>
+                        <div class="col-sm-6">
+                            <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    id="psicologo" name="psicologo"
+                                    th:errorclass="'form-control alert-danger'">
+                                <option value=" ">---Seleccionar---</option>
+                                <option th:each="psico : ${psicologos}"
+                                        th:text="${psico.nombre} +'  '+ ${psico.apellido} +'  '+ ${psico.especialidad}"
+                                        th:value="${psico.dni}"></option>
+                            </select>
+                        </div>
+                        <div>
+                            <small class="form-text text-danger" th:if="${#fields.hasErrors('psicologo')}"
+                                   th:errors="*{psicologo}"></small>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="col-sm-6 py-4">
+                            <input type="submit" class="btn btn-success" value="Guardar">
+                        </div>
+                    </div>
+                </div>
+
+
+            </form>
+
+        </div>
+    </div>
+
+
+<!--<footer th:replace="~{layout/layout :: footer}"></footer>-->
+
+</body>
+</html>

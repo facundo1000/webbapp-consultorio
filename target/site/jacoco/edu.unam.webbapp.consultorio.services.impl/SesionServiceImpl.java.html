@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SesionServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">webbapp-consultorio</a> &gt; <a href="index.source.html" class="el_package">edu.unam.webbapp.consultorio.services.impl</a> &gt; <span class="el_source">SesionServiceImpl.java</span></div><h1>SesionServiceImpl.java</h1><pre class="source lang-java linenums">package edu.unam.webbapp.consultorio.services.impl;
+
+import edu.unam.webbapp.consultorio.model.Sesion;
+import edu.unam.webbapp.consultorio.repository.SesionRepositorio;
+import edu.unam.webbapp.consultorio.services.SesionService;
+import edu.unam.webbapp.consultorio.utils.EstadosSesion;
+import jakarta.annotation.PostConstruct;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Optional;
+
+import static org.hibernate.internal.util.collections.ArrayHelper.forEach;
+
+/**
+ * Clase SesionServiceImpl
+ *
+ * @author Andre, Gelabert; Pavon, Gabriel; Martinez, Facundo
+ */
+@Service
+<span class="fc" id="L28">@RequiredArgsConstructor</span>
+<span class="fc" id="L29">@Slf4j</span>
+public class SesionServiceImpl implements SesionService {
+
+    private final SesionRepositorio repo;
+
+    /**
+     * Función que retorna una lista de sesiones
+     *
+     * @return lista de sesiones
+     */
+    @Override
+    public List&lt;Sesion&gt; findAll() {
+<span class="nc" id="L41">        return repo.findAll();</span>
+    }
+
+    /**
+     * Función que retorna un objeto sesion
+     *
+     * @param id número de identificación
+     * @return un objeto sesion
+     */
+
+    @Override
+    public Sesion findById(Integer id) {
+<span class="nc" id="L53">        return repo.findById(id).orElseThrow();</span>
+    }
+
+    /**
+     * Función que retorna un objeto sesion
+     *
+     * @param sesion un objeto sesion
+     * @return un objeto sesion
+     */
+
+    @Override
+    public Sesion save(Sesion sesion) {
+<span class="nc" id="L65">        return repo.save(sesion);</span>
+    }
+
+    /**
+     * Función que actualiza un objeto sesion
+     *
+     * @param id     un número de identificación de sesion
+     * @param sesion un objeto sesion
+     * @return un objeto sesion modificado
+     */
+
+    @Override
+    public Sesion update(Integer id, Sesion sesion) {
+<span class="nc" id="L78">        return null;</span>
+    }
+
+    /**
+     * Función que obtiene una lista de sesiones a partir de un paciente
+     *
+     * @param id número identificación de un paciente
+     * @return lista de sesiones por paciente
+     */
+    @Override
+    public List&lt;Sesion&gt; findSesionByPacienteId(Integer id) {
+<span class="nc" id="L89">        return repo.findSesionsByPacienteDni(id);</span>
+    }
+
+    /**
+     * Función que elimina lógicamente una sesion
+     *
+     * @param id número de identificación de una sesion
+     */
+    @Override
+    public void deleteById(Integer id) {
+<span class="nc" id="L99">        Sesion sesion = repo.findById(id).orElseThrow();</span>
+<span class="nc" id="L100">        sesion.setEliminado(true);</span>
+<span class="nc" id="L101">        sesion.setEstadosSesion(EstadosSesion.CANCELADA);</span>
+<span class="nc" id="L102">        repo.save(sesion);</span>
+<span class="nc" id="L103">        DateTimeFormatter df = DateTimeFormatter.ofPattern(&quot;dd/MM/yyyy HH:mm&quot;);</span>
+<span class="nc" id="L104">        log.info(&quot;La sesion {} se ha cancelado manualmente; Fecha: {}&quot;, sesion.getNroSesion(), LocalDateTime.now().format(df));</span>
+<span class="nc" id="L105">    }</span>
+
+
+    /**
+     * Funcion que retorna un objeto sesion, a partir de una comparacion entre fechas
+     *
+     * @param fecha  objeto fecha
+     * @param sesion objeto sesion
+     * @return un objeto sesion
+     */
+    @Override
+    public Sesion sesionStatus(LocalDate fecha, Sesion sesion, LocalTime hora) {
+<span class="nc bnc" id="L117" title="All 4 branches missed.">        if (fecha.isAfter(LocalDate.now()) || fecha.isEqual(LocalDate.now())) {</span>
+
+<span class="nc bnc" id="L119" title="All 4 branches missed.">            if(hora.isAfter(LocalTime.now()) || hora.equals(LocalTime.now())){</span>
+
+<span class="nc" id="L121">                sesion.setEstadosSesion(EstadosSesion.PENDIENTE);</span>
+            }
+
+        }
+<span class="nc" id="L125">        return sesion;</span>
+    }
+
+    /**
+     * Funcion que permite cambiar aquellos estados de sesion que son &quot;pendientes&quot;
+     * a estado &quot;cancelado&quot; luego de 24hs
+     */
+    @Scheduled(cron = &quot;* 59 23 * * *&quot;)
+    public void scheduleTask() {
+
+<span class="fc" id="L135">        Optional&lt;List&lt;Sesion&gt;&gt; fechaBefore = repo.findSesionByFechaBefore(LocalDate.now());</span>
+
+<span class="pc bpc" id="L137" title="1 of 2 branches missed.">        if (fechaBefore.isPresent()) {</span>
+
+<span class="fc" id="L139">            fechaBefore.orElseThrow().forEach(fecha -&gt; {</span>
+
+<span class="nc bnc" id="L141" title="All 2 branches missed.">                if (fecha.getEstadosSesion() == EstadosSesion.PENDIENTE) {</span>
+
+<span class="nc" id="L143">                    fecha.setEstadosSesion(EstadosSesion.CANCELADA);</span>
+<span class="nc" id="L144">                    fecha.setEliminado(true);</span>
+<span class="nc" id="L145">                    repo.save(fecha);</span>
+<span class="nc" id="L146">                    DateTimeFormatter df = DateTimeFormatter.ofPattern(&quot;dd/MM/yyyy HH:mm&quot;);</span>
+<span class="nc" id="L147">                    log.info(&quot;La sesion {} ha sido cancelada luego de 24 hs. Fecha de cancelacion: {}&quot;, fecha.getNroSesion(), LocalDateTime.now().format(df));</span>
+                }
+<span class="nc" id="L149">            });</span>
+        }
+        ;
+
+
+<span class="fc" id="L154">    }</span>
+
+    /**
+     * Funcion que permite ejecutar la funcion anotada con @Schedule
+     * luego de la creacion del constructor
+     */
+    @PostConstruct
+    public void init() {
+<span class="fc" id="L162">        scheduleTask();</span>
+<span class="fc" id="L163">    }</span>
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

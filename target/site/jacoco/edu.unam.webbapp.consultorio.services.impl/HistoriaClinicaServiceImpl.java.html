@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>HistoriaClinicaServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">webbapp-consultorio</a> &gt; <a href="index.source.html" class="el_package">edu.unam.webbapp.consultorio.services.impl</a> &gt; <span class="el_source">HistoriaClinicaServiceImpl.java</span></div><h1>HistoriaClinicaServiceImpl.java</h1><pre class="source lang-java linenums">package edu.unam.webbapp.consultorio.services.impl;
+
+import edu.unam.webbapp.consultorio.model.HistoriaClinica;
+import edu.unam.webbapp.consultorio.model.InformeSesion;
+import edu.unam.webbapp.consultorio.repository.HistoriaClinicaRepository;
+import edu.unam.webbapp.consultorio.repository.InformeSesionRepository;
+import edu.unam.webbapp.consultorio.services.HistoriaClinicaService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+/**
+ * Clase HistoriaClinicaServiceImpl
+ *
+ * @author Andre, Gelabert; Pavon, Gabriel; Martinez, Facundo
+ */
+@Service
+<span class="fc" id="L21">@RequiredArgsConstructor</span>
+public class HistoriaClinicaServiceImpl implements HistoriaClinicaService {
+
+    private final InformeSesionRepository repoInforme;
+
+    @Override
+    public List&lt;HistoriaClinica&gt; findAllHistoriaClinica() throws Exception {
+
+<span class="nc" id="L29">        List&lt;HistoriaClinica&gt; historiaClinicas = new ArrayList&lt;&gt;();</span>
+
+<span class="nc" id="L31">        List&lt;InformeSesion&gt; informes = repoInforme.findAll();</span>
+
+<span class="nc bnc" id="L33" title="All 2 branches missed.">        if (!informes.isEmpty()) {</span>
+
+<span class="nc" id="L35">            List&lt;Integer&gt; integers = informes.stream()</span>
+<span class="nc" id="L36">                    .map(informeSesion -&gt; informeSesion.getSesion().getPaciente().getDni()).distinct().toList();</span>
+
+<span class="nc bnc" id="L38" title="All 2 branches missed.">            for (Integer dni : integers) {</span>
+
+<span class="nc" id="L40">                Optional&lt;List&lt;InformeSesion&gt;&gt; informesDni = repoInforme.getInformeSesionBySesion_Paciente_Dni(dni);</span>
+
+
+<span class="nc" id="L43">                informesDni.ifPresent(informeSesions -&gt; {</span>
+
+<span class="nc" id="L45">                    HistoriaClinica historiaClinica = new HistoriaClinica();</span>
+<span class="nc" id="L46">                    historiaClinica.setInformeSesions(informeSesions);</span>
+<span class="nc" id="L47">                    historiaClinicas.add(historiaClinica);</span>
+
+<span class="nc" id="L49">                });</span>
+<span class="nc" id="L50">            }</span>
+<span class="nc" id="L51">            return historiaClinicas;</span>
+        }
+<span class="nc" id="L53">        throw new Exception(&quot;no se encontraron informes almacenados&quot;);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
