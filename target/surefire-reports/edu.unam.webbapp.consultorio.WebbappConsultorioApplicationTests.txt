@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: edu.unam.webbapp.consultorio.WebbappConsultorioApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.086 s - in edu.unam.webbapp.consultorio.WebbappConsultorioApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.243 s - in edu.unam.webbapp.consultorio.WebbappConsultorioApplicationTests
